@@ -1,0 +1,10 @@
+#JF defined
+node_modules
+
+#from git-reference
+.DS_Store
+npm-debug.log
+bower_components
+reports
+dist
+web
