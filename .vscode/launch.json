@@ -21,6 +21,12 @@
             "request": "launch",
             "name": "JShot",
             "program": "${workspaceFolder}/0204_JShot\\0204_ex.js"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "thePOOL",
+            "program": "${workspaceFolder}/pool\\0205_console.js"
         }
     ]
 }
