@@ -27,6 +27,12 @@
             "request": "launch",
             "name": "thePOOL",
             "program": "${workspaceFolder}/pool\\0205_console.js"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "NJSing",
+            "program": "${workspaceFolder}/NJS\\re_NJSS_0211\\index.js"
         }
     ]
 }

@@ -1,0 +1,19 @@
+{
+  "name": "re_njss_0211",
+  "version": "1.0.0",
+  "description": "my_NJS_re",
+  "main": "index.js",
+  "scripts": {
+    "test": "\u001bO",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "JFKing"
+  },
+  "author": "YOYOGI",
+  "license": "ISC",
+  "dependencies": {
+    "formidable": "^1.1.1"
+  }
+}
