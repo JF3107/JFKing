@@ -26,7 +26,7 @@
             "type": "node",
             "request": "launch",
             "name": "thePOOL",
-            "program": "${workspaceFolder}/pool\\0211_ex.js"
+            "program": "${workspaceFolder}/pool\\0217_ex.js"
         },
         {
             "type": "node",

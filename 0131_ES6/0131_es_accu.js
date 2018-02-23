@@ -1,11 +1,5 @@
 
 
-
-
-
-
-
-
 function C2_let_2 (){
     /**
      * 解释一下for-let模型：
