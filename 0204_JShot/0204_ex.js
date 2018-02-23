@@ -1,11 +1,4 @@
 
-
-
-
-
-
-
-
 //闭包-未知
 function ex02111_unknow(){
     function Person(name, age, job) {
