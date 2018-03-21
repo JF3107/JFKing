@@ -1,0 +1,23 @@
+<html>
+    <head>
+        <script src="../zhe_repo/vue.js"></script>
+    </head>
+    <body>
+        <h1>Hi, VUE's HELLO WORLD!!</h1>
+        <h5>>>>>>>>>>>>>>>>>></h5>
+        <div id="app">
+            {{ msg }}
+        </div>
+        <!-- 【警告】带Vue实例化的script不得放在head标签里！！ -->
+        <!-- 【注意】带Vue实例化的script一定要放在body的最后！！ -->
+        <!-- 【注意】如果Vue实例化时、DOM还没建立、是不会有任何效果的！！ -->
+        <script>
+            new Vue({
+                el: "#app",
+                data: {
+                    msg: "Hello World!!!"
+                }
+            })
+        </script>
+    </body>
+</html>
