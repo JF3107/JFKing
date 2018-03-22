@@ -1,0 +1,27 @@
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+        <script src="../zhe_repo/vue.js"></script>
+    </head>
+    <body>
+        <div id="app5">
+            <h1>反转结果：  {{ msg }}</h1>
+            <button v-on:click="reverse_it">按一下！</button>
+        </div>
+        <script>
+            // Vue那个“方法枢纽”，是“methods”而不是"method"
+            // this.xxx,  直接访问 Vue实例 data下的属性。
+            var app5 = new Vue({
+                el: "#app5",
+                data: {
+                    msg: "津巴布韦"
+                },
+                methods: {
+                    reverse_it: function(){
+                        this.msg = this.msg.split("").reverse().join("");
+                    }
+                }
+            })
+        </script>
+    </body>
+</html>

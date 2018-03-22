@@ -1,0 +1,65 @@
+<html>
+    <head>
+        <meta http-equiv="content-Type" content="text/html; charset=UTF-8" />
+        <!-- <meta charset="UTF-8" /> -->
+        <script src="../zhe_repo/vue.js"></script>
+    </head>
+    <body>
+        <h1>刷昆河，2018</h1>
+        <div id="app7b" >
+            <ul>
+                <comp7b 
+                    v-for="eki in eki_list" 
+                    v-bind:eki="eki.name"
+                    v-bind:num="eki.id" 
+                >
+                </comp7b>
+            </ul>
+        </div>
+        <script>
+            Vue.component("comp7b", {
+                props: ['eki', 'num'],
+                template: '<li>第{{ num }}站，{{ eki }}</li>'
+            });
+            var app7b = new Vue({
+                el: "#app7b",
+                data: {
+                    //注意： 作为对象的属性名、可 eki_list 《、可"eki_list"
+                    eki_list: [
+                        {id: 1, name: "王家营"},
+                        {id: 2, name: "三家村[废]"},
+                        {id: 3, name: "水塘"},
+                        {id: 4, name: "大营村[废](1990)"},
+                        {id: 5, name: "阳宗海[废]"},
+                        {id: 6, name: "凤鸣村[废]"},
+                        {id: 7, name: "可保村[废]"},
+                        {id: 8, name: "水晶坡[废]"},
+                        {id: 9, name: "江头村[废/拆]"},
+                        {id: 10, name: "宜良"},
+                        {id: 11, name: "羊街子[废]"},
+                        {id: 12, name: "狗街子[废]"},
+                        {id: 13, name: "滴水[废]"},
+                        {id: 14, name: "徐家渡[废]"},
+                        {id: 15, name: "禄丰村"},
+                        {id: 16, name: "糯租[废]"},
+                        {id: 17, name: "大沙田[废]"},
+                        {id: 18, name: "西洱[废]"},
+                        {id: 19, name: "小河口[废]"},
+                        {id: 20, name: "盘溪"},
+                        {id: 21, name: "热水塘[废]"},
+                        {id: 22, name: "西扯邑[废]"},
+                        {id: 23, name: "拉里黑[废]"},
+                        {id: 24, name: "巡检司"},
+                        {id: 25, name: "灯笼山[废]"},
+                        {id: 26, name: "小龙潭[废]"},
+                        {id: 27, name: "打兔寨[废]"},
+                        {id: 28, name: "十里村"},
+                        {id: 29, name: "开远北"},
+                        {id: 30, name: "开远新北"},
+                        {id: 31, name: "开远"}
+                    ]
+                }
+            });
+        </script>
+    </body>
+</html>

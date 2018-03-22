@@ -1,0 +1,22 @@
+<html>
+    <head>
+        <script src="../zhe_repo/vue.js"></script>
+    </head>
+    <body>
+        <div id="app-2">
+            <!-- title是<span>属性：悬停显示。 -->
+            <!-- “v-bind:title” 就是 VUE绑定-给-title属性。 -->
+            <span v-bind:title="message">
+                鼠标悬停几秒钟查看此处动态绑定的提示信息！
+            </span>
+        </div>
+        <script>
+            var app2 = new Vue({
+                el: "#app-2",
+                data: {
+                    message: 'hello !! >> 页面加载于' + new Date().toLocaleString()
+                }
+            });
+        </script>
+    </body>
+</html>

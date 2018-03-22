@@ -1,0 +1,18 @@
+<html>
+    <head>
+        <script src="../zhe_repo/vue.js"></script>
+    </head>
+    <body>
+        <div id="app3">
+            <h1 v-if="seen">您看得见！</h1>
+        </div>
+        <script>
+            var app3 = new Vue({
+                el: "#app3",
+                data: {
+                    seen: true
+                }
+            })
+        </script>
+    </body>
+</html>

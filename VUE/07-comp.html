@@ -1,0 +1,36 @@
+<html>
+    <head>
+        <meta http-equiv="content-Type" content="text/html; charset=UTF-8" />
+        <script src="../zhe_repo/vue.js"></script>
+    </head>
+    <body>
+        <h1>TEST....排故</h1>
+        <div id="app7">
+            <ol>
+                <!-- 创建一个todo-item组件的实例 -->
+                <!-- 【注意】这里的v-bind:key="item.id", 可有可无，因为>> 没有在props里用到key-->
+                <todo-item
+                    v-for="item in groceryList"
+                    v-bind:todo="item"
+                    v-bind:key1="item.id">
+                </todo-item>
+            </ol>
+        </div>
+        <script>
+            Vue.component('todo-item', {
+                props: ['todo','key1'],
+                template: '<li>{{ todo.text }} >> <span>{{key1}}</span></li>'
+            });
+            new Vue({
+                el: "#app7",
+                data: {
+                    groceryList: [
+                        {id:0, text:"蔬菜"},
+                        {id:1, text:"隋果"},
+                        {id:2, text:"不知道什么东西"}
+                    ]
+                }
+            })
+        </script>
+    </body>
+</html>

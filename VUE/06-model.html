@@ -1,0 +1,21 @@
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+        <script src="../zhe_repo/vue.js"></script>
+    </head>
+    <body>
+        <!-- <input>标签里其实不需要 type="input"的，他就是个输入框！ -->
+        <div id="app6">
+            <h1>双向同步绑定：{{ msg }}</h1>
+            <input v-model="msg"></input>
+        </div>
+        <script>
+            var app6 = new Vue({
+                el: "#app6",
+                data: {
+                    msg: "津巴布韦"
+                }
+            })
+        </script>
+    </body>
+</html>
