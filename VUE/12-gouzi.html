@@ -1,0 +1,22 @@
+<html>
+    <head>
+        <meta http-equiv="content-Type" content="text/html; charset=UTF-8" />
+        <script src="../zhe_repo/vue.js" ></script>
+    </head>
+    <body>
+        <h1>TEST: 钩子</h1>
+        <div id="app12">{{ msg }}</div>
+        <script>
+            var vm = new Vue({
+                el: "#app12",
+                data: {
+                    msg: "HHHHHHHHH"
+                },
+                created: function(){
+                    // alert('HAHAHAHA');
+                    console.log("msg is : "+this.msg);
+                }
+            });
+        </script>
+    </body>
+</html>

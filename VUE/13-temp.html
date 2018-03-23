@@ -1,0 +1,23 @@
+<html>
+    <head>
+        <meta http-equiv="content-Type" content="text/html; charset=UTF-8" />
+        <script src="../zhe_repo/vue.js" ></script>
+    </head>
+    <body>
+        <h1>TEST: 模板语法 01</h1>
+        <div id="app13">
+            <h3>{{ msg }}</h3>
+            <h3>{{ html_pianduan }}</h3>
+            <h3 v-html="html_pianduan"></h3>
+        </div>
+        <script>
+            new Vue({
+                el: "#app13",
+                data: {
+                    msg: "123ABCabc",
+                    html_pianduan: "<span>AAAAAAAAA</span>"
+                }
+            });
+        </script>
+    </body>
+</html>

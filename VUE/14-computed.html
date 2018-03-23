@@ -1,0 +1,56 @@
+<html>
+    <head>
+        <meta http-equiv="content-Type" content="text/html; charset=UTF-8" />
+        <script src="../zhe_repo/vue.js" ></script>
+    </head>
+    <body>
+        <h1>TEST: 计算属性</h1>
+        <div id="app14">
+            <h3>原字符串：  {{ msg }}</h3>
+            <h3>逻辑放入表达式：  {{ this.msg.split('').reverse().join('') }}</h3>
+            <h3>逻辑放入-计算属性： {{ revsit }}</h3>
+            <h3>逻辑放入-方法属性： {{ revsit_method() }}</h3>
+            <h2> fullname:  {{ fullname }} </h2>
+            <h2> fullname2:  {{ fullname2 }} </h2>
+        </div>
+        <script>
+            var vm = new Vue({
+                el: "#app14",
+                data: {
+                    msg: "WELCOME TO CRH",
+                    firstName: "JAY",
+                    lastName: "FAN"
+                },
+                computed: {
+                    revsit: function(){
+                        return this.msg.split('').reverse().join('=');
+                    },
+                    //一般 computed计算属性、默认getter
+                    //这个fullname就是 getter方法。
+                    fullname: function(){
+                        return this.firstName + ', ' + this.lastName;
+                    },
+                    //根据需要，可以向计算属性添加 setter方法
+                    // so， 计算属性： {  }， 大括号刮起！
+                    //大括号中，写上 getter函数（get）、 setter函数（set）
+                    fullname2: {
+                        //getter函数（get）默认就有，根据getter函数、fullname2这个计算属性才能被定下来
+                        get: function(){
+                            return this.firstName+' '+this.lastName;
+                        },
+                        set: function(val){
+                            var f_n = val.split(' ');
+                            this.firstName = f_n[0];
+                            this.lastName = f_n[f_n.length - 1];
+                        }
+                    }
+                },
+                methods: {
+                    revsit_method: function(){
+                        return this.msg.split('').reverse().join('=');
+                    }
+                }
+            });
+        </script>
+    </body>
+</html>

@@ -1,0 +1,51 @@
+<html>
+    <head>
+        <meta http-equiv="content-Type" content="text/html; charset=UTF-8" />
+        <script src="../zhe_repo/vue.js" ></script>
+        <script src="https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/lodash@4.13.1/lodash.min.js"></script>
+    </head>
+    <body>
+        <h1>TEST: ...WATCH</h1>
+        <div id="app15">
+            <p>
+                Ask a yes/no Question!
+                <input v-model="question"/>
+            </p>
+            <p>{{ answer }}</p>
+        </div>
+        <script>
+            var vm = new Vue({
+                el: "#app15",
+                data: {
+                    question: '',
+                    answer: '您还没问呢！'
+                },
+                watch: {
+                    question: function(oval, nval){
+                        this.answer = "等你码完字儿...";
+                        this.getAnswer();
+                    }
+                },
+                methods: {
+                    getAnswer: _.debounce(
+                        function(){
+                            if(this.question.indexOf('?') === -1){
+                                this.answer = "哥们，没有问号就不是问题啊！重写！！";
+                                return;
+                            }
+                            this.answer = "沉思中.....";
+                            var vm = this;
+                            axios.get('https://yesno.wtf/api').then(function(response){
+                                vm.answer = response.data.answer;
+                            }).catch(function(err){
+                                vm.answer = "连API出错了，您是得不到答案了....";
+                            });
+                        },
+                        500
+                    )
+                }
+            });
+        </script>
+    </body>
+</html>

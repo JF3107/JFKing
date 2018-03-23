@@ -1,0 +1,38 @@
+<html>
+    <head>
+        <meta http-equiv="content-Type" content="text/html; charset=UTF-8" />
+        <script src="../zhe_repo/vue.js"></script>
+    </head>
+    <body>
+        <h1>持续巩固练习中.....</h1>
+        <div id="app7c">
+            <h3> {{ msg }} </h3>
+            <ul>
+                <test-01
+                    v-for="i in arr" 
+                    v-bind:xuhao="i.id" 
+                    v-bind:geming="i.name" 
+                ></test-01>
+            </ul>
+        </div>
+        <script>
+            Vue.component("test-01", {
+                props: ["xuhao", "geming"],
+                template: '<li>第{{ xuhao }}首，{{ geming }}</li>'
+            })
+            new Vue({
+                el: "#app7c",
+                data: {
+                    arr: [
+                        {id: 1, name: "等你下课"},
+                        {id: 2, name: "晴天"},
+                        {id: 3, name: "告白气球"},
+                        {id: 4, name: "止战之殇"},
+                        {id: 5, name: "世界未末日"}
+                    ],
+                    msg: "呵呵哒"
+                }
+            })
+        </script>
+    </body>
+</html>
