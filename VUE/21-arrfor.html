@@ -1,0 +1,41 @@
+<html>
+    <head>
+        <meta http-equiv="content-Type" content="text/html; charset=UTF-8" />
+        <script src="../zhe_repo/vue.js" ></script>
+    </head>
+    <body>
+        <h1>TEST: v-for 列表</h1>
+        <div id="app21">
+            <h3> {{ obj }} </h3>
+            <h3> {{ b }} </h3>
+            <div v-for="item in items">{{ item.id }} >> {{ item.name }} </div>
+            <h3>以下是 v-for 整数实验</h3>
+            <ul>
+                <li v-for="n in 10"> {{ n }} </li>
+            </ul>
+        </div>
+        <script>
+            var vm = new Vue({
+                el: "#app21",
+                data: {
+                    items: [
+                        {id:1, name: "item1"},
+                        {id:2, name: "item2"},
+                        {id:3, name: "item3"}
+                    ],
+                    obj: {
+                        a:"123"
+                    }
+                }
+            });
+            //以下 vm.b是后增数据（data），已测试、后增数据无法触发渲染
+            // vm.b = "456"
+            vm.items.push({id:6, name:"狗毛毛！"});
+            //以下是过滤。
+            // vm.items = vm.items.filter(function(item){return item.name.match(/item/) });
+            //总之、测下来以下两种方法都行！（并没有发生 vm.items[i] = xx 影响“触发状态更新”）
+            // vm.items[2] = {id:333, name:"yyyyyyyyyyyyyyy"};
+            // Vue.set( vm.items, 2, {id:55, name:"xxxxxxxx"} )
+        </script>
+    </body>
+</html>
