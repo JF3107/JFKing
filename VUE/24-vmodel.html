@@ -1,0 +1,48 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <script src="../zhe_repo/vue.js"></script>
+    </head>
+    <body>
+        <div id="app24">
+            <h1> APP24 v-model  {{ msg }} </h1>
+            <input v-model.lazy="mssg" />
+            <h3> {{ mssg }} </h3>>
+            <input v-model.number="age" type="number" />
+            <h3> {{ age }} >>  {{ typeof age }} </h3>
+            <input v-model.trim="trim" />
+            <h3> 000000{{ trim }}000000 </h3>
+            <hr>
+            <input type="checkbox" v-model="checked" value="第一个" name="AAAA" id="1" />
+            <label for='1'>11111111</label>
+            <input type="checkbox" v-model="checked" value="第二个" name="BBBB" id="2" />
+            <label for='2'>22222222</label>
+            <input type="checkbox" v-model="checked" value="第三个" name="CCCC" id="3" />
+            <label for='3'>33333333</label>
+            <input type="checkbox" v-model="checked" value="第四个" name="DDDD" id="4" />
+            <label for='4'>44444444</label>
+            <span> 选了 >> {{ checked }}</span>
+            <hr>
+            <input type="radio" v-model="radiodata" name="14444" value="1XXC" id=""/>
+            <label for='1'>11111111</label>
+            <input type="radio" v-model="radiodata" name="2444" value="2VVV" id=""/>
+            <label for='2'>22222222</label>
+            <input type="radio" v-model="radiodata" name="34444" value="3VVV" id=""/>
+            <label for='3'>33333333</label>
+            <span> PICKED >> {{ radiodata }}</span>
+        </div>
+        <script>
+            new Vue({
+                el: "#app24",
+                data: {
+                    msg: "HELLO.....",
+                    age: '',
+                    trim: '',
+                    mssg: "LAZZZZZY",
+                    checked: [],
+                    radiodata: ''
+                }
+            });
+        </script>
+    </body>
+</html>
