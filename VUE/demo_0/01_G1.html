@@ -1,0 +1,54 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <script src="../../zhe_repo/vue.js" ></script>
+    </head>
+    <body>
+        <div id="g1">
+            <h1>DEMO 0 G1 TO DO LIST</h1>
+            <input 
+                v-model="newTodoText" 
+                v-on:keyup.enter = "addNewItem" 
+                placeholder="加一条！" 
+            />
+            <ul>
+                <li
+                    is="tiaomu" 
+                    v-for="(todo, index) in todos" 
+                    v-bind:key="todo.id" 
+                    v-bind:title="todo.title" 
+                    v-on:shandiao="todos.splice(index, 1)" 
+                ></li>
+            </ul>
+        </div>
+        <script>
+            Vue.component("tiaomu", {
+                props: ['title'],
+                template: '<li> {{ title }} <button v-on:click="$emit(\'shandiao\')">X</button></li>'
+            })
+            new Vue({
+                el: "#g1",
+                data: {
+                    newTodoText: '',
+                    todos: [
+                        {id:1, title:"第一步"},
+                        {id:2, title:"第二步"},
+                        {id:3, title:"第三步"},
+                        {id:4, title:"第四步"}
+                    ],
+                    nextId: 5
+                },
+                methods: {
+                    addNewItem: function(){
+                        this.todos.push({
+                            id: this.nextId++,
+                            title: this.newTodoText
+                        });
+                        this.newTodoText = '';
+                    }
+                }
+            });
+        </script>
+        <h5 style="color: red"> 平时多流汗、战时少流血 </h5>
+    </body>
+</html>

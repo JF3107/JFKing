@@ -1,0 +1,27 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <script src="../zhe_repo/vue.js" ></script>
+    </head>
+    <body>
+        <div id="demo23" >
+            <button v-on:click="num += 1">ADD</button>
+            <h1> {{ num }} </h1>
+            <!-- <button v-on:click="fun_1()">jifa!!</button> -->
+        </div>
+        <script>
+            var vm = new Vue({
+                el: "#demo23",
+                data: {
+                    num: 0
+                },
+                methods: {
+                    fun_1: function(){
+                        alert("HEY!  JAY~~");
+                    }
+                }
+            });
+            vm.fun_1();
+        </script>
+    </body>
+</html>
