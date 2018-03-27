@@ -1,0 +1,52 @@
+<html>
+    <head>
+        <meta http-equiv="content-Type" content="text/html; charset=UTF-8" />
+        <script src="../zhe_repo/vue.js"></script>
+    </head>
+    <body>
+        <div id="todo">
+            <h1>任务清单 DEMO</h1>
+            <input 
+                v-model="newTodoText" 
+                v-on:keyup.enter="addNewTodo" 
+                placeholder="Add a todo" 
+            />
+            <ul>
+                <li 
+                    is="todo-item" 
+                    v-for="(todo, index) in todos" 
+                    v-bind:key="todo.id" 
+                    v-bind:title="todo.title" 
+                    v-on:remove="todos.splice(index, 1)"
+                ></li>
+            </ul>
+        </div>
+        <script>
+            Vue.component("todo-item", {
+                props: ['title'],
+                template: '<li>{{ title }}<button v-on:click="$emit(\'remove\')">X</button></li>'
+            });
+            var vm = new Vue({
+                el: "#todo",
+                data: {
+                    newTodoText: '',
+                    todos: [
+                        {id:1, title:"EVCard担当 0D3107龙阳区域整备"},
+                        {id:2, title:"D3107 >> 施湾中心"},
+                        {id:3, title:"回送 0D3107次"}
+                    ],
+                    nextTodoId: 4
+                },
+                methods: {
+                    addNewTodo: function(){
+                        this.todos.push({
+                            id: this.nextTodoId++,
+                            title: this.newTodoText
+                        });
+                        this.newTodoText = "";
+                    }
+                }
+            });
+        </script>
+    </body>
+</html>

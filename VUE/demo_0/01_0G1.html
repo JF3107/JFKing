@@ -1,0 +1,56 @@
+<html>
+    <head>
+        <meta http-equiv="content-Type" content="text/html; charset=UTF-8" />
+        <script src="../../zhe_repo/vue.js"></script>
+    </head>
+    <body>
+        <div id="zg1">
+            <h1>DEMO 0 0G1 EVCard收车检查单</h1>
+            <input 
+                v-model="newTodoText" 
+                v-on:keyup.enter="addNewItem" 
+                placeholder="添加一条..." 
+            />
+            <ul>
+                <li
+                    is="todo-item" 
+                    v-for="(todo, index) in todos" 
+                    v-bind:key = "todo.id" 
+                    v-bind:title = "todo.title" 
+                    v-on:remove = "todos.splice(index, 1)" 
+                ></li>
+            </ul>
+        </div>
+        <script>
+            Vue.component("todo-item", {
+                props: ['title'],
+                template: '<li> {{ title }} <button v-on:click="$emit(\'remove\')">X</button></li>'
+            })
+            new Vue({
+                el: "#zg1",
+                data: {
+                    newTodoText: '',
+                    todos: [
+                        {id:1, title:'倒库-停车-P-驻车'},
+                        {id:2, title:'开顶灯、收车前（里程check）'},
+                        {id:3, title:'关车窗+check、关车灯、关闭全部电子设备。收车。'},
+                        {id:4, title:'检查车内物品、全部带出。关顶灯'},
+                        {id:5, title:'充电操作、check'},
+                        {id:6, title:'车外check（手比眼看、高声确认）。还车'}
+                    ],
+                    nextId: 7
+                },
+                methods: {
+                    addNewItem: function(){
+                        this.todos.push({
+                            id: this.nextId++,
+                            title: this.newTodoText
+                        });
+                        this.newTodoText = '';
+                    }
+                }
+            });
+        </script>
+        <h5 style="color: red"> 平时多流汗、战时少流血 </h5>
+    </body>
+</html>
