@@ -1,76 +1,576 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-    <title>Bootstrap 101 Template</title>
-    <!-- Bootstrap -->
-    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-    <!-- HTML5 shim 和 Respond.js 是为了让 IE8 支持 HTML5 元素和媒体查询（media queries）功能 -->
-    <!-- 警告：通过 file:// 协议（就是直接将 html 页面拖拽到浏览器中）访问页面时 Respond.js 不起作用 -->
-    <!--[if lt IE 9]>
-      <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-  </head>
-  <body style="padding-top: 115px; padding-bottom: 30px;">
-    <!-- <h1>BTS 已跑通！</h1> -->
-    <!-- <nav class="navbar navbar-inverse navbar-fixed-top">  
-    </nav> -->
-    <!-- <div id="navi" style="background: #000; width:100%;height:100px;"> -->
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4">
-                    <div style="height:95px; line-height:95px;">
-                        <img src="../yhe_resource/nio_logo_fff.png" />
-                    </div>
-                </div>
-                <div class="col-md-4" style="color:#FFFFFF">
-                    <div style="text-align:center;">
-                        <h3 style="margin: 24px 0 3px 0">制造现场变更-量产阶段</h3>
-                        <span>BUILD SITE DEVIATION - After PP</span>
-                    </div>
-                </div>
-                <div class="col-md-4" style="color:#FFFFFF">
-                    <div style="margin: 26px 0 0 83px;">
-                        <div style="display: inline-block;">
-                            <div style="text-align: right; margin-bottom: -3px;">编制</div>
-                            <span style="font-size: 13px;">Edit By</span>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+        <title>Bootstrap 101 Template</title>
+        <!-- Bootstrap -->
+        <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+        <!-- HTML5 shim 和 Respond.js 是为了让 IE8 支持 HTML5 元素和媒体查询（media queries）功能 -->
+        <!-- 警告：通过 file:// 协议（就是直接将 html 页面拖拽到浏览器中）访问页面时 Respond.js 不起作用 -->
+        <!--[if lt IE 9]>
+        <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+        <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+        <style>
+            body {
+                padding-bottom: 30px;
+            }
+
+            .logo_img {
+                height:95px;
+                line-height:95px;
+            }
+
+            .title_color {
+                color:#FFFFFF
+            }
+
+            .title_margin {
+                margin: 24px 0 3px 0
+            }
+
+            #tb_01 .together_cell, 
+            #tb_05 .sign_cell {border: 0px solid #ddd;}
+
+            .to_right_side {text-align:right;}
+
+            #tb_01 .to_middle_posi,
+            #tb_02 .to_middle_posi,
+            #tb_03 .to_middle_posi,
+            #tb_04 .to_middle_posi,
+            #tb_05 .to_middle_posi  {vertical-align:middle;}
+
+            #tb_05 .tb05_tr_hcenter,
+            #tb_05 .tb05_td_hcenter { text-align: center; }
+
+            #tb_02 td {
+                vertical-align:middle;
+                text-align: center;
+            }
+
+            #tb_05 .sign_title_middle {
+                height:60px;
+                vertical-align:middle;
+            }
+
+            #tb_05 .sign_line_bottom { 
+                height:60px;
+                vertical-align:bottom;
+            }
+            
+            /* function-style below */
+            .inline_block { display: inline-block; }
+
+            .posi_relative { position: relative; }
+            .posi_absolute { position: absolute; }
+
+            .hcenter { text-align: center; }
+            .vcenter { vertical-align: middle; }
+
+            .hright { text-align: right; }
+
+            .font_bold { font-weight: bold; }
+
+
+            /* quick-tool-style below */
+            .margbtm_0 { margin-bottom: 0px; }
+            .marglft_150 { margin-left: 150px; }
+            .marglft_30 { margin-left: 30px; }
+            .w190 { width: 190px; }
+            .margtp_21 { margin-top: 21px; }
+            .margtp_18 { margin-top: 18px; }
+            .border_0 { border: 0px }
+            .borderbtm_0 { border-bottom: 0px }
+
+            /* chips spe-style below */
+            .nav_divedt_marg { margin: 26px 0 0 83px; }
+            .nav_bianzhi_margbtm { margin-bottom: -3px; }
+            .nav_edt_fsize { font-size: 13px; }
+            .nav_divarr_sty {
+                display: inline-block;
+                margin-left: 12px;
+                /* position: relative; */
+            }
+            /* .nav_arr_sty {
+                position: absolute;
+                width: 200px;
+                top: -23px;
+            } */
+            .nav_ver_sty {
+                font-size: 12px;
+                margin-left: 205px;
+            }
+            .tbx_title_sty { border-bottom-width:0px }
+            .tb3_xgtzyes_sty {
+                left:22px;
+                top:-24px;
+            }
+            .tb1_part_sty {
+                left:50px;
+                top:18px;
+            }
+            .tb1_inhouse_sty {
+                left:70px;
+                top:18px;
+            }
+        </style>
+    </head>
+    <body>
+        <!-- <div class="navbar navbar-inverse navbar-fixed-top"> -->
+        <div style="background:black; margin-bottom: 30px;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="logo_img">
+                            <img src="../yhe_resource/nio_logo_ffffff.png" />
                         </div>
-                        <div style="display: inline-block; margin-left: 12px; position: relative;">
-                            <div style="position: absolute; width: 200px; top: -23px;">CD-PM, VI VAL, ME</div>
+                    </div>
+                    <div class="col-md-4 title_color">
+                        <div class="hcenter">
+                            <h3 class="title_margin">制造现场变更-量产阶段</h3>
+                            <span>BUILD SITE DEVIATION - After PP</span>
                         </div>
                     </div>
-                    <span style="font-size: 12px; margin-left: 205px;">Version 4.5</span>
+                    <div class="col-md-4 title_color hright">
+                        <div class="nav_divedt_marg">
+                            <div class="inline_block">
+                                <div class="hright nav_bianzhi_margbtm">编制</div>
+                                <span class="nav_edt_fsize">Edit By</span>
+                            </div>
+                            <div class="nav_divarr_sty">
+                                <div class="">CD-PM, VI VAL, ME</div>
+                            </div>
+                        </div>
+                        <span class="nav_ver_sty">Version 4.5</span>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="container">
-        <div clas1s="row">
-            <div class="col-md-4">.col-md-4</div>
-            <div class="col-md-4">.col-md-4</div>
-            <div class="col-md-4">.col-md-4</div>
+        <!-- 以下主区 -->
+        <div class="container theme-showcase" role="main">
+            <div class="row">
+                <div class="col-md-12">
+                    <table id="tb_01" class="table table-bordered margbtm_0">
+                        <thead>
+                            <tr>
+                                <th colspan="6" class="tbx_title_sty">BSD提交区域，由提交者填写 ABOVE THE LINE IS SUBMIT AREA, FILLED BY SUBMITTER</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="to_right_side w190 font_bold">
+                                    <div>项目号</div>
+                                    <div>Program</div>
+                                </td>
+                                <td colspan="2" class="to_middle_posi">NIO183729</td>
+                                <td class="to_right_side w190 font_bold">
+                                    <div>涉及阶段</div>
+                                    <div>Impact Phase</div>
+                                </td>
+                                <td colspan="2" class="to_middle_posi">Before PP</td>
+                            </tr>
+                            <tr>
+                                <td class="to_right_side font_bold">
+                                    <div>BSD编号</div>
+                                    <div>BSD No.</div>
+                                </td>
+                                <td colspan="2" class="to_middle_posi">NIO183729</td>
+                                <td class="to_right_side font_bold">
+                                    <div>发起部门</div>
+                                    <div>Submit Department</div>
+                                </td>
+                                <td colspan="2" class="to_middle_posi">Engineering</td>
+                            </tr>
+                            <tr>
+                                <td class="to_right_side font_bold">
+                                    <div>发起人</div>
+                                    <div>Submitter</div>
+                                </td>
+                                <td colspan="2" class="to_middle_posi">NIO183729</td>
+                                <td class="to_right_side font_bold">
+                                    <div>实施阶段</div>
+                                    <div>Application Date</div>
+                                </td>
+                                <td colspan="2" class="to_middle_posi">Engineering</td>
+                            </tr>
+                            <tr>
+                                <td class="to_right_side font_bold">
+                                    <div>影响车辆</div>
+                                    <div>Affected Vehicles</div>
+                                </td>
+                                <td colspan="2" class="to_middle_posi">ES8</td>
+                                <td class="to_right_side font_bold">
+                                    <div>问题严重度定义</div>
+                                    <div>Severity Definition</div>
+                                </td>
+                                <td colspan="2" class="to_middle_posi">C</td>
+                            </tr>
+                            <tr>
+                                <td class="to_right_side font_bold">
+                                    <div>影响区域</div>
+                                    <div>Affected SMTs</div>
+                                </td>
+                                <td colspan="5" class="to_middle_posi">BODY，CHASS，EP，Advance Eng</td>
+                            </tr>
+                            <tr>
+                                <td class="to_right_side font_bold">
+                                    <div>影响关键特性</div>
+                                    <div>CC/SC Impacted</div>
+                                </td>
+                                <td class="to_middle_posi together_cell w190 posi_relative" >
+                                    <div class="inline_block font_bold">
+                                        <div>零件</div>
+                                        <div>Part</div>
+                                    </div>
+                                    <div class="inline_block posi_absolute tb1_part_sty">YES</div>
+                                </td>
+                                <td class="together_cell posi_relative vcenter">
+                                    <div class="inline_block font_bold">
+                                        <div>厂内</div>
+                                        <div>In house</div>
+                                    </div>
+                                    <div class="inline_block posi_absolute tb1_inhouse_sty">YES</div>
+                                </td>
+                                <td colspan="3" class="together_cell"></td>
+                            </tr>
+                            <tr>
+                                <td class="to_right_side font_bold">
+                                    <div>问题描述</div>
+                                    <div>Issue Description</div>
+                                </td>
+                                <td colspan="5"  class="to_middle_posi">这里是问题描述内容，这里是问题描述内容</td>
+                            </tr>
+                            <tr>
+                                <td rowspan="2" class="to_right_side to_middle_posi font_bold">
+                                    <div>更改操作描述</div>
+                                    <div>Corrective Action Plan Description</div>
+                                </td>
+                                <td class="font_bold">
+                                    <div>短期措施</div>
+                                    <div>Short Term</div>
+                                </td>
+                                <td colspan="4" class="to_middle_posi">短期措施。。。措施....短短短短</td>
+                            </tr>
+                            <tr>
+                                <td class="font_bold">
+                                    <div>长期措施</div>
+                                    <div>Long Term</div>
+                                </td>
+                                <td colspan="4" class="to_middle_posi">长期措施。。。措施....长长长长</td>
+                            </tr>
+                            <tr>
+                                <td class="to_right_side font_bold">
+                                    <div>更改类型</div>
+                                    <div>Type of Change</div>
+                                </td>
+                                <td colspan="5" class="to_middle_posi">零件版本偏差认可 Part revision deviation acceptance、现场返修 On site modification、老版本零件回用 Old Revision Part Use-back </td>
+                            </tr>
+                            <tr>
+                                <td colspan="6" class="hcenter font_bold">零件信息 Part Information</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table id="tb_02" class="table table-bordered table-striped margbtm_0 border_0">
+                        <thead>
+                            <tr>
+                                <th class="to_middle_posi hcenter">
+                                    <div>编号</div>
+                                    <div>Item No.</div>
+                                </th>
+                                <th class="to_middle_posi hcenter">
+                                    <div>零件号</div>
+                                    <div>Part No.</div>
+                                </th>
+                                <th class="to_middle_posi hcenter">
+                                    <div>零件名称</div>
+                                    <div>Part Name</div>
+                                </th>
+                                <th class="to_middle_posi hcenter">
+                                    <div>版本</div>
+                                    <div>Revision</div>
+                                </th>
+                                <th class="to_middle_posi hcenter">
+                                    <div>增加/删除/更改</div>
+                                    <div>Add/Delete/Modify</div>
+                                </th>
+                                <th class="to_middle_posi hcenter">
+                                    <div>数量</div>
+                                    <div>Qty</div>
+                                </th>
+                                <th class="to_middle_posi hcenter">
+                                    <div>车间</div>
+                                    <div>Shop</div>
+                                </th>
+                                <th class="to_middle_posi hcenter">
+                                    <div>采购信息</div>
+                                    <div>Make/Buy/Child</div>
+                                </th>
+                                <th class="to_middle_posi hcenter">
+                                    <div>相关CR</div>
+                                    <div>Related CR</div>
+                                </th>
+                                <th class="to_middle_posi hcenter">
+                                    <div>零件到货时间</div>
+                                    <div>Arriving Date</div>
+                                </th>
+                                <th class="to_middle_posi hcenter">
+                                    <div>备注</div>
+                                    <div>Remarks</div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>28187</td>
+                                <td>XXXX名称1XXXXX</td>
+                                <td>V 6.6.6</td>
+                                <td>增加</td>
+                                <td>6666</td>
+                                <td>XX车间</td>
+                                <td>XXXX采购信息1XXXX</td>
+                                <td>6262</td>
+                                <td>2018.4.4</td>
+                                <td>xxxxxxxxx</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>28188</td>
+                                <td>XXXX名称2XXXXX</td>
+                                <td>V 6.6.6</td>
+                                <td>更改</td>
+                                <td>6666</td>
+                                <td>XX车间</td>
+                                <td>XXXX采购信息2XXXX</td>
+                                <td>62622</td>
+                                <td>2018.4.4</td>
+                                <td>xxxxxxxxx</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>28189</td>
+                                <td>XXXX名称3XXXXX</td>
+                                <td>V 6.6.6</td>
+                                <td>删除</td>
+                                <td>6666</td>
+                                <td>XX车间</td>
+                                <td>XXXX采购信息3XXXX</td>
+                                <td>62623</td>
+                                <td>2018.4.4</td>
+                                <td>xxxxxxxxx</td>
+                            </tr>
+                            <tr>
+                                <td colspan="11" height="3px" class="borderbtm_0"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table id="tb_03" class="table table-bordered">
+                        <tbody >
+                            <tr>
+                                <td class="to_right_side w190 font_bold">
+                                    <div>实施方式</div>
+                                    <div>Operation</div>
+                                </td>
+                                <td colspan="5" class="to_middle_posi">供应商运回返修 Parts Return to factory Rework, 制造返修 ME onsite Rework, 供应商NIO现场返修 Supplier onsite Rework@NIO</td>
+                            </tr>
+                            <tr>
+                                <td colspan="6" >
+                                    <div class="to_right_side inline_block marglft_30 font_bold">
+                                        <div>相关图纸与文件已由DRE作为附件提供</div>
+                                        <div>Related documents are provided by DRE as attachment</div>
+                                    </div>
+                                    <div class="inline_block posi_absolute"><span class="tb3_xgtzyes_sty">YES</span></div>
+                                    <div class="inline_block marglft_150">
+                                        <div>注意！该流程最长有效期为一个造车阶段</div>
+                                        <div>Attention! Maximum valid period is one build phases</div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="to_right_side font_bold">
+                                    <div>特殊指导</div>
+                                    <div>Special Instruction</div>
+                                </td>
+                                <td colspan="5" class="to_middle_posi">特殊指导.......指导...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table id="tb_04" class="table table-bordered" >
+                        <thead>
+                            <tr>
+                                <th colspan="6" class="tbx_title_sty">审批区域，由DRE/VI/PQM/MFG签署 ABOVE THE LINE IS APPROVE AREA, SIGNED BY DRE/VI/PQM/MFG</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="2" class="to_right_side font_bold">
+                                    <div>是否影响本子系统内零件的试验认证结果</div>
+                                    <div>Effect test and validation of BSD related parts</div>
+                                </td>
+                                <td class="to_middle_posi w190">YES</td>
+                                <td colspan="2" class="to_right_side font_bold">
+                                    <div>是否影响其它子系统零件的试验认证结果</div>
+                                    <div>Effect test and validation of other SMT parts</div>
+                                </td>
+                                <td class="to_middle_posi w190">YES</td>
+                            </tr>
+                            <tr>
+                                <td class="to_right_side w190 font_bold">
+                                    <div>影响区域</div>
+                                    <div>Affected Areas</div>
+                                </td>
+                                <td colspan="5" class="to_middle_posi">DUR, NVH, VD, Brake/Chassis Control, EE</td>
+                            </tr>
+                            <tr>
+                                <td rowspan="2" class="to_right_side to_middle_posi font_bold">
+                                    <div>MFG评估</div>
+                                    <div>MFG Evaluation</div>
+                                </td>
+                                <td class="to_right_side w190 font_bold">
+                                    <div>区域</div>
+                                    <div>Area</div>
+                                </td>
+                                <td colspan="4" class="to_middle_posi">冲压 STP, 车身 Body, 涂装 Paint</td>
+                            </tr>
+                            <tr>
+                                
+                                <td class="to_right_side font_bold">
+                                    <div>类型</div>
+                                    <div>Type</div>
+                                </td>
+                                <td colspan="4" class="to_middle_posi">工艺 Process, 工装夹具 Tooling&fix</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table id="tb_05" class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th colspan="6" class="tbx_title_sty">审批区域，由DRE/VI/PQM/MFG签署 ABOVE THE LINE IS APPROVE AREA, SIGNED BY DRE/VI/PQM/MFG</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td rowspan="4" class="w190">
+                                    <div class="to_right_side font_bold">
+                                        <div>现场实施确认</div>
+                                        <div>Onsite Confirm</div>
+                                    </div>
+                                    <div class="to_right_side margtp_21 font_bold">
+                                        <div>签字</div>
+                                        <div>Sign</div>
+                                    </div>
+                                    <div class="to_right_side margtp_21 font_bold">
+                                        <div>现场实施确认</div>
+                                        <div>Onsite Confirm</div>
+                                    </div>
+                                    <div class="to_right_side margtp_18 font_bold">
+                                        <div>签字</div>
+                                        <div>Sign</div>
+                                    </div>
+                                </td>
+                                <td class="sign_cell tb05_td_hcenter sign_title_middle">
+                                    <div>工程师</div>
+                                    <div>DRE</div>
+                                </td>
+                                <td class="sign_cell tb05_td_hcenter sign_title_middle">
+                                    <div>整车工程</div>
+                                    <div>VI</div>
+                                </td>
+                                <td class="sign_cell tb05_td_hcenter sign_title_middle">
+                                    <div>零件质量</div>
+                                    <div>PQM</div>
+                                </td>
+                                <td class="sign_cell tb05_td_hcenter sign_title_middle">
+                                    <div>工程质量</div>
+                                    <div>EQ</div>
+                                </td>
+                                <td class="sign_cell tb05_td_hcenter sign_title_middle">
+                                    <div>制造质量</div>
+                                    <div>MFQ</div>
+                                </td>
+                            </tr>
+                            <tr class="tb05_tr_hcenter">
+                                <td class="sign_cell sign_line_bottom">___________</td>
+                                <td class="sign_cell sign_line_bottom">___________</td>
+                                <td class="sign_cell sign_line_bottom">___________</td>
+                                <td class="sign_cell sign_line_bottom">___________</td>
+                                <td class="sign_cell sign_line_bottom">___________</td>
+                            </tr>
+                            <tr class="tb05_tr_hcenter">
+                                <td class="sign_cell sign_title_middle">
+                                    <div>物流</div>
+                                    <div>Logistic</div>
+                                </td>
+                                <td class="sign_cell sign_title_middle">
+                                    <div>制造</div>
+                                    <div>MFG</div>
+                                </td>
+                                <td class="sign_cell sign_title_middle">
+                                    <div>制造</div>
+                                    <div>HF AMTECH</div>
+                                </td>
+                                <td class="sign_cell sign_title_middle">
+                                    <div>其它</div>
+                                    <div>Others</div>
+                                </td>
+                                <td class="sign_cell sign_title_middle">
+                                    <div>其它</div>
+                                    <div>Others</div>
+                                </td>
+                            </tr>
+                            <tr class="tb05_tr_hcenter">
+                                <td class="sign_cell sign_line_bottom">___________</td>
+                                <td class="sign_cell sign_line_bottom">___________</td>
+                                <td class="sign_cell sign_line_bottom">___________</td>
+                                <td class="sign_cell sign_line_bottom">___________</td>
+                                <td class="sign_cell sign_line_bottom">___________</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" class="hcenter">
+                                    <div class="inline_block hright font_bold">
+                                        <div>批准(NIO)</div>
+                                        <div>Approve(NIO)</div>
+                                    </div>
+                                    <div class="inline_block">&nbsp;&nbsp;&nbsp;&nbsp;________________</div>
+                                </td>
+                                <td colspan="2" class="hcenter">
+                                    <div class="inline_block hright font_bold">
+                                        <div>签收(工厂)</div>
+                                        <div>Accept(Plant)</div>
+                                    </div>
+                                    <div class="inline_block">&nbsp;&nbsp;&nbsp;&nbsp;________________</div>
+                                </td>
+                                <td colspan="2" class="hcenter">
+                                    <div class="inline_block hright font_bold">
+                                        <div>日期</div>
+                                        <div>Date</div>
+                                    </div>
+                                    <div class="inline_block">&nbsp;&nbsp;&nbsp;&nbsp;________________</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
-    </div>
-    
+
+        
+        
+        <!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
+        <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+        <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
+        <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script>
+            //JQ HW 跑通！
+            // $(document).ready(function(){
+            //     alert('JQ 可用！');
+            // });
 
 
-    <!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
-    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
-    <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
-    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script>
-        //JQ HW 跑通！
-        // $(document).ready(function(){
-        //     alert('JQ 可用！');
-        // });
-
-
-    </script>
-  </body>
+        </script>
+    </body>
 </html>
