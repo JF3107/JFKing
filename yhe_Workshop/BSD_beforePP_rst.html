@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+        <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+        <title>Bootstrap 101 Template</title>
+        <!-- Bootstrap -->
+        <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+        <!-- HTML5 shim 和 Respond.js 是为了让 IE8 支持 HTML5 元素和媒体查询（media queries）功能 -->
+        <!-- 警告：通过 file:// 协议（就是直接将 html 页面拖拽到浏览器中）访问页面时 Respond.js 不起作用 -->
+        <!--[if lt IE 9]>
+        <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+        <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+        <style>
+            body {
+                padding-bottom: 30px;
+            }
+
+            .logo_img {
+                height:95px;
+                padding-top: 8px;
+                line-height:95px;
+            }
+
+            .title_color {
+                color:#FFFFFF
+            }
+
+            .title_margin {
+                margin: 24px 0 3px 0
+            }
+
+            #tb_01 .together_cell, 
+            #tb_05 .sign_cell {border: 0px solid #ddd;}
+
+            .to_right_side {text-align:right;}
+
+            #tb_01 .to_middle_posi,
+            #tb_02 .to_middle_posi,
+            #tb_03 .to_middle_posi,
+            #tb_04 .to_middle_posi,
+            #tb_05 .to_middle_posi  {vertical-align:middle;}
+
+            #tb_05 .to_bottom_pposi  {vertical-align:bottom;}
+
+            #tb_05 .tb05_tr_hcenter,
+            #tb_05 .tb05_td_hcenter { text-align: center; }
+
+            #tb_02 td {
+                vertical-align:middle;
+                text-align: center;
+            }
+
+            #tb_05 .sign_title_middle {
+                height:60px;
+                vertical-align:middle;
+            }
+
+            #tb_05 .sign_line_bottom { 
+                height:60px;
+                vertical-align:bottom;
+            }
+            
+            /* function-style below */
+            .inline_block { display: inline-block; }
+
+            .posi_relative { position: relative; }
+            .posi_absolute { position: absolute; }
+
+            .hcenter { text-align: center; }
+            .vcenter { vertical-align: middle; }
+
+            .hright { text-align: right; }
+
+            .font_bold { font-weight: bold; }
+
+            .bg_E6FAFA { background: #E6FAFA; }
+
+            /* quick-tool-style below */
+            .bd_0px { border: 0px; }
+            .bdtp_0px { border-top: 0px; }
+            .margbtm_0 { margin-bottom: 0px; }
+            .marglft_150 { margin-left: 150px; }
+            .marglft_30 { margin-left: 30px; }
+            .w190 { width: 190px; }
+            .margtp_21 { margin-top: 21px; }
+            .margtp_18 { margin-top: 18px; }
+            .paddlft_20 { padding-left: 20px; }
+            .border_0 { border: 0px }
+            .borderbtm_0 { border-bottom: 0px }
+            .fsize_18px { font-size: 18px; }
+            .cell_h_60px { height:60px; }
+            .cell_h_120px { height:120px; }
+            .cell_th_87px { height:87px; }
+            
+
+            /* chips spe-style below */
+            .nav_wrap {
+                background:black;
+                margin-bottom: 20px;
+                height:120px;
+                width:1920px !important;
+            }
+            .nav_container {
+                background:black;
+                margin: 0 auto 0;
+                padding-top: 5px;
+                width:1230px !important;
+            }
+            .nav_wrap_fff {
+                margin-bottom: 20px;
+                height:120px;
+                width:1920px !important;
+            }
+            .nav_container_fff {
+                margin: 0 auto 0;
+                padding-top: 5px;
+                width:1230px !important;
+            }
+            .nav_divedt_marg { margin: 26px 0 0 83px; }
+            .nav_bianzhi_sty {
+                margin-bottom: -3px;
+            }
+            .nav_divarr_sty {
+                display: inline-block;
+                margin-left: 12px;
+                /* position: relative; */
+            }
+            .nav_arr_sty {
+                transform: translateY(-10px);
+            }
+            .nav_ver_sty {
+                font-size: 14px;
+                margin-left: 205px;
+            }
+            .main_wrap {
+                margin-bottom: 20px;
+                height:120px;
+                width:1920px !important;
+            }
+            .main_container {
+                width: 1200px !important;
+                margin: 0 auto 0;
+            }
+            .tbx_title_sty { border-bottom-width:0px }
+            .tb3_xgtzyes_sty {
+                left:22px;
+                top:-24px;
+            }
+            .tb1_part_sty {
+                left:50px;
+                top:18px;
+            }
+            .tb1_inhouse_sty {
+                left:236px;
+                top:18px;
+            }
+            .con_sprst_sty {
+                transform: translate(10px,-10px);
+            }
+            #tb_01 .con_impacn_sty {
+                padding-left: 160px;
+            }
+            #info_tbd .borderbtm_0 { border-bottom: 0px; }
+            #tb_01 .paddlft_20,
+            #tb_04 .paddlft_20,
+            #tb_05 .paddlft_20 {
+                padding-left: 20px;
+                border-bottom: 0px;
+            }
+            .con_partinfo_sty {
+                height:13px;
+            }
+            .btn_pdf {
+                color: #000;
+                border: 3px solid #000;
+                height: 72px;
+                line-height: 72px;
+                font-size: 30px;
+                padding: 0 72px;
+                display: inline-block;
+                /* margin-right: 20px; */
+                transition: all .15s;
+                margin-top:13px;
+                text-decoration: none;
+            }
+            .btn_pdf:link {
+                color: #000;
+                text-decoration: none;
+            }
+            .btn_pdf:visited {
+                color: #000;
+                text-decoration: none;
+            }
+            .btn_pdf:active {
+                color: #000;
+                text-decoration: none;
+            }
+            .btn_pdf:hover {
+                background: black;
+                color: #fff;
+                /* border: 3px solid #000(247, 32, 32); */
+                text-decoration: none;
+            }
+            .btn_wrap {width: 1920px;}
+            .btn_sty {
+                height:100px;
+                line-height:100px;
+                margin: 0 auto 0;
+                text-align:center;
+                vertical-align:middle;
+            }
+        </style>
+    </head>
+    <body>
+        <!-- <div class="navbar navbar-inverse navbar-fixed-top"> -->
+
+        <!-- 以下是 “PDF生成按钮” -->
+        <!-- <div class="btn_wrap">
+            <div class="btn_sty">
+                <a class="btn_pdf" href="#" target="_blank">生成 PDF</a>
+            </div>
+        </div> -->
+
+        <!-- 以下是 “‘白头’页面nav” -->
+        <div class="nav_wrap_fff">
+            <div class="container nav_container_fff">
+                <div class="row">
+                    <div class="col-xs-4">
+                        <div class="logo_img">
+                            <!-- <img src="../yhe_resource/nio_logo_000000.png" /> -->
+                            <img src='data:img/jpg;base64,iVBORw0KGgoAAAANSUhEUgAAAHIAAAAoCAYAAAAiyK7sAAAAAXNSR0IArs4c6QAABv1JREFUeAHt
+                                mXnIVkUUxjU/wy23sjBDUSwri9SiwEovSEnZJirtZBYR0gYhLSBZamRohX8YZITZHxUqlBtGBZXt
+                                qyUtVNqGVlRampUt1u/R78Z8w5l75973vt+X+R543jtz5pwzc+eZ7c7bvl3t0p0QR4JeoEczOvHc
+                                1owfeX4DPgZ/gYb8h3pgOG2ZDd4Cu8DfEdiOzRPgaiDSG9KGPXASda8CMcRl2fxEjJmgN2hIK/bA
+                                QOpaA7LIKVOm5Xc66AAaUuceOI/4W0EZomJ9niN+X9CQOvRAEzHvAbFk1Gr3LXWNqcN77PMhH25F
+                                EtNBsLNBZrXj7s42IDElUweh46p9nX0z2tQ2JDElcxNt6L9vdn81bz2CMPpoTzu0LZ+v0o721bzW
+                                XhelKy3uVqTVfketxfmUIgHqbHsZ8ReXrONy/A53fDVA3wNLHF1MUgew0UCHv1QeJLExzfDsAqaA
+                                Qx2dbrPmO/ms5DAKJ4BxYDA4AEh0ibIB6Nt9GXgH5Mr5WFQ1A/+oKNZm4hQamc5bPhVow0Po93Ps
+                                spLqVGuFSjynueT9vlvv2VjZo1Dqtsv3DeWXYzvUCpTqOpP4AoQC5Olfwld76xDQCUh6g1FgDvgO
+                                5MUIlesqsIyEiFQ990YGPAM7q12J57/CsMsj8lJ8fjX8rPpc3W/4aLUx5QK0rnFsWuSfbkZsqdSs
+                                mgms0Z1X1xb8OrYMF5XLIlJ13hAR5UxsrPYlnu9Kwy6LyFsMe6ueLN10rw27s0tLBH4BnwOtYBk6
+                                kb4DZDXQKhubETNUlEekBtWEkHOzvh5ETiL2LmC9Z1HdhW77tVEX7dyP8Cn7D8Z4fIvOzIVugyPT
+                                eUSq07S0jcyIVzWRB1PXNhAiTDzoUHMHmAEeB/quDtn/TFlfsFsm8hsytPQi4dg9rqV/7ytYp/bY
+                                2ANK2qgYIvV+34MjUifvWTWRC4hv9al0q0E/r35l+4AlIOT3gIwkWcEt50f2uNX0q8ZtB1b8kK5/
+                                wRpjiVR9G4Bmiy9VEqlPip3Aej8N7Dy5DQPL93f0PTXKj86L4JXrqF2raIYtLhjk3yWkoF+M+SCM
+                                VoAuMcYlbTQo9jd8P0B3k6H3VbNQvOYryesgeJaI1EvEyqcYvhtrnGOnA1YR0SyuVT4kgGaqJSei
+                                fAx0sAor0CWBGLei10zNE21p0wJGiYjsESi01LHfX5avr3sexdu+MiPfOaMstkgXFZPAuoDD2ehj
+                                b2MCIYLqwwIlTwf0llrf678YBf2aUE4B7Y3CVKV1WSNG+4hOSfoY1RKkQVBWNLo2g9FgGDgIqC1Z
+                                8npWYYEy7c1a5nSXa+27U9Hr+/huUKVYK4pOsBYxoXr12aJtaYBn0Eedp+NujOgbULbdYowjbTTC
+                                xgEdsVtTvqYykfki6GlUfBe6r0CV7dLFhi86AGnf1IElVnRj5suW2Fmlq6rloEoS1ZiTwTPA6kyV
+                                11PeJ/h4YHWiVqhFIAFViVYgX1TPqb4yIz+CMpHvixXbt2knEnW/Zx19q9K9QfyqydShxm+fdVC7
+                                CLuiNy0JPq6sJOPXtd41IK0tybdRXqtC7IRaFYhxFfpMaQ0S05ermsxYItUBN4O0HTHPRE6OxBCp
+                                c8CfwIo/zYkVSl4Z8NV545CQk/StSWL6cm9Sb1UzswiRet/7QdqOvGciB0diiJT5o8CKrRVhAbC2
+                                Lv2bpIOXCLN8l6IPig4C9V5OrUZJJzJ7BVsWX1CUSH0/6lIg1C5Xn3jNiCVyIH47M+rQAWsemAIm
+                                Ax26NgK3bjet/X0wMKUtSUwbWQWZRYlUZ3QFWuLTdoSeCTauxBIpn+tAKG5R/Y1uI9x0FSQuIuAV
+                                QP+QFG2Ya18rmWWIpMm795usWaA2JjJ0pAiRciuyjLt94qYXOvW3SFZBojtCtNe9AtzKi6ZrIdMi
+                                cl2LNw5nhlD0Q0bbE8+1KJH67JgOip6W1X/yuR0ohikz0BbtaNf+eiOqvnleriGu9ulBRtwYlUXk
+                                shjHZht94+4A7jum6aTZJn0UJTL1G0NC15Rp3LynBuJpqbP7bHIyc0hPBgMcXWxSJM43jLejGwvW
+                                gJFGeZ5qLgZa5sqILjA+cRw1w3QyjBXdOp0ALga6j3ZnwCbyrojIz10F6ZiP9GexOx6cAyYCrYq9
+                                gStbyawGGoRPAs3IXDkXi7xR4Zdr884TzUx1jO+blf8M+y55gf+H5SJyKDgG+KQWet15WGd1sFsW
+                                Q2JaeREydZE8PHVsPMv1QAfcNOVdwqz0tSXCx5J5SYnYDRejB7qjWwssAqUrQ2JaTRaZWv9riZ3W
+                                0Xg6PaD9SYcUn8wqOlpk6rLYja17yMmgIXXogY7EnA3Se75rKqzDJfNL4iYVxm6ECvTAKPS6fa9a
+                                uhFwFqjqorzq9u018f4BSsB/gPWLhW4AAAAASUVORK5CYII='/>
+                        </div>
+                    </div>
+                    <div class="col-xs-4">
+                        <div class="hcenter">
+                            <h2 class="title_margin">制造现场变更-量产阶段</h2>
+                            <span class="fsize_18px">BUILD SITE DEVIATION - After PP</span>
+                        </div>
+                    </div>
+                    <div class="col-xs-4 hright">
+                        <div class="nav_divedt_marg">
+                            <div class="inline_block">
+                                <div class="hright nav_bianzhi_sty fsize_18px">编制</div>
+                                <span class="fsize_18px">Edit By</span>
+                            </div>
+                            <div class="nav_divarr_sty">
+                                <div class="nav_arr_sty fsize_18px">CD-PM, VI VAL, ME</div>
+                            </div>
+                        </div>
+                        <span class="nav_ver_sty">Version 4.5</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 以下主区 -->
+        <div class="main_wrap">
+            <div class="container theme-showcase main_container" role="main">
+                <div class="row">
+                    <!-- <div class="col-xs-12"> -->
+                        <table id="tb_01" class="table table-bordered margbtm_0">
+                            <thead>
+                                <tr class="cell_h_60px">
+                                    <th colspan="6" class="tbx_title_sty to_middle_posi paddlft_20 bg_E6FAFA">BSD提交区域，由提交者填写 ABOVE THE LINE IS SUBMIT AREA, FILLED BY SUBMITTER</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="cell_h_60px">
+                                    <td class="to_right_side w190 font_bold col-xs-2">
+                                        <div>项目号</div>
+                                        <div>Program</div>
+                                    </td>
+                                    <td colspan="2" class="to_middle_posi col-xs-4" id="program"></td>
+                                    <td class="to_right_side w190 font_bold col-xs-2">
+                                        <div>涉及阶段</div>
+                                        <div>Impact Phase</div>
+                                    </td>
+                                    <td colspan="2" class="to_middle_posi col-xs-4" id="impact_phase"></td>
+                                </tr>
+                                <tr class="cell_h_60px">
+                                    <td class="to_right_side font_bold">
+                                        <div>BSD编号</div>
+                                        <div>BSD No.</div>
+                                    </td>
+                                    <td colspan="2" class="to_middle_posi" id="bsd_no"></td>
+                                    <td class="to_right_side font_bold">
+                                        <div>发起部门</div>
+                                        <div>Submit Department</div>
+                                    </td>
+                                    <td colspan="2" class="to_middle_posi" id="sub_dep"></td>
+                                </tr>
+                                <tr class="cell_h_60px">
+                                    <td class="to_right_side font_bold">
+                                        <div>发起人</div>
+                                        <div>Submitter</div>
+                                    </td>
+                                    <td colspan="2" class="to_middle_posi" id="submitter"></td>
+                                    <td class="to_right_side font_bold">
+                                        <div>实施阶段</div>
+                                        <div>Application Date</div>
+                                    </td>
+                                    <td colspan="2" class="to_middle_posi" id="app_date"></td>
+                                </tr>
+                                <tr class="cell_h_60px">
+                                    <td class="to_right_side font_bold">
+                                        <div>影响车辆</div>
+                                        <div>Affected Vehicles</div>
+                                    </td>
+                                    <td colspan="2" class="to_middle_posi" id="aff_veh"></td>
+                                    <td class="to_right_side font_bold">
+                                        <div>问题严重度定义</div>
+                                        <div>Severity Definition</div>
+                                    </td>
+                                    <td colspan="2" class="to_middle_posi" id="severity_def"></td>
+                                </tr>
+                                <tr class="cell_h_60px">
+                                    <td class="to_right_side font_bold">
+                                        <div>影响区域</div>
+                                        <div>Affected SMTs</div>
+                                    </td>
+                                    <td colspan="5" class="to_middle_posi" id="affected_smts"></td>
+                                </tr>
+                                <tr class="cell_h_60px">
+                                    <td class="to_right_side font_bold">
+                                        <div>影响关键特性</div>
+                                        <div>CC/SC Impacted</div>
+                                    </td>
+                                    <td class="to_middle_posi together_cell w190 posi_relative" >
+                                        <div class="inline_block font_bold">
+                                            <div>零件</div>
+                                            <div>Part</div>
+                                        </div>
+                                        <div class="inline_block posi_absolute tb1_part_sty" id="part" ></div>
+                                    </td>
+                                    <td class="together_cell posi_relative vcenter con_impacn_sty">
+                                        <div class="inline_block font_bold">
+                                            <div>厂内</div>
+                                            <div>In house</div>
+                                        </div>
+                                        <div class="inline_block posi_absolute tb1_inhouse_sty" id="in_house" ></div>
+                                    </td>
+                                    <td colspan="3" class="together_cell"></td>
+                                </tr>
+                                <tr class="cell_h_60px">
+                                    <td class="to_right_side font_bold">
+                                        <div>问题描述</div>
+                                        <div>Issue Description</div>
+                                    </td>
+                                    <td colspan="5" id="issue_des" class="to_middle_posi"></td>
+                                </tr>
+                                <tr class="cell_h_60px">
+                                    <td rowspan="2" class="to_right_side to_middle_posi font_bold col-xs-2">
+                                        <div>更改操作描述</div>
+                                        <div>Corrective Action Plan Description</div>
+                                    </td>
+                                    <td class="font_bold col-xs-1 to_right_side">
+                                        <div>短期措施</div>
+                                        <div>Short Term</div>
+                                    </td>
+                                    <td colspan="4" id="short_term" class="to_middle_posi col-xs-9"></td>
+                                </tr>
+                                <tr class="cell_h_60px">
+                                    <td class="font_bold to_right_side">
+                                        <div>长期措施</div>
+                                        <div>Long Term</div>
+                                    </td>
+                                    <td colspan="4" id="long_term" class="to_middle_posi"></td>
+                                </tr>
+                                <tr class="cell_h_60px">
+                                    <td class="to_right_side font_bold">
+                                        <div>更改类型</div>
+                                        <div>Type of Change</div>
+                                    </td>
+                                    <td colspan="5" id="type_of_change" class="to_middle_posi"></td>
+                                </tr>
+                                <tr class="cell_h_60px">
+                                    <td colspan="6" class="hcenter font_bold to_middle_posi">零件信息 Part Information</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table id="tb_02" class="table table-bordered table-striped margbtm_0 border_0">
+                            <thead>
+                                <tr class="cell_th_87px">
+                                    <th class="to_middle_posi hcenter">
+                                        <div>编号</div>
+                                        <div>Item No.</div>
+                                    </th>
+                                    <th class="to_middle_posi hcenter">
+                                        <div>零件号</div>
+                                        <div>Part No.</div>
+                                    </th>
+                                    <th class="to_middle_posi hcenter">
+                                        <div>零件名称</div>
+                                        <div>Part Name</div>
+                                    </th>
+                                    <th class="to_middle_posi hcenter">
+                                        <div>版本</div>
+                                        <div>Revision</div>
+                                    </th>
+                                    <th class="to_middle_posi hcenter">
+                                        <div>增加/删除/更改</div>
+                                        <div>Add/Delete/Modify</div>
+                                    </th>
+                                    <th class="to_middle_posi hcenter">
+                                        <div>数量</div>
+                                        <div>Qty</div>
+                                    </th>
+                                    <th class="to_middle_posi hcenter">
+                                        <div>车间</div>
+                                        <div>Shop</div>
+                                    </th>
+                                    <th class="to_middle_posi hcenter">
+                                        <div>采购信息</div>
+                                        <div>Make/Buy/Child</div>
+                                    </th>
+                                    <th class="to_middle_posi hcenter">
+                                        <div>相关CR</div>
+                                        <div>Related CR</div>
+                                    </th>
+                                    <th class="to_middle_posi hcenter">
+                                        <div>零件到货时间</div>
+                                        <div>Arriving Date</div>
+                                    </th>
+                                    <th class="to_middle_posi hcenter">
+                                        <div>备注</div>
+                                        <div>Remarks</div>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody id="info_tbd">
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row">
+                        <table id="tb_03" class="table table-bordered">
+                            <tbody >
+                                <tr class="cell_h_60px">
+                                    <td class="to_right_side w190 font_bold col-xs-2">
+                                        <div>实施方式</div>
+                                        <div>Operation</div>
+                                    </td>
+                                    <td colspan="5" id="operation" class="to_middle_posi col-xs-10"></td>
+                                </tr>
+                                <tr class="cell_h_60px">
+                                    <td colspan="6" >
+                                        <div class="to_right_side inline_block marglft_30 font_bold">
+                                            <div>相关图纸与文件已由DRE作为附件提供</div>
+                                            <div>Related documents are provided by DRE as attachment</div>
+                                        </div>
+                                        <div class="inline_block con_sprst_sty"><span id="dre" class="tb3_xgtzyes_sty"></span></div>
+                                        <div class="inline_block marglft_150">
+                                            <div>注意！该流程最长有效期为一个造车阶段</div>
+                                            <div>Attention! Maximum valid period is one build phases</div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="cell_h_60px">
+                                    <td class="to_right_side font_bold">
+                                        <div>特殊指导</div>
+                                        <div>Special Instruction</div>
+                                    </td>
+                                    <td colspan="5" id="instruction" class="to_middle_posi"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table id="tb_04" class="table table-bordered" >
+                            <thead>
+                                <tr class="cell_h_60px">
+                                    <th colspan="6" class="tbx_title_sty to_middle_posi paddlft_20 bg_E6FAFA">审批区域，由DRE/VI/PQM/MFG签署 ABOVE THE LINE IS APPROVE AREA, SIGNED BY DRE/VI/PQM/MFG</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="cell_h_60px">
+                                    <td colspan="2" class="to_right_side font_bold">
+                                        <div>是否影响本子系统内零件的试验认证结果</div>
+                                        <div>Effect test and validation of BSD related parts</div>
+                                    </td>
+                                    <td class="to_middle_posi w190" id="related_part" ></td>
+                                    <td colspan="2" class="to_right_side font_bold">
+                                        <div>是否影响其它子系统零件的试验认证结果</div>
+                                        <div>Effect test and validation of other SMT parts</div>
+                                    </td>
+                                    <td class="to_middle_posi w190" id="smt_part" ></td>
+                                </tr>
+                                <tr class="cell_h_60px">
+                                    <td class="to_right_side w190 font_bold">
+                                        <div>影响区域</div>
+                                        <div>Affected Areas</div>
+                                    </td>
+                                    <td colspan="5" id="aff_areas" class="to_middle_posi"></td>
+                                </tr>
+                                <tr class="cell_h_60px">
+                                    <td rowspan="2" class="to_right_side to_middle_posi font_bold">
+                                        <div>MFG评估</div>
+                                        <div>MFG Evaluation</div>
+                                    </td>
+                                    <td class="to_right_side w190 font_bold">
+                                        <div>区域</div>
+                                        <div>Area</div>
+                                    </td>
+                                    <td colspan="4" id="mfg_area" class="to_middle_posi"></td>
+                                </tr>
+                                <tr class="cell_h_60px">
+                                    
+                                    <td class="to_right_side font_bold">
+                                        <div>类型</div>
+                                        <div>Type</div>
+                                    </td>
+                                    <td colspan="4" id="mfq_type" class="to_middle_posi"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table id="tb_05" class="table table-bordered">
+                            <thead>
+                                <tr class="cell_h_60px">
+                                    <th colspan="6" class="tbx_title_sty to_middle_posi paddlft_20 bg_E6FAFA">审批区域，由DRE/VI/PQM/MFG签署 ABOVE THE LINE IS APPROVE AREA, SIGNED BY DRE/VI/PQM/MFG</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="cell_h_60px">
+                                    <td rowspan="4" class="w190">
+                                        <div class="to_right_side font_bold">
+                                            <div>现场实施确认</div>
+                                            <div>Onsite Confirm</div>
+                                        </div>
+                                        <div class="to_right_side margtp_21 font_bold">
+                                            <div>签字</div>
+                                            <div>Sign</div>
+                                        </div>
+                                        <div class="to_right_side margtp_21 font_bold">
+                                            <div>现场实施确认</div>
+                                            <div>Onsite Confirm</div>
+                                        </div>
+                                        <div class="to_right_side margtp_18 font_bold">
+                                            <div>签字</div>
+                                            <div>Sign</div>
+                                        </div>
+                                    </td>
+                                    <td class="sign_cell tb05_td_hcenter sign_title_middle">
+                                        <div>工程师</div>
+                                        <div>DRE</div>
+                                    </td>
+                                    <td class="sign_cell tb05_td_hcenter sign_title_middle">
+                                        <div>整车工程</div>
+                                        <div>VI</div>
+                                    </td>
+                                    <td class="sign_cell tb05_td_hcenter sign_title_middle">
+                                        <div>零件质量</div>
+                                        <div>PQM</div>
+                                    </td>
+                                    <td class="sign_cell tb05_td_hcenter sign_title_middle">
+                                        <div>工程质量</div>
+                                        <div>EQ</div>
+                                    </td>
+                                    <td class="sign_cell tb05_td_hcenter sign_title_middle">
+                                        <div>制造质量</div>
+                                        <div>MFQ</div>
+                                    </td>
+                                </tr>
+                                <tr class="tb05_tr_hcenter cell_h_60px">
+                                    <td class="sign_cell sign_line_bottom">___________</td>
+                                    <td class="sign_cell sign_line_bottom">___________</td>
+                                    <td class="sign_cell sign_line_bottom">___________</td>
+                                    <td class="sign_cell sign_line_bottom">___________</td>
+                                    <td class="sign_cell sign_line_bottom">___________</td>
+                                </tr>
+                                <tr class="tb05_tr_hcenter cell_h_60px">
+                                    <td class="sign_cell sign_title_middle">
+                                        <div>物流</div>
+                                        <div>Logistic</div>
+                                    </td>
+                                    <td class="sign_cell sign_title_middle">
+                                        <div>制造</div>
+                                        <div>MFG</div>
+                                    </td>
+                                    <td class="sign_cell sign_title_middle">
+                                        <div>制造</div>
+                                        <div>HF AMTECH</div>
+                                    </td>
+                                    <td class="sign_cell sign_title_middle">
+                                        <div>其它</div>
+                                        <div>Others</div>
+                                    </td>
+                                    <td class="sign_cell sign_title_middle">
+                                        <div>其它</div>
+                                        <div>Others</div>
+                                    </td>
+                                </tr>
+                                <tr class="tb05_tr_hcenter cell_h_60px">
+                                    <td class="sign_cell sign_line_bottom">___________</td>
+                                    <td class="sign_cell sign_line_bottom">___________</td>
+                                    <td class="sign_cell sign_line_bottom">___________</td>
+                                    <td class="sign_cell sign_line_bottom">___________</td>
+                                    <td class="sign_cell sign_line_bottom">___________</td>
+                                </tr>
+                                <tr class="cell_h_120px">
+                                    <td colspan="2" class="hcenter to_bottom_pposi">
+                                        <div class="inline_block hright font_bold">
+                                            <div>批准(NIO)</div>
+                                            <div>Approve(NIO)</div>
+                                        </div>
+                                        <div class="inline_block">&nbsp;&nbsp;&nbsp;&nbsp;________________</div>
+                                    </td>
+                                    <td colspan="2" class="hcenter to_bottom_pposi">
+                                        <div class="inline_block hright font_bold">
+                                            <div>签收(工厂)</div>
+                                            <div>Accept(Plant)</div>
+                                        </div>
+                                        <div class="inline_block">&nbsp;&nbsp;&nbsp;&nbsp;________________</div>
+                                    </td>
+                                    <td colspan="2" class="hcenter to_bottom_pposi">
+                                        <div class="inline_block hright font_bold">
+                                            <div>日期</div>
+                                            <div>Date</div>
+                                        </div>
+                                        <div class="inline_block">&nbsp;&nbsp;&nbsp;&nbsp;________________</div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    <!-- </div> -->
+                </div>
+            </div>
+        </div>
+        
+        <!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
+        <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+        <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
+        <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script>
+            //JQ HW 跑通！
+            $(document).ready(function(){
+
+                // NIO后台方向 对接 ajax
+                // $.ajax({
+                //     type: "GET",
+                //     dataType: "json",
+                //     data: {"objectId": "51456.32231.11008.47396"},
+                //     url: "programs.jsp" ,//url
+                //     success: function (result) {
+                //         console.log(result);
+                //         alert("SUCCESS");
+
+                //         $("#program").text(result["data"]["program"]);
+                //         $("#impact_phase").text(result["data"]["impactPhase"]);
+                //         $("#bsd_no").text(result["data"]["bsdNo"]);
+                //         $("#sub_dep").text(result["data"]["subDep"]);
+                //         $("#submitter").text(result["data"]["submitter"]);
+                //         $("#app_date").text(result["data"]["appDate"]);
+                //         $("#aff_veh").text(result["data"]["affVeh"]);
+                //         $("#severity_def").text(result["data"]["severityDef"]);
+                //         $("#affected_smts").text(result["data"]["affectedSMTs"]);
+                //         $("#part").text(result["data"]["part"]);
+                //         $("#in_house").text(result["data"]["inHouse"]);
+                //         $("#issue_des").text(result["data"]["issueDes"]);
+                //         $("#short_term").text(result["data"]["shortTerm"]);
+                //         $("#long_term").text(result["data"]["longTerm"]);
+                //         $("#type_of_change").text(result["data"]["typeOfChange"]);
+
+                //         // for render
+                //         var tbd = $("#info_tbd");
+                //         for(var i=0; i<result["data"]["partInformation"].length; i++){
+                //             var tds = $('<tr><td id="itemno_'+i+'"></td><td id="partno_'+i+'"></td><td id="partname_'+i+'"></td><td id="rev_'+i+'"></td><td id="change_'+i+'"></td><td id="qty_'+i+'"></td><td id="shop_'+i+'"></td><td id="makeorbuy_'+i+'"></td><td id="relatedcr_'+i+'"></td><td id="arrivingdate_'+i+'"></td><td id="reamrks_'+i+'"></td></tr>');
+                //             tbd.append(tds);
+                //             $("#itemno_"+i+"").text(rst["data"]["partInformation"][i]["itemNo"]);
+                //             $("#partno_"+i+"").text(rst["data"]["partInformation"][i]["partNo"]);
+                //             $("#partname_"+i+"").text(rst["data"]["partInformation"][i]["partName"]);
+                //             $("#rev_"+i+"").text(rst["data"]["partInformation"][i]["rev"]);
+                //             $("#change_"+i+"").text(rst["data"]["partInformation"][i]["change"]);
+                //             $("#qty_"+i+"").text(rst["data"]["partInformation"][i]["qty"]);
+                //             $("#shop_"+i+"").text(rst["data"]["partInformation"][i]["shop"]);
+                //             $("#makeorbuy_"+i+"").text(rst["data"]["partInformation"][i]["makeorbuy"]);
+                //             $("#relatedcr_"+i+"").text(rst["data"]["partInformation"][i]["relatedCR"]);
+                //             $("#arrivingdate_"+i+"").text(rst["data"]["partInformation"][i]["arrivingDate"]);
+                //             $("#reamrks_"+i+"").text(rst["data"]["partInformation"][i]["remarks"]);
+                //         }
+                //         var tdx = $('<tr><td colspan="11" height="3px" class="borderbtm_0"></td></tr>');
+                //         tbd.append(tdx);
+
+                //         $("#operation").text(result["data"]["operation"]);
+                //         $("#dre").text(result["data"]["dre"]);
+                //         $("#instruction").text(result["data"]["instruction"]);
+                //         $("#related_part").text(result["data"]["relatedPart"]);
+                //         $("#smt_part").text(result["data"]["smtPart"]);
+                //         $("#aff_areas").text(result["data"]["affAreas"]);
+                //         $("#mfg_area").text(result["data"]["mfgArea"]);
+                //         $("#mfq_type").text(result["data"]["mfqType"]);
+                //     },
+                //     error : function(e,r,a) {
+                //         alert("异常！");
+                //     }
+                // });
+
+                var rst = {
+                    "data":{
+                        "program": "ES8",                   		 //----项目号
+                        "impactPhase": "Before PP",				 	//----涉及阶段
+                        "bsdNo": "xxx",								 //----BSD编号
+                        "subDep": "XXX",							//----PQM
+                        "submitter": "XXX",							//----发起人
+                        "appDate": "XXX",							//----实施阶段，如果是时间阶段以	2018-3-1~2018-3-29”
+                        "affVeh": "XXX",   							//----影响车辆
+                        "severityDef": ["A","B"],					//----问题严重定义
+                        "affectedSMTs": ["BODY","CHASS"],			//-----影响区域
+                        "part": "yes",								//----零件
+                        "inHouse": "yes",							//----厂内
+                        "issueDes": "XXXXX",						//-----问题描述
+                        "shortTerm": "xxxxxxxxx",					//-----短期措施
+                        "longTerm": "XXXXXXXXX",					//----长期措施
+                        "typeOfChange": ["xxx","XXX","XXXX"], 		// ----更改类型
+                        "partInformation": [				  		//----零件信息
+                            {
+                                "itemNo":"11111111",
+                                "partNo":"x22222",
+                                "partName":"xxxxxx",
+                                "rev":"xxasd",
+                                "change":"x",
+                                "qty":"2",
+                                "shop":"车间1",
+                                "makeorbuy":"d",
+                                "relatedCR":"c",
+                                "arrivingDate":"b",
+                                "remarks":"a"
+                            },
+                            {
+                                "itemNo":"22222222",
+                                "partNo":"3322",
+                                "partName":"xxxxx",
+                                "rev":"xxzxzx",
+                                "change":"y",
+                                "qty":"1",
+                                "shop":"车间2",
+                                "makeorbuy":"a",
+                                "relatedCR":"b",
+                                "arrivingDate":"c",
+                                "remarks":"d"
+                            }
+                        ],
+                        "operation": ["","",""],      		 	//---实施方式
+                        "dre": "yes",							//----相关图纸与文件已由DRE作为附件提供
+                        "instruction": "xxxxxxxxxxxx",   		//-----特殊指导
+                        "relatedPart": "yes",					//--------是否影响本子系统内零件的试验认证结果
+                        "smtPart": "yes",						//----是否影响其他子系统零件的试验认证结果
+                        "affAreas": ["","",""],				//-----影响区域
+                        "mfgArea": ["","",""], 					//------MFG评估区域
+                        "mfqType": ["","",""],					//----MFG评估类型   
+                    }
+                };
+
+                $("#program").text(rst["data"]["program"]);
+                $("#impact_phase").text(rst["data"]["impactPhase"]);
+                $("#bsd_no").text(rst["data"]["bsdNo"]);
+                $("#sub_dep").text(rst["data"]["subDep"]);
+                $("#submitter").text(rst["data"]["submitter"]);
+                $("#app_date").text(rst["data"]["appDate"]);
+                $("#aff_veh").text(rst["data"]["affVeh"]);
+                $("#severity_def").text(rst["data"]["severityDef"]);
+                $("#affected_smts").text(rst["data"]["affectedSMTs"]);
+                $("#part").text(rst["data"]["part"]);
+                $("#in_house").text(rst["data"]["inHouse"]);
+                $("#issue_des").text(rst["data"]["issueDes"]);
+                $("#short_term").text(rst["data"]["shortTerm"]);
+                $("#long_term").text(rst["data"]["longTerm"]);
+                $("#type_of_change").text(rst["data"]["typeOfChange"]);
+                
+                var tbd = $("#info_tbd");
+                for(var i=0; i<rst["data"]["partInformation"].length; i++){
+                    var tds = $('<tr class="cell_h_60px"><td id="itemno_'+i+'"></td><td id="partno_'+i+'"></td><td id="partname_'+i+'"></td><td id="rev_'+i+'"></td><td id="change_'+i+'"></td><td id="qty_'+i+'"></td><td id="shop_'+i+'"></td><td id="makeorbuy_'+i+'"></td><td id="relatedcr_'+i+'"></td><td id="arrivingdate_'+i+'"></td><td id="reamrks_'+i+'"></td></tr>');
+                    tbd.append(tds);
+                    $("#itemno_"+i+"").text(rst["data"]["partInformation"][i]["itemNo"]);
+                    $("#partno_"+i+"").text(rst["data"]["partInformation"][i]["partNo"]);
+                    $("#partname_"+i+"").text(rst["data"]["partInformation"][i]["partName"]);
+                    $("#rev_"+i+"").text(rst["data"]["partInformation"][i]["rev"]);
+                    $("#change_"+i+"").text(rst["data"]["partInformation"][i]["change"]);
+                    $("#qty_"+i+"").text(rst["data"]["partInformation"][i]["qty"]);
+                    $("#shop_"+i+"").text(rst["data"]["partInformation"][i]["shop"]);
+                    $("#makeorbuy_"+i+"").text(rst["data"]["partInformation"][i]["makeorbuy"]);
+                    $("#relatedcr_"+i+"").text(rst["data"]["partInformation"][i]["relatedCR"]);
+                    $("#arrivingdate_"+i+"").text(rst["data"]["partInformation"][i]["arrivingDate"]);
+                    $("#reamrks_"+i+"").text(rst["data"]["partInformation"][i]["remarks"]);
+                }
+                var tdx = $('<tr class="con_partinfo_sty"><td colspan="11" height="3px" class="borderbtm_0"></td></tr>');
+                tbd.append(tdx);
+
+                $("#operation").text(rst["data"]["operation"]);
+                $("#dre").text(rst["data"]["dre"]);
+                $("#instruction").text(rst["data"]["instruction"]);
+                $("#related_part").text(rst["data"]["relatedPart"]);
+                $("#smt_part").text(rst["data"]["smtPart"]);
+                $("#aff_areas").text(rst["data"]["affAreas"]);
+                $("#mfg_area").text(rst["data"]["mfgArea"]);
+                $("#mfq_type").text(rst["data"]["mfqType"]);
+
+            });
+
+        </script>
+    </body>
+</html>
