@@ -740,6 +740,7 @@
             <div class="wm_div_sty margtp_400"><div class="water_mark wm_font"></div></div>
         </div>
 
+        <!-- <div id="loading_icon" style="position: absolute;top:450px;left:903px;display:none;"> -->
         <div id="loading_icon" style="position: absolute;top:450px;left:903px;">
             <!-- <img src="../yhe_resource/loading_0.gif" /> -->
             <img src='data:img/jpg;base64,R0lGODlhgACAAKIAAP///93d3bu7u5mZmQAA/wAAAAAAAAAAACH/C05FVFNDQVBFMi4wAwEAAAAh
@@ -835,7 +836,7 @@
                 var wm_msg = '- 状态未知 - 状态未知 -';
 
                 // NIO后台方向 对接 ajax【联调开放！！】
-                //以下是  AJAX A！
+                //以下是  AJAX A！【联调开启】
                 $.ajax({
                     type: "GET",
                     dataType: "json",
@@ -910,8 +911,32 @@
                         alert("异常！");
                     }
                 });
-                //以上是  AJAX A！
-
+                // $.ajax({
+                //     type: "GET",
+                //     dataType: "json",
+                //     url: "powerCancel.jsp" ,
+                //     success: function(result){
+                //         //这里的result 两个结果： true/false
+                //         //处理逻辑(控制“ 取消 ”按钮)
+                //     },
+                //     error:function(e,r,a){
+                //         alert("异常！（取消对接）");
+                //     }
+                // });
+                // $.ajax({
+                //     type: "GET",
+                //     dataType: "json",
+                //     url: "powerSuperApprove.jsp" ,
+                //     success: function(result){
+                //         //这里的result 两个结果： true/false
+                //         //处理逻辑(控制“ 超级审批 ”按钮)
+                //     },
+                //     error:function(e,r,a){
+                //         alert("异常！（超级审批对接）");
+                //     }
+                // });
+                //以上是  AJAX A/2/3 【联调开启】
+                
 
                 // 以下是数据 json data 【联调关闭】
                 // var rst = {
@@ -989,7 +1014,7 @@
                 // }
                 // 以上 是水印 message处理逻辑【联调关闭】
 
-                //以下 B
+                //以下  填值【联调关闭】
                 // $("#program").text(rst["data"]["program"]);
                 // $("#impact_phase").text(rst["data"]["impactPhase"]);
                 // $("#bsd_no").text(rst["data"]["bsdNo"]);
@@ -1035,7 +1060,7 @@
                 // $("#mfg_area").text(rst["data"]["mfgArea"]);
                 // $("#mfq_type").text(rst["data"]["mfqType"]);
                 // $(".water_mark").text(wm_msg);
-                //  以上 B
+                //以上  填值【联调关闭】
 
                 //生成PDF逻辑
                 $("#gen_pdf").on("click", function(){
