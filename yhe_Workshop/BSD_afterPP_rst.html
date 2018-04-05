@@ -255,10 +255,10 @@
         <div class="navbar-fixed-top fixbtn_wrap_sty">
             <div class="fixbtn_con_sty">
                 <p class="fixbtn_p_sty">
-                    <button type="button" class="btn btn-lg btn-default w_100" onclick="alert('取消');">取消</button>
-                    <button type="button" class="btn btn-lg btn-default marglft_15 w_100"  onclick="alert('超级审批');">超级审批</button>
+                    <button type="button" id="cancel_btn" class="btn btn-lg btn-default w_100">取消</button>
+                    <button type="button" id="supapp_btn" class="btn btn-lg btn-default marglft_15 w_100">超级审批</button>
                     <button type="button" id="gen_pdf" class="btn btn-lg btn-primary marglft_15 w_100">生成PDF</button>
-                    <button type="button" class="btn btn-lg btn-default marglft_15 w_100" onclick="alert('返回修改！');">返回修改</button>
+                    <button type="button" id="back_btn" class="btn btn-lg btn-default marglft_15 w_100">返回修改</button>
                 </p>
             </div>
         </div>
@@ -740,8 +740,8 @@
             <div class="wm_div_sty margtp_400"><div class="water_mark wm_font"></div></div>
         </div>
 
-        <!-- <div id="loading_icon" style="position: absolute;top:450px;left:903px;display:none;"> -->
-        <div id="loading_icon" style="position: absolute;top:450px;left:903px;">
+        <div id="loading_icon" style="position: absolute;top:450px;left:903px;display:none;">
+        <!-- <div id="loading_icon" style="position: absolute;top:450px;left:903px;"> -->
             <!-- <img src="../yhe_resource/loading_0.gif" /> -->
             <img src='data:img/jpg;base64,R0lGODlhgACAAKIAAP///93d3bu7u5mZmQAA/wAAAAAAAAAAACH/C05FVFNDQVBFMi4wAwEAAAAh
                 +QQFBQAEACwCAAIAfAB8AAAD/0i63P4wygYqmDjrzbtflvWNZGliYXiubKuloivPLlzReD7al+7/
@@ -837,80 +837,80 @@
 
                 // NIO后台方向 对接 ajax【联调开放！！】
                 //以下是  AJAX A！【联调开启】
-                $.ajax({
-                    type: "GET",
-                    dataType: "json",
-                    data: {"objectId": objectId},
-                    url: "programs.jsp" ,//url
-                    success: function (result) {
-                        console.log(result);
-                        alert("SUCCESS");
+                // $.ajax({
+                //     type: "GET",
+                //     dataType: "json",
+                //     data: {"objectId": objectId},
+                //     url: "programs.jsp" ,//url
+                //     success: function (result) {
+                //         console.log(result);
+                //         alert("SUCCESS");
 
-                        if(/Create/.exec(rst["data"]["current"])){
-                            wm_msg = "Create 创建 Create 创建";
-                        }else if(/Evaluate/.exec(rst["data"]["current"])){
-                            wm_msg = "Evaluate 评审 Evaluate 评审";
-                        }else if(/Approved/.exec(rst["data"]["current"])){
-                            wm_msg = "Approved 批准 Approved 批准";
-                        }else if(/Implemented/.exec(rst["data"]["current"])){
-                            wm_msg = "Implemented 实施 Implemented";
-                        }else if(/Failed/.exec(rst["data"]["current"])){
-                            wm_msg = "Failed 失败 Failed 失败";
-                        }
+                //         if(/Create/.exec(result["data"]["current"])){
+                //             wm_msg = "Create 创建 Create 创建";
+                //         }else if(/Evaluate/.exec(result["data"]["current"])){
+                //             wm_msg = "Evaluate 评审 Evaluate 评审";
+                //         }else if(/Approved/.exec(result["data"]["current"])){
+                //             wm_msg = "Approved 批准 Approved 批准";
+                //         }else if(/Implemented/.exec(result["data"]["current"])){
+                //             wm_msg = "Implemented 实施 Implemented";
+                //         }else if(/Failed/.exec(result["data"]["current"])){
+                //             wm_msg = "Failed 失败 Failed 失败";
+                //         }
 
-                        $("#program").text(result["data"]["program"]);
-                        $("#impact_phase").text(result["data"]["impactPhase"]);
-                        $("#bsd_no").text(result["data"]["bsdNo"]);
-                        $("#sub_dep").text(result["data"]["subDep"]);
-                        $("#submitter").text(rst["data"]["submitter"]+"—— ——"+rst["data"]["email"]);
-                        $("#app_date").text(result["data"]["appDate"]);
-                        $("#aff_veh").text(result["data"]["affVeh"]);
-                        $("#severity_def").text(result["data"]["severityDef"]);
-                        $("#affected_smts").text(result["data"]["affectedSMTs"]);
-                        $("#part").text(result["data"]["part"]);
-                        $("#in_house").text(result["data"]["inHouse"]);
-                        $("#issue_des").text(result["data"]["issueDes"]);
-                        $("#short_term").text(result["data"]["shortTerm"]);
-                        $("#long_term").text(result["data"]["longTerm"]);
-                        $("#type_of_change").text(result["data"]["typeOfChange"]);
+                //         $("#program").text(result["data"]["program"]);
+                //         $("#impact_phase").text(result["data"]["impactPhase"]);
+                //         $("#bsd_no").text(result["data"]["bsdNo"]);
+                //         $("#sub_dep").text(result["data"]["subDep"]);
+                //         $("#submitter").text(result["data"]["submitter"]+"—— ——"+result["data"]["email"]);
+                //         $("#app_date").text(result["data"]["appDate"]);
+                //         $("#aff_veh").text(result["data"]["affVeh"]);
+                //         $("#severity_def").text(result["data"]["severityDef"]);
+                //         $("#affected_smts").text(result["data"]["affectedSMTs"]);
+                //         $("#part").text(result["data"]["part"]);
+                //         $("#in_house").text(result["data"]["inHouse"]);
+                //         $("#issue_des").text(result["data"]["issueDes"]);
+                //         $("#short_term").text(result["data"]["shortTerm"]);
+                //         $("#long_term").text(result["data"]["longTerm"]);
+                //         $("#type_of_change").text(result["data"]["typeOfChange"]);
 
-                        // for render
-                        var tbd = $("#info_tbd");
-                        for(var i=0; i<result["data"]["partInformation"].length; i++){
-                            var tds = $('<tr><td id="itemno_'+i+'"></td><td id="partno_'+i+'"></td><td id="partname_'+i+'"></td><td id="rev_'+i+'"></td><td id="change_'+i+'"></td><td id="qty_'+i+'"></td><td id="shop_'+i+'"></td><td id="makeorbuy_'+i+'"></td><td id="relatedcr_'+i+'"></td><td id="arrivingdate_'+i+'"></td><td id="reamrks_'+i+'"></td></tr>');
-                            tbd.append(tds);
-                            $("#itemno_"+i+"").text(rst["data"]["partInformation"][i]["itemNo"]);
-                            $("#partno_"+i+"").text(rst["data"]["partInformation"][i]["partNo"]);
-                            $("#partname_"+i+"").text(rst["data"]["partInformation"][i]["partName"]);
-                            $("#rev_"+i+"").text(rst["data"]["partInformation"][i]["rev"]);
-                            $("#change_"+i+"").text(rst["data"]["partInformation"][i]["change"]);
-                            $("#qty_"+i+"").text(rst["data"]["partInformation"][i]["qty"]);
-                            $("#shop_"+i+"").text(rst["data"]["partInformation"][i]["shop"]);
-                            $("#makeorbuy_"+i+"").text(rst["data"]["partInformation"][i]["makeorbuy"]);
-                            $("#relatedcr_"+i+"").text(rst["data"]["partInformation"][i]["relatedCR"]);
-                            $("#arrivingdate_"+i+"").text(rst["data"]["partInformation"][i]["arrivingDate"]);
-                            $("#reamrks_"+i+"").text(rst["data"]["partInformation"][i]["remarks"]);
-                        }
-                        var tdx = $('<tr><td colspan="11" height="3px" class="borderbtm_0"></td></tr>');
-                        tbd.append(tdx);
+                //         // for render
+                //         var tbd = $("#info_tbd");
+                //         for(var i=0; i<result["data"]["partInformation"].length; i++){
+                //             var tds = $('<tr><td id="itemno_'+i+'"></td><td id="partno_'+i+'"></td><td id="partname_'+i+'"></td><td id="rev_'+i+'"></td><td id="change_'+i+'"></td><td id="qty_'+i+'"></td><td id="shop_'+i+'"></td><td id="makeorbuy_'+i+'"></td><td id="relatedcr_'+i+'"></td><td id="arrivingdate_'+i+'"></td><td id="reamrks_'+i+'"></td></tr>');
+                //             tbd.append(tds);
+                //             $("#itemno_"+i+"").text(result["data"]["partInformation"][i]["itemNo"]);
+                //             $("#partno_"+i+"").text(result["data"]["partInformation"][i]["partNo"]);
+                //             $("#partname_"+i+"").text(result["data"]["partInformation"][i]["partName"]);
+                //             $("#rev_"+i+"").text(result["data"]["partInformation"][i]["rev"]);
+                //             $("#change_"+i+"").text(result["data"]["partInformation"][i]["change"]);
+                //             $("#qty_"+i+"").text(result["data"]["partInformation"][i]["qty"]);
+                //             $("#shop_"+i+"").text(result["data"]["partInformation"][i]["shop"]);
+                //             $("#makeorbuy_"+i+"").text(result["data"]["partInformation"][i]["makeorbuy"]);
+                //             $("#relatedcr_"+i+"").text(result["data"]["partInformation"][i]["relatedCR"]);
+                //             $("#arrivingdate_"+i+"").text(result["data"]["partInformation"][i]["arrivingDate"]);
+                //             $("#reamrks_"+i+"").text(result["data"]["partInformation"][i]["remarks"]);
+                //         }
+                //         var tdx = $('<tr><td colspan="11" height="3px" class="borderbtm_0"></td></tr>');
+                //         tbd.append(tdx);
 
-                        $("#operation").text(result["data"]["operation"]);
-                        $("#dre").text(result["data"]["dre"]);
-                        $("#instruction").text(result["data"]["instruction"]);
-                        $("#related_part").text(result["data"]["relatedPart"]);
-                        $("#smt_part").text(result["data"]["smtPart"]);
-                        $("#aff_areas").text(result["data"]["affAreas"]);
-                        $("#mfg_area").text(result["data"]["mfgArea"]);
-                        $("#mfq_type").text(result["data"]["mfqType"]);
-                        $(".water_mark").text(rst["data"]["current"]);
+                //         $("#operation").text(result["data"]["operation"]);
+                //         $("#dre").text(result["data"]["dre"]);
+                //         $("#instruction").text(result["data"]["instruction"]);
+                //         $("#related_part").text(result["data"]["relatedPart"]);
+                //         $("#smt_part").text(result["data"]["smtPart"]);
+                //         $("#aff_areas").text(result["data"]["affAreas"]);
+                //         $("#mfg_area").text(result["data"]["mfgArea"]);
+                //         $("#mfq_type").text(result["data"]["mfqType"]);
+                //         $(".water_mark").text(result["data"]["current"]);
 
-                        $("#loading_icon").css("display", "none");
-                    },
-                    error : function(e,r,a) {
-                        $("#loading_icon").css("display", "none");
-                        alert("异常！");
-                    }
-                });
+                //         $("#loading_icon").css("display", "none");
+                //     },
+                //     error : function(e,r,a) {
+                //         $("#loading_icon").css("display", "none");
+                //         alert("异常！");
+                //     }
+                // });
                 // $.ajax({
                 //     type: "GET",
                 //     dataType: "json",
@@ -918,9 +918,15 @@
                 //     success: function(result){
                 //         //这里的result 两个结果： true/false
                 //         //处理逻辑(控制“ 取消 ”按钮)
+                //         if(result["data"]["powerCancel"]){
+                //             $("#cancel_btn").css("display", "");
+                //         }else{
+                //             $("#cancel_btn").css("display", "none");
+                //         }
+                        
                 //     },
                 //     error:function(e,r,a){
-                //         alert("异常！（取消对接）");
+                //         alert("异常！（取消 按钮显示与否）");
                 //     }
                 // });
                 // $.ajax({
@@ -930,139 +936,171 @@
                 //     success: function(result){
                 //         //这里的result 两个结果： true/false
                 //         //处理逻辑(控制“ 超级审批 ”按钮)
+                //         if(result["data"]["powerSuperApprove"]){
+                //             $("#supapp_btn").css("display", "");
+                //         }else{
+                //             $("#supapp_btn").css("display", "none");
+                //         }
                 //     },
                 //     error:function(e,r,a){
-                //         alert("异常！（超级审批对接）");
+                //         alert("异常！（超级审批 按钮显示与否）");
                 //     }
                 // });
                 //以上是  AJAX A/2/3 【联调开启】
                 
 
-                // 以下是数据 json data 【联调关闭】
-                // var rst = {
-                //     "data":{
-                //         "program": "ES8",                   		 //----项目号
-                //         "impactPhase": "Before PP",				 	//----涉及阶段
-                //         "bsdNo": "xxx",								 //----BSD编号
-                //         "subDep": "XXX",							//----PQM
-                //         "submitter": "XXX",							//----发起人
-                //         "appDate": "XXX",							//----实施阶段，如果是时间阶段以	2018-3-1~2018-3-29”
-                //         "affVeh": "XXX",   							//----影响车辆
-                //         "severityDef": ["A","B"],					//----问题严重定义
-                //         "affectedSMTs": ["BODY","CHASS"],			//-----影响区域
-                //         "part": "yes",								//----零件
-                //         "inHouse": "yes",							//----厂内
-                //         "issueDes": "XXXXX",						//-----问题描述
-                //         "shortTerm": "xxxxxxxxx",					//-----短期措施
-                //         "longTerm": "XXXXXXXXX",					//----长期措施
-                //         "typeOfChange": ["xxx","XXX","XXXX"], 		// ----更改类型
-                //         "partInformation": [				  		//----零件信息
-                //             {
-                //                 "itemNo":"11111111",
-                //                 "partNo":"x22222",
-                //                 "partName":"xxxxxx",
-                //                 "rev":"xxasd",
-                //                 "status": "1 STATUS...",
-                //                 "change":"x",
-                //                 "qty":"2",
-                //                 "shop":"车间1",
-                //                 "makeorbuy":"d",
-                //                 "relatedCR":"c",
-                //                 "arrivingDate":"b",
-                //                 "remarks":"a"
-                //             },
-                //             {
-                //                 "itemNo":"22222222",
-                //                 "partNo":"3322",
-                //                 "partName":"xxxxx",
-                //                 "rev":"xxzxzx",
-                //                 "status": "2 STATUS...",
-                //                 "change":"y",
-                //                 "qty":"1",
-                //                 "shop":"车间2",
-                //                 "makeorbuy":"a",
-                //                 "relatedCR":"b",
-                //                 "arrivingDate":"c",
-                //                 "remarks":"d"
-                //             }
-                //         ],
-                //         "operation": ["","",""],      		 	//---实施方式
-                //         "dre": "yes",							//----相关图纸与文件已由DRE作为附件提供
-                //         "instruction": "xxxxxxxxxxxx",   		//-----特殊指导
-                //         "relatedPart": "yes",					//--------是否影响本子系统内零件的试验认证结果
-                //         "smtPart": "yes",						//----是否影响其他子系统零件的试验认证结果
-                //         "affAreas": ["","",""],				//-----影响区域
-                //         "mfgArea": ["","",""], 					//------MFG评估区域
-                //         "mfqType": ["","",""],					//----MFG评估类型
-                //         "current": "Create",
-                //         "email": "jayfan_k290@126.com"
-                //     }
-                // };
-                // 以上是数据 json data 【联调关闭】
+                // 以下是数据 json data  AJAX1/2/3 【联调关闭】
+                var rst = {
+                    "data":{
+                        "program": "ES8",                   		 //----项目号
+                        "impactPhase": "Before PP",				 	//----涉及阶段
+                        "bsdNo": "xxx",								 //----BSD编号
+                        "subDep": "XXX",							//----PQM
+                        "submitter": "XXX",							//----发起人
+                        "appDate": "XXX",							//----实施阶段，如果是时间阶段以	2018-3-1~2018-3-29”
+                        "affVeh": "XXX",   							//----影响车辆
+                        "severityDef": ["A","B"],					//----问题严重定义
+                        "affectedSMTs": ["BODY","CHASS"],			//-----影响区域
+                        "part": "yes",								//----零件
+                        "inHouse": "yes",							//----厂内
+                        "issueDes": "XXXXX",						//-----问题描述
+                        "shortTerm": "xxxxxxxxx",					//-----短期措施
+                        "longTerm": "XXXXXXXXX",					//----长期措施
+                        "typeOfChange": ["xxx","XXX","XXXX"], 		// ----更改类型
+                        "partInformation": [				  		//----零件信息
+                            {
+                                "itemNo":"11111111",
+                                "partNo":"x22222",
+                                "partName":"xxxxxx",
+                                "rev":"xxasd",
+                                "status": "1 STATUS...",
+                                "change":"x",
+                                "qty":"2",
+                                "shop":"车间1",
+                                "makeorbuy":"d",
+                                "relatedCR":"c",
+                                "arrivingDate":"b",
+                                "remarks":"a"
+                            },
+                            {
+                                "itemNo":"22222222",
+                                "partNo":"3322",
+                                "partName":"xxxxx",
+                                "rev":"xxzxzx",
+                                "status": "2 STATUS...",
+                                "change":"y",
+                                "qty":"1",
+                                "shop":"车间2",
+                                "makeorbuy":"a",
+                                "relatedCR":"b",
+                                "arrivingDate":"c",
+                                "remarks":"d"
+                            }
+                        ],
+                        "operation": ["","",""],      		 	//---实施方式
+                        "dre": "yes",							//----相关图纸与文件已由DRE作为附件提供
+                        "instruction": "xxxxxxxxxxxx",   		//-----特殊指导
+                        "relatedPart": "yes",					//--------是否影响本子系统内零件的试验认证结果
+                        "smtPart": "yes",						//----是否影响其他子系统零件的试验认证结果
+                        "affAreas": ["","",""],				//-----影响区域
+                        "mfgArea": ["","",""], 					//------MFG评估区域
+                        "mfqType": ["","",""],					//----MFG评估类型
+                        "current": "Create",
+                        "email": "jayfan_k290@126.com"
+                    }
+                };
+
+                //  // 取消，mock jsondata
+                var rst_aj2 = {
+                    "data":{
+                        "powerCancel": true
+                    }
+                }
+
+                //  // 超级审批，mock jsondata
+                var rst_aj3 = {
+                    "data":{
+                        "powerSuperApprove": true
+                    }
+                }
+                // 以上是数据 json data AJAX1/2/3 【联调关闭】
+
+                // 以下 是 按钮[取消/超级审批] 显示/不显 处理逻辑【联调关闭】
+                if(rst_aj2["data"]["powerCancel"]){
+                    $("#cancel_btn").css("display", "");
+                }else{
+                    $("#cancel_btn").css("display", "none");
+                }
+                if(rst_aj3["data"]["powerSuperApprove"]){
+                    $("#supapp_btn").css("display", "");
+                }else{
+                    $("#supapp_btn").css("display", "none");
+                }
+                // 以上 是 按钮[取消/超级审批] 显示/不显 处理逻辑【联调关闭】
 
                 // 以下 是水印 message处理逻辑【联调关闭】
-                // if(/Create/.exec(rst["data"]["current"])){
-                //     wm_msg = "Create 创建 Create 创建";
-                // }else if(/Evaluate/.exec(rst["data"]["current"])){
-                //     wm_msg = "Evaluate 评审 Evaluate 评审";
-                // }else if(/Approved/.exec(rst["data"]["current"])){
-                //     wm_msg = "Approved 批准 Approved 批准";
-                // }else if(/Implemented/.exec(rst["data"]["current"])){
-                //     wm_msg = "Implemented 实施 Implemented";
-                // }else if(/Failed/.exec(rst["data"]["current"])){
-                //     wm_msg = "Failed 失败 Failed 失败";
-                // }
+                if(/Create/.exec(rst["data"]["current"])){
+                    wm_msg = "Create 创建 Create 创建";
+                }else if(/Evaluate/.exec(rst["data"]["current"])){
+                    wm_msg = "Evaluate 评审 Evaluate 评审";
+                }else if(/Approved/.exec(rst["data"]["current"])){
+                    wm_msg = "Approved 批准 Approved 批准";
+                }else if(/Implemented/.exec(rst["data"]["current"])){
+                    wm_msg = "Implemented 实施 Implemented";
+                }else if(/Failed/.exec(rst["data"]["current"])){
+                    wm_msg = "Failed 失败 Failed 失败";
+                }
                 // 以上 是水印 message处理逻辑【联调关闭】
 
                 //以下  填值【联调关闭】
-                // $("#program").text(rst["data"]["program"]);
-                // $("#impact_phase").text(rst["data"]["impactPhase"]);
-                // $("#bsd_no").text(rst["data"]["bsdNo"]);
-                // $("#sub_dep").text(rst["data"]["subDep"]);
-                // $("#submitter").text(rst["data"]["submitter"]+"—— ——"+rst["data"]["email"]);
-                // $("#app_date").text(rst["data"]["appDate"]);
-                // $("#aff_veh").text(rst["data"]["affVeh"]);
-                // $("#severity_def").text(rst["data"]["severityDef"]);
-                // $("#affected_smts").text(rst["data"]["affectedSMTs"]);
-                // $("#part").text(rst["data"]["part"]);
-                // $("#in_house").text(rst["data"]["inHouse"]);
-                // $("#issue_des").text(rst["data"]["issueDes"]);
-                // $("#short_term").text(rst["data"]["shortTerm"]);
-                // $("#long_term").text(rst["data"]["longTerm"]);
-                // $("#type_of_change").text(rst["data"]["typeOfChange"]);
+                $("#program").text(rst["data"]["program"]);
+                $("#impact_phase").text(rst["data"]["impactPhase"]);
+                $("#bsd_no").text(rst["data"]["bsdNo"]);
+                $("#sub_dep").text(rst["data"]["subDep"]);
+                $("#submitter").text(rst["data"]["submitter"]+"—— ——"+rst["data"]["email"]);
+                $("#app_date").text(rst["data"]["appDate"]);
+                $("#aff_veh").text(rst["data"]["affVeh"]);
+                $("#severity_def").text(rst["data"]["severityDef"]);
+                $("#affected_smts").text(rst["data"]["affectedSMTs"]);
+                $("#part").text(rst["data"]["part"]);
+                $("#in_house").text(rst["data"]["inHouse"]);
+                $("#issue_des").text(rst["data"]["issueDes"]);
+                $("#short_term").text(rst["data"]["shortTerm"]);
+                $("#long_term").text(rst["data"]["longTerm"]);
+                $("#type_of_change").text(rst["data"]["typeOfChange"]);
                 
-                // var tbd = $("#info_tbd");
-                // for(var i=0; i<rst["data"]["partInformation"].length; i++){
-                //     var tds = $('<tr class="cell_h_60px"><td id="itemno_'+i+'"></td><td id="partno_'+i+'"></td><td id="partname_'+i+'"></td><td id="rev_'+i+'"><td id="sta_'+i+'"></td><td id="change_'+i+'"></td><td id="qty_'+i+'"></td><td id="shop_'+i+'"></td><td id="makeorbuy_'+i+'"></td><td id="relatedcr_'+i+'"></td><td id="arrivingdate_'+i+'"></td><td id="reamrks_'+i+'"></td></tr>');
-                //     tbd.append(tds);
-                //     $("#itemno_"+i+"").text(rst["data"]["partInformation"][i]["itemNo"]);
-                //     $("#partno_"+i+"").text(rst["data"]["partInformation"][i]["partNo"]);
-                //     $("#partname_"+i+"").text(rst["data"]["partInformation"][i]["partName"]);
-                //     $("#rev_"+i+"").text(rst["data"]["partInformation"][i]["rev"]);
-                //     $("#sta_"+i+"").text(rst["data"]["partInformation"][i]["status"]);
-                //     $("#change_"+i+"").text(rst["data"]["partInformation"][i]["change"]);
-                //     $("#qty_"+i+"").text(rst["data"]["partInformation"][i]["qty"]);
-                //     $("#shop_"+i+"").text(rst["data"]["partInformation"][i]["shop"]);
-                //     $("#makeorbuy_"+i+"").text(rst["data"]["partInformation"][i]["makeorbuy"]);
-                //     $("#relatedcr_"+i+"").text(rst["data"]["partInformation"][i]["relatedCR"]);
-                //     $("#arrivingdate_"+i+"").text(rst["data"]["partInformation"][i]["arrivingDate"]);
-                //     $("#reamrks_"+i+"").text(rst["data"]["partInformation"][i]["remarks"]);
-                // }
-                // var tdx = $('<tr class="con_partinfo_sty"><td colspan="11" height="3px" class="borderbtm_0"></td></tr>');
-                // tbd.append(tdx);
+                var tbd = $("#info_tbd");
+                for(var i=0; i<rst["data"]["partInformation"].length; i++){
+                    var tds = $('<tr class="cell_h_60px"><td id="itemno_'+i+'"></td><td id="partno_'+i+'"></td><td id="partname_'+i+'"></td><td id="rev_'+i+'"><td id="sta_'+i+'"></td><td id="change_'+i+'"></td><td id="qty_'+i+'"></td><td id="shop_'+i+'"></td><td id="makeorbuy_'+i+'"></td><td id="relatedcr_'+i+'"></td><td id="arrivingdate_'+i+'"></td><td id="reamrks_'+i+'"></td></tr>');
+                    tbd.append(tds);
+                    $("#itemno_"+i+"").text(rst["data"]["partInformation"][i]["itemNo"]);
+                    $("#partno_"+i+"").text(rst["data"]["partInformation"][i]["partNo"]);
+                    $("#partname_"+i+"").text(rst["data"]["partInformation"][i]["partName"]);
+                    $("#rev_"+i+"").text(rst["data"]["partInformation"][i]["rev"]);
+                    $("#sta_"+i+"").text(rst["data"]["partInformation"][i]["status"]);
+                    $("#change_"+i+"").text(rst["data"]["partInformation"][i]["change"]);
+                    $("#qty_"+i+"").text(rst["data"]["partInformation"][i]["qty"]);
+                    $("#shop_"+i+"").text(rst["data"]["partInformation"][i]["shop"]);
+                    $("#makeorbuy_"+i+"").text(rst["data"]["partInformation"][i]["makeorbuy"]);
+                    $("#relatedcr_"+i+"").text(rst["data"]["partInformation"][i]["relatedCR"]);
+                    $("#arrivingdate_"+i+"").text(rst["data"]["partInformation"][i]["arrivingDate"]);
+                    $("#reamrks_"+i+"").text(rst["data"]["partInformation"][i]["remarks"]);
+                }
+                var tdx = $('<tr class="con_partinfo_sty"><td colspan="11" height="3px" class="borderbtm_0"></td></tr>');
+                tbd.append(tdx);
 
-                // $("#operation").text(rst["data"]["operation"]);
-                // $("#dre").text(rst["data"]["dre"]);
-                // $("#instruction").text(rst["data"]["instruction"]);
-                // $("#related_part").text(rst["data"]["relatedPart"]);
-                // $("#smt_part").text(rst["data"]["smtPart"]);
-                // $("#aff_areas").text(rst["data"]["affAreas"]);
-                // $("#mfg_area").text(rst["data"]["mfgArea"]);
-                // $("#mfq_type").text(rst["data"]["mfqType"]);
-                // $(".water_mark").text(wm_msg);
+                $("#operation").text(rst["data"]["operation"]);
+                $("#dre").text(rst["data"]["dre"]);
+                $("#instruction").text(rst["data"]["instruction"]);
+                $("#related_part").text(rst["data"]["relatedPart"]);
+                $("#smt_part").text(rst["data"]["smtPart"]);
+                $("#aff_areas").text(rst["data"]["affAreas"]);
+                $("#mfg_area").text(rst["data"]["mfgArea"]);
+                $("#mfq_type").text(rst["data"]["mfqType"]);
+                $(".water_mark").text(wm_msg);
                 //以上  填值【联调关闭】
 
-                //生成PDF逻辑
+                //按钮：生成PDF  >> 逻辑
                 $("#gen_pdf").on("click", function(){
                     //click后开始进入loading << 开启
                     $("#loading_icon").css("display", "");
@@ -1096,6 +1134,51 @@
                             $("#loading_icon").css("display", "none");
                         }
                     });
+                });
+                //按钮：取消  >> 逻辑
+                $("#cancel_btn").on("click", function(){
+                    //1  关闭窗口
+                    // window.close();
+                    //2  chrome/firfox “无法关闭‘非自打开窗口’”应对办法
+                    // open(location, '_self').close();
+                    //3  chrome最新版本下：无法关闭“非自打开窗口”
+                    window.location.href="about:blank";
+                    window.close();
+                });
+                //按钮：超级审批  >> 逻辑
+                $("#supapp_btn").on("click", function(){
+                    $("#loading_icon").css("display", "");
+
+                    //以下是正式代码，【联调时，打开！】
+                    // $.ajax({
+                    //     type: "GET",
+                    //     dataType: "json",
+                    //     url: "???.jsp" ,
+                    //     success: function(result){
+                    //         $("#loading_icon").css("display", "none");
+                    //         $(location).attr('href', '???');
+                    //     },
+                    //     error:function(e,r,a){
+                    //         $("#loading_icon").css("display", "none");
+                    //         alert("异常！（无法获取超级审批 结果/情况）");
+                    //     }
+                    // });
+                    //以上是正式代码，【联调时，打开！】
+
+                    //以下是本地测试代码 【联调关闭】
+                    $("#loading_icon").css("display", "none");
+                    $(location).attr('href', 'http://www.baidu.com');
+                    //以上是本地测试代码 【联调关闭】
+                });
+                //按钮：返回修改  >> 逻辑
+                $("#back_btn").on("click", function(){
+                    //以下是正式代码，【联调时，打开！】
+                    // $(location).attr('href', '???');
+                    //以上是正式代码，【联调时，打开！】
+
+                    //以下是本地测试代码 【联调关闭】
+                    $(location).attr('href', 'http://www.126.com');
+                    //以上是本地测试代码 【联调关闭】
                 });
 
             });
