@@ -810,7 +810,7 @@
             }
 
             $(document).ready(function(){
-                var objectId = getUrlParam('parentOID');
+                var objectId = getUrlParam('objectId');
                 var wm_msg = '- 状态未知 - 状态未知 -';
                 var reviewer_list = "";
 
@@ -823,7 +823,8 @@
                     url: "programs.jsp" ,//url
                     success: function (result) {
                         console.log(result);
-                        alert("SUCCESS");
+                        // alert("SUCCESS");
+                        console.log("SUCCESS");
 
                         if(/Create/.exec(result["data"]["current"])){
                             wm_msg = "Create 创建 Create 创建";
@@ -895,12 +896,14 @@
                     },
                     error : function(e,r,a) {
                         $("#loading_icon").css("display", "none");
-                        alert("异常！");
+                        // alert("异常！");
+                        console.log("异常！");
                     }
                 });
                 $.ajax({
                     type: "GET",
                     dataType: "json",
+                    data: {"objectId": objectId},
                     url: "powerCancel.jsp" ,
                     success: function(result){
                         //这里的result 两个结果： true/false
@@ -913,12 +916,14 @@
                         
                     },
                     error:function(e,r,a){
-                        alert("异常！（取消 按钮显示与否）");
+                        // alert("异常！（取消 按钮显示与否）");
+                        console.log("异常！（取消 按钮显示与否）");
                     }
                 });
                 $.ajax({
                     type: "GET",
                     dataType: "json",
+                    data: {"objectId": objectId},
                     url: "powerSuperApprove.jsp" ,
                     success: function(result){
                         //这里的result 两个结果： true/false
@@ -930,7 +935,8 @@
                         }
                     },
                     error:function(e,r,a){
-                        alert("异常！（超级审批 按钮显示与否）");
+                        // alert("异常！（超级审批 按钮显示与否）");
+                        console.log("异常！（超级审批 按钮显示与否）");
                     }
                 });
                 //以上是  AJAX A/2/3 【联调开启】
@@ -1181,11 +1187,13 @@
                     // window.location.href="about:blank";
                     // window.close();
                     //cancel， 直接（ajax本ID后）跳转给定的JSP（本地状态下  无法跳转）
-                    $(location).attr('href', '../components/NioBSDCancell.jsp'+"?id="+objectId );
+                    // $(location).attr('href', '../components/NioBSDCancell.jsp'+"?id="+objectId );
+                    $(location).attr('href', '/3dspace/components/NioBSDCancell'+"?id="+objectId );
                 });
                 //按钮：超级审批  >> 逻辑
                 $("#supapp_btn").on("click", function(){
-                    window.open('../components/NioBSDSuperApproval.jsp'+"?id="+objectId);
+                    // window.open('../components/NioBSDSuperApproval.jsp'+"?id="+objectId);
+                    window.open('/3dspace/components/NioBSDSupperApprove'+"?id="+objectId);
                 });
                 //按钮：返回修改  >> 逻辑
                 $("#back_btn").on("click", function(){
