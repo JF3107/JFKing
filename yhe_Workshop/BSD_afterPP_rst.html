@@ -718,8 +718,8 @@
             <div class="wm_div_sty margtp_400"><div class="water_mark wm_font"></div></div>
         </div>
 
-        <div id="loading_icon" style="position: absolute;top:450px;left:903px;display:none;">
-        <!-- <div id="loading_icon" style="position: absolute;top:450px;left:903px;"> -->
+        <!-- <div id="loading_icon" style="position: absolute;top:450px;left:903px;display:none;"> -->
+        <div id="loading_icon" style="position: absolute;top:450px;left:903px;">
             <!-- <img src="../yhe_resource/loading_0.gif" /> -->
             <img src='data:img/jpg;base64,R0lGODlhgACAAKIAAP///93d3bu7u5mZmQAA/wAAAAAAAAAAACH/C05FVFNDQVBFMi4wAwEAAAAh
                 +QQFBQAEACwCAAIAfAB8AAAD/0i63P4wygYqmDjrzbtflvWNZGliYXiubKuloivPLlzReD7al+7/
@@ -816,123 +816,123 @@
 
                 // NIO后台方向 对接 ajax【联调开放！！】
                 //以下是  AJAX A！【联调开启】
-                // $.ajax({
-                //     type: "GET",
-                //     dataType: "json",
-                //     data: {"objectId": objectId},
-                //     url: "programs.jsp" ,//url
-                //     success: function (result) {
-                //         console.log(result);
-                //         alert("SUCCESS");
+                $.ajax({
+                    type: "GET",
+                    dataType: "json",
+                    data: {"objectId": objectId},
+                    url: "programs.jsp" ,//url
+                    success: function (result) {
+                        console.log(result);
+                        alert("SUCCESS");
 
-                //         if(/Create/.exec(result["data"]["current"])){
-                //             wm_msg = "Create 创建 Create 创建";
-                //         }else if(/Evaluate/.exec(result["data"]["current"])){
-                //             wm_msg = "Evaluate 评审 Evaluate 评审";
-                //         }else if(/Approved/.exec(result["data"]["current"])){
-                //             wm_msg = "Approved 批准 Approved 批准";
-                //         }else if(/Implemented/.exec(result["data"]["current"])){
-                //             wm_msg = "Implemented 实施 Implemented";
-                //         }else if(/Failed/.exec(result["data"]["current"])){
-                //             wm_msg = "Failed 失败 Failed 失败";
-                //         }
+                        if(/Create/.exec(result["data"]["current"])){
+                            wm_msg = "Create 创建 Create 创建";
+                        }else if(/Evaluate/.exec(result["data"]["current"])){
+                            wm_msg = "Evaluate 评审 Evaluate 评审";
+                        }else if(/Approved/.exec(result["data"]["current"])){
+                            wm_msg = "Approved 批准 Approved 批准";
+                        }else if(/Implemented/.exec(result["data"]["current"])){
+                            wm_msg = "Implemented 实施 Implemented";
+                        }else if(/Failed/.exec(result["data"]["current"])){
+                            wm_msg = "Failed 失败 Failed 失败";
+                        }
 
-                //         $("#program").text(result["data"]["program"]);
-                //         $("#impact_phase").text(result["data"]["impactPhase"]);
-                //         $("#bsd_no").text(result["data"]["bsdNo"]);
-                //         $("#sub_dep").text(result["data"]["subDep"]);
-                //         $("#submitter").text(result["data"]["submitter"]+"—— ——"+result["data"]["email"]);
-                //         $("#app_date").text(result["data"]["appDate"]);
-                //         $("#aff_veh").text(result["data"]["affVeh"]);
-                //         $("#severity_def").text(result["data"]["severityDef"]);
+                        $("#program").text(result["data"]["program"]);
+                        $("#impact_phase").text(result["data"]["impactPhase"]);
+                        $("#bsd_no").text(result["data"]["bsdNo"]);
+                        $("#sub_dep").text(result["data"]["subDep"]);
+                        $("#submitter").text(result["data"]["submitter"]+"—— ——"+result["data"]["email"]);
+                        $("#app_date").text(result["data"]["appDate"]);
+                        $("#aff_veh").text(result["data"]["affVeh"]);
+                        $("#severity_def").text(result["data"]["severityDef"]);
 
-                //         for(var j=0; j<result["data"]["reviewerList"].length; j++){
-                //             reviewer_list += "" + result["data"]["reviewerList"][j]["reviewName"];
-                //             if(j != result["data"]["reviewerList"].length-1){
-                //                 reviewer_list += ", ";
-                //             }
-                //         }
-                //         $("#reviewer_list").text(reviewer_list);
-                //         $("#affected_smts").text(result["data"]["affectedSMTs"]);
-                //         $("#part").text(result["data"]["part"]);
-                //         $("#in_house").text(result["data"]["inHouse"]);
-                //         $("#issue_des").text(result["data"]["issueDes"]);
-                //         $("#short_term").text(result["data"]["shortTerm"]);
-                //         $("#long_term").text(result["data"]["longTerm"]);
-                //         $("#type_of_change").text(result["data"]["typeOfChange"]);
+                        // for(var j=0; j<result["data"]["reviewerList"].length; j++){
+                        //     reviewer_list += "" + result["data"]["reviewerList"][j]["reviewName"];
+                        //     if(j != result["data"]["reviewerList"].length-1){
+                        //         reviewer_list += ", ";
+                        //     }
+                        // }
+                        // $("#reviewer_list").text(reviewer_list);
+                        $("#affected_smts").text(result["data"]["affectedSMTs"]);
+                        $("#part").text(result["data"]["part"]);
+                        $("#in_house").text(result["data"]["inHouse"]);
+                        $("#issue_des").text(result["data"]["issueDes"]);
+                        $("#short_term").text(result["data"]["shortTerm"]);
+                        $("#long_term").text(result["data"]["longTerm"]);
+                        $("#type_of_change").text(result["data"]["typeOfChange"]);
 
-                //         // for render
-                //         var tbd = $("#info_tbd");
-                //         for(var i=0; i<result["data"]["partInformation"].length; i++){
-                //             var tds = $('<tr><td id="itemno_'+i+'"></td><td id="partno_'+i+'"></td><td id="partname_'+i+'"></td><td id="rev_'+i+'"></td><td id="change_'+i+'"></td><td id="qty_'+i+'"></td><td id="shop_'+i+'"></td><td id="makeorbuy_'+i+'"></td><td id="relatedcr_'+i+'"></td><td id="arrivingdate_'+i+'"></td><td id="reamrks_'+i+'"></td></tr>');
-                //             tbd.append(tds);
-                //             $("#itemno_"+i+"").text(result["data"]["partInformation"][i]["itemNo"]);
-                //             $("#partno_"+i+"").text(result["data"]["partInformation"][i]["partNo"]);
-                //             $("#partname_"+i+"").text(result["data"]["partInformation"][i]["partName"]);
-                //             $("#rev_"+i+"").text(result["data"]["partInformation"][i]["rev"]);
-                //             $("#change_"+i+"").text(result["data"]["partInformation"][i]["change"]);
-                //             $("#qty_"+i+"").text(result["data"]["partInformation"][i]["qty"]);
-                //             $("#shop_"+i+"").text(result["data"]["partInformation"][i]["shop"]);
-                //             $("#makeorbuy_"+i+"").text(result["data"]["partInformation"][i]["makeorbuy"]);
-                //             $("#relatedcr_"+i+"").text(result["data"]["partInformation"][i]["relatedCR"]);
-                //             $("#arrivingdate_"+i+"").text(result["data"]["partInformation"][i]["arrivingDate"]);
-                //             $("#reamrks_"+i+"").text(result["data"]["partInformation"][i]["remarks"]);
-                //         }
-                //         var tdx = $('<tr><td colspan="11" height="3px" class="borderbtm_0"></td></tr>');
-                //         tbd.append(tdx);
+                        // for render
+                        var tbd = $("#info_tbd");
+                        for(var i=0; i<result["data"]["partInformation"].length; i++){
+                            var tds = $('<tr><td id="itemno_'+i+'"></td><td id="partno_'+i+'"></td><td id="partname_'+i+'"></td><td id="rev_'+i+'"></td><td id="change_'+i+'"></td><td id="qty_'+i+'"></td><td id="shop_'+i+'"></td><td id="makeorbuy_'+i+'"></td><td id="relatedcr_'+i+'"></td><td id="arrivingdate_'+i+'"></td><td id="reamrks_'+i+'"></td></tr>');
+                            tbd.append(tds);
+                            $("#itemno_"+i+"").text(result["data"]["partInformation"][i]["itemNo"]);
+                            $("#partno_"+i+"").text(result["data"]["partInformation"][i]["partNo"]);
+                            $("#partname_"+i+"").text(result["data"]["partInformation"][i]["partName"]);
+                            $("#rev_"+i+"").text(result["data"]["partInformation"][i]["rev"]);
+                            $("#change_"+i+"").text(result["data"]["partInformation"][i]["change"]);
+                            $("#qty_"+i+"").text(result["data"]["partInformation"][i]["qty"]);
+                            $("#shop_"+i+"").text(result["data"]["partInformation"][i]["shop"]);
+                            $("#makeorbuy_"+i+"").text(result["data"]["partInformation"][i]["makeorbuy"]);
+                            $("#relatedcr_"+i+"").text(result["data"]["partInformation"][i]["relatedCR"]);
+                            $("#arrivingdate_"+i+"").text(result["data"]["partInformation"][i]["arrivingDate"]);
+                            $("#reamrks_"+i+"").text(result["data"]["partInformation"][i]["remarks"]);
+                        }
+                        var tdx = $('<tr><td colspan="11" height="3px" class="borderbtm_0"></td></tr>');
+                        tbd.append(tdx);
 
-                //         $("#operation").text(result["data"]["operation"]);
-                //         $("#dre").text(result["data"]["dre"]);
-                //         $("#instruction").text(result["data"]["instruction"]);
-                //         $("#related_part").text(result["data"]["relatedPart"]);
-                //         $("#smt_part").text(result["data"]["smtPart"]);
-                //         $("#aff_areas").text(result["data"]["affAreas"]);
-                //         $("#mfg_area").text(result["data"]["mfgArea"]);
-                //         $("#mfq_type").text(result["data"]["mfqType"]);
-                //         $(".water_mark").text(result["data"]["current"]);
+                        $("#operation").text(result["data"]["operation"]);
+                        $("#dre").text(result["data"]["dre"]);
+                        $("#instruction").text(result["data"]["instruction"]);
+                        $("#related_part").text(result["data"]["relatedPart"]);
+                        $("#smt_part").text(result["data"]["smtPart"]);
+                        $("#aff_areas").text(result["data"]["affAreas"]);
+                        $("#mfg_area").text(result["data"]["mfgArea"]);
+                        $("#mfq_type").text(result["data"]["mfqType"]);
+                        $(".water_mark").text(result["data"]["current"]);
 
-                //         $("#loading_icon").css("display", "none");
-                //     },
-                //     error : function(e,r,a) {
-                //         $("#loading_icon").css("display", "none");
-                //         alert("异常！");
-                //     }
-                // });
-                // $.ajax({
-                //     type: "GET",
-                //     dataType: "json",
-                //     url: "powerCancel.jsp" ,
-                //     success: function(result){
-                //         //这里的result 两个结果： true/false
-                //         //处理逻辑(控制“ 取消 ”按钮)
-                //         if(result["data"]["powerCancel"]){
-                //             $("#cancel_btn").css("display", "");
-                //         }else{
-                //             $("#cancel_btn").css("display", "none");
-                //         }
+                        $("#loading_icon").css("display", "none");
+                    },
+                    error : function(e,r,a) {
+                        $("#loading_icon").css("display", "none");
+                        alert("异常！");
+                    }
+                });
+                $.ajax({
+                    type: "GET",
+                    dataType: "json",
+                    url: "powerCancel.jsp" ,
+                    success: function(result){
+                        //这里的result 两个结果： true/false
+                        //处理逻辑(控制“ 取消 ”按钮)
+                        if(result["data"]["powerCancel"]){
+                            $("#cancel_btn").css("display", "");
+                        }else{
+                            $("#cancel_btn").css("display", "none");
+                        }
                         
-                //     },
-                //     error:function(e,r,a){
-                //         alert("异常！（取消 按钮显示与否）");
-                //     }
-                // });
-                // $.ajax({
-                //     type: "GET",
-                //     dataType: "json",
-                //     url: "powerSuperApprove.jsp" ,
-                //     success: function(result){
-                //         //这里的result 两个结果： true/false
-                //         //处理逻辑(控制“ 超级审批 ”按钮)
-                //         if(result["data"]["powerSuperApprove"]){
-                //             $("#supapp_btn").css("display", "");
-                //         }else{
-                //             $("#supapp_btn").css("display", "none");
-                //         }
-                //     },
-                //     error:function(e,r,a){
-                //         alert("异常！（超级审批 按钮显示与否）");
-                //     }
-                // });
+                    },
+                    error:function(e,r,a){
+                        alert("异常！（取消 按钮显示与否）");
+                    }
+                });
+                $.ajax({
+                    type: "GET",
+                    dataType: "json",
+                    url: "powerSuperApprove.jsp" ,
+                    success: function(result){
+                        //这里的result 两个结果： true/false
+                        //处理逻辑(控制“ 超级审批 ”按钮)
+                        if(result["data"]["powerSuperApprove"]){
+                            $("#supapp_btn").css("display", "");
+                        }else{
+                            $("#supapp_btn").css("display", "none");
+                        }
+                    },
+                    error:function(e,r,a){
+                        alert("异常！（超级审批 按钮显示与否）");
+                    }
+                });
                 //以上是  AJAX A/2/3 【联调开启】
                 
 
@@ -1006,134 +1006,134 @@
                 //     }
                 // };
                 //  AW  0405给的数据 <<
-                var rst = {
-                    "data": {
-                        "affAreas":[],
-                        "submitter":"baoping.wen",
-                        "part":"FALSE",
-                        "appDate":["GA-CB"],
-                        "bsdNo":"BSD-0001648",
-                        "current":"Evaluate",
-                        "longTerm":"输入正确版本号给MBOM\nInput Correct version to MBOM.",
-                        "shortTerm":"发起BSD将MBOM更改为AB状态。\n\nRaise BSD To change MBOM Verfion from AA to AB",
-                        "dre":"N",
-                        "smtPart":"No",
-                        "issueDes":"ES6 AC LINECB 合作伙伴交货实际状态为AB版本，MBOM为AA 状态.\n\nCB parts version is AB, MBOM version is AA.",
-                        "email":"baoping.wen@nio.com",
-                        "pragrom":"ES6",
-                        "partInformation":[],
-                        "mfqType":[],
-                        "affVeh":null,
-                        "relatedPart":"No",
-                        "typeOfChange":["Part Correction as supplier's mistake"],
-                        "severityDef":null,
-                        "subDep":"INTERIOR AND HVAC SMT",
-                        "inHouse":"FALSE",
-                        "instruction":null,
-                        "affectedSMTs":["I&H"],
-                        "mfgArea":[],
-                        "impactPhase":null,
-                        "operation":["Incoming Part Revision Change"]
-                    }
-                }
+                // var rst = {
+                //     "data": {
+                //         "affAreas":[],
+                //         "submitter":"baoping.wen",
+                //         "part":"FALSE",
+                //         "appDate":["GA-CB"],
+                //         "bsdNo":"BSD-0001648",
+                //         "current":"Evaluate",
+                //         "longTerm":"输入正确版本号给MBOM\nInput Correct version to MBOM.",
+                //         "shortTerm":"发起BSD将MBOM更改为AB状态。\n\nRaise BSD To change MBOM Verfion from AA to AB",
+                //         "dre":"N",
+                //         "smtPart":"No",
+                //         "issueDes":"ES6 AC LINECB 合作伙伴交货实际状态为AB版本，MBOM为AA 状态.\n\nCB parts version is AB, MBOM version is AA.",
+                //         "email":"baoping.wen@nio.com",
+                //         "pragrom":"ES6",
+                //         "partInformation":[],
+                //         "mfqType":[],
+                //         "affVeh":null,
+                //         "relatedPart":"No",
+                //         "typeOfChange":["Part Correction as supplier's mistake"],
+                //         "severityDef":null,
+                //         "subDep":"INTERIOR AND HVAC SMT",
+                //         "inHouse":"FALSE",
+                //         "instruction":null,
+                //         "affectedSMTs":["I&H"],
+                //         "mfgArea":[],
+                //         "impactPhase":null,
+                //         "operation":["Incoming Part Revision Change"]
+                //     }
+                // }
 
-                //  // 取消，mock jsondata
-                var rst_aj2 = {
-                    "data":{
-                        "powerCancel": true
-                    }
-                }
+                // //  // 取消，mock jsondata
+                // var rst_aj2 = {
+                //     "data":{
+                //         "powerCancel": true
+                //     }
+                // }
 
-                //  // 超级审批，mock jsondata
-                var rst_aj3 = {
-                    "data":{
-                        "powerSuperApprove": true
-                    }
-                }
+                // //  // 超级审批，mock jsondata
+                // var rst_aj3 = {
+                //     "data":{
+                //         "powerSuperApprove": true
+                //     }
+                // }
                 // 以上是数据 json data AJAX1/2/3 【联调关闭】
 
                 // 以下 是 按钮[取消/超级审批] 显示/不显 处理逻辑【联调关闭】
-                if(rst_aj2["data"]["powerCancel"]){
-                    $("#cancel_btn").css("display", "");
-                }else{
-                    $("#cancel_btn").css("display", "none");
-                }
-                if(rst_aj3["data"]["powerSuperApprove"]){
-                    $("#supapp_btn").css("display", "");
-                }else{
-                    $("#supapp_btn").css("display", "none");
-                }
+                // if(rst_aj2["data"]["powerCancel"]){
+                //     $("#cancel_btn").css("display", "");
+                // }else{
+                //     $("#cancel_btn").css("display", "none");
+                // }
+                // if(rst_aj3["data"]["powerSuperApprove"]){
+                //     $("#supapp_btn").css("display", "");
+                // }else{
+                //     $("#supapp_btn").css("display", "none");
+                // }
                 // 以上 是 按钮[取消/超级审批] 显示/不显 处理逻辑【联调关闭】
 
                 // 以下 是水印 message处理逻辑【联调关闭】
-                if(/Create/.exec(rst["data"]["current"])){
-                    wm_msg = "Create 创建 Create 创建";
-                }else if(/Evaluate/.exec(rst["data"]["current"])){
-                    wm_msg = "Evaluate 评审 Evaluate 评审";
-                }else if(/Approved/.exec(rst["data"]["current"])){
-                    wm_msg = "Approved 批准 Approved 批准";
-                }else if(/Implemented/.exec(rst["data"]["current"])){
-                    wm_msg = "Implemented 实施 Implemented";
-                }else if(/Failed/.exec(rst["data"]["current"])){
-                    wm_msg = "Failed 失败 Failed 失败";
-                }
+                // if(/Create/.exec(rst["data"]["current"])){
+                //     wm_msg = "Create 创建 Create 创建";
+                // }else if(/Evaluate/.exec(rst["data"]["current"])){
+                //     wm_msg = "Evaluate 评审 Evaluate 评审";
+                // }else if(/Approved/.exec(rst["data"]["current"])){
+                //     wm_msg = "Approved 批准 Approved 批准";
+                // }else if(/Implemented/.exec(rst["data"]["current"])){
+                //     wm_msg = "Implemented 实施 Implemented";
+                // }else if(/Failed/.exec(rst["data"]["current"])){
+                //     wm_msg = "Failed 失败 Failed 失败";
+                // }
                 // 以上 是水印 message处理逻辑【联调关闭】
 
                 //以下  填值【联调关闭】
-                $("#program").text(rst["data"]["program"]);
-                $("#impact_phase").text(rst["data"]["impactPhase"]);
-                $("#bsd_no").text(rst["data"]["bsdNo"]);
-                $("#sub_dep").text(rst["data"]["subDep"]);
-                $("#submitter").text(rst["data"]["submitter"]+"—— ——"+rst["data"]["email"]);
-                $("#app_date").text(rst["data"]["appDate"]);
-                $("#aff_veh").text(rst["data"]["affVeh"]);
-                $("#severity_def").text(rst["data"]["severityDef"]);
+                // $("#program").text(rst["data"]["program"]);
+                // $("#impact_phase").text(rst["data"]["impactPhase"]);
+                // $("#bsd_no").text(rst["data"]["bsdNo"]);
+                // $("#sub_dep").text(rst["data"]["subDep"]);
+                // $("#submitter").text(rst["data"]["submitter"]+"—— ——"+rst["data"]["email"]);
+                // $("#app_date").text(rst["data"]["appDate"]);
+                // $("#aff_veh").text(rst["data"]["affVeh"]);
+                // $("#severity_def").text(rst["data"]["severityDef"]);
             
-                // for(var j=0; j<rst["data"]["reviewerList"].length; j++){
-                //     reviewer_list += "" + rst["data"]["reviewerList"][j]["reviewName"];
-                //     if(j != rst["data"]["reviewerList"].length-1){
-                //         reviewer_list += ", ";
-                //     }
-                // }
-                // $("#reviewer_list").text(reviewer_list);
+                // // for(var j=0; j<rst["data"]["reviewerList"].length; j++){
+                // //     reviewer_list += "" + rst["data"]["reviewerList"][j]["reviewName"];
+                // //     if(j != rst["data"]["reviewerList"].length-1){
+                // //         reviewer_list += ", ";
+                // //     }
+                // // }
+                // // $("#reviewer_list").text(reviewer_list);
 
-                $("#affected_smts").text(rst["data"]["affectedSMTs"]);
-                $("#part").text(rst["data"]["part"]);
-                $("#in_house").text(rst["data"]["inHouse"]);
-                $("#issue_des").text(rst["data"]["issueDes"]);
-                $("#short_term").text(rst["data"]["shortTerm"]);
-                $("#long_term").text(rst["data"]["longTerm"]);
-                $("#type_of_change").text(rst["data"]["typeOfChange"]);
+                // $("#affected_smts").text(rst["data"]["affectedSMTs"]);
+                // $("#part").text(rst["data"]["part"]);
+                // $("#in_house").text(rst["data"]["inHouse"]);
+                // $("#issue_des").text(rst["data"]["issueDes"]);
+                // $("#short_term").text(rst["data"]["shortTerm"]);
+                // $("#long_term").text(rst["data"]["longTerm"]);
+                // $("#type_of_change").text(rst["data"]["typeOfChange"]);
                 
-                var tbd = $("#info_tbd");
-                for(var i=0; i<rst["data"]["partInformation"].length; i++){
-                    var tds = $('<tr class="cell_h_60px"><td id="itemno_'+i+'"></td><td id="partno_'+i+'"></td><td id="partname_'+i+'"></td><td id="rev_'+i+'"><td id="sta_'+i+'"></td><td id="change_'+i+'"></td><td id="qty_'+i+'"></td><td id="shop_'+i+'"></td><td id="makeorbuy_'+i+'"></td><td id="relatedcr_'+i+'"></td><td id="arrivingdate_'+i+'"></td><td id="reamrks_'+i+'"></td></tr>');
-                    tbd.append(tds);
-                    $("#itemno_"+i+"").text(rst["data"]["partInformation"][i]["itemNo"]);
-                    $("#partno_"+i+"").text(rst["data"]["partInformation"][i]["partNo"]);
-                    $("#partname_"+i+"").text(rst["data"]["partInformation"][i]["partName"]);
-                    $("#rev_"+i+"").text(rst["data"]["partInformation"][i]["rev"]);
-                    $("#sta_"+i+"").text(rst["data"]["partInformation"][i]["status"]);
-                    $("#change_"+i+"").text(rst["data"]["partInformation"][i]["change"]);
-                    $("#qty_"+i+"").text(rst["data"]["partInformation"][i]["qty"]);
-                    $("#shop_"+i+"").text(rst["data"]["partInformation"][i]["shop"]);
-                    $("#makeorbuy_"+i+"").text(rst["data"]["partInformation"][i]["makeorbuy"]);
-                    $("#relatedcr_"+i+"").text(rst["data"]["partInformation"][i]["relatedCR"]);
-                    $("#arrivingdate_"+i+"").text(rst["data"]["partInformation"][i]["arrivingDate"]);
-                    $("#reamrks_"+i+"").text(rst["data"]["partInformation"][i]["remarks"]);
-                }
-                var tdx = $('<tr class="con_partinfo_sty"><td colspan="11" height="3px" class="borderbtm_0"></td></tr>');
-                tbd.append(tdx);
+                // var tbd = $("#info_tbd");
+                // for(var i=0; i<rst["data"]["partInformation"].length; i++){
+                //     var tds = $('<tr class="cell_h_60px"><td id="itemno_'+i+'"></td><td id="partno_'+i+'"></td><td id="partname_'+i+'"></td><td id="rev_'+i+'"><td id="sta_'+i+'"></td><td id="change_'+i+'"></td><td id="qty_'+i+'"></td><td id="shop_'+i+'"></td><td id="makeorbuy_'+i+'"></td><td id="relatedcr_'+i+'"></td><td id="arrivingdate_'+i+'"></td><td id="reamrks_'+i+'"></td></tr>');
+                //     tbd.append(tds);
+                //     $("#itemno_"+i+"").text(rst["data"]["partInformation"][i]["itemNo"]);
+                //     $("#partno_"+i+"").text(rst["data"]["partInformation"][i]["partNo"]);
+                //     $("#partname_"+i+"").text(rst["data"]["partInformation"][i]["partName"]);
+                //     $("#rev_"+i+"").text(rst["data"]["partInformation"][i]["rev"]);
+                //     $("#sta_"+i+"").text(rst["data"]["partInformation"][i]["status"]);
+                //     $("#change_"+i+"").text(rst["data"]["partInformation"][i]["change"]);
+                //     $("#qty_"+i+"").text(rst["data"]["partInformation"][i]["qty"]);
+                //     $("#shop_"+i+"").text(rst["data"]["partInformation"][i]["shop"]);
+                //     $("#makeorbuy_"+i+"").text(rst["data"]["partInformation"][i]["makeorbuy"]);
+                //     $("#relatedcr_"+i+"").text(rst["data"]["partInformation"][i]["relatedCR"]);
+                //     $("#arrivingdate_"+i+"").text(rst["data"]["partInformation"][i]["arrivingDate"]);
+                //     $("#reamrks_"+i+"").text(rst["data"]["partInformation"][i]["remarks"]);
+                // }
+                // var tdx = $('<tr class="con_partinfo_sty"><td colspan="11" height="3px" class="borderbtm_0"></td></tr>');
+                // tbd.append(tdx);
 
-                $("#operation").text(rst["data"]["operation"]);
-                $("#dre").text(rst["data"]["dre"]);
-                $("#instruction").text(rst["data"]["instruction"]);
-                $("#related_part").text(rst["data"]["relatedPart"]);
-                $("#smt_part").text(rst["data"]["smtPart"]);
-                $("#aff_areas").text(rst["data"]["affAreas"]);
-                $("#mfg_area").text(rst["data"]["mfgArea"]);
-                $("#mfq_type").text(rst["data"]["mfqType"]);
-                $(".water_mark").text(wm_msg);
+                // $("#operation").text(rst["data"]["operation"]);
+                // $("#dre").text(rst["data"]["dre"]);
+                // $("#instruction").text(rst["data"]["instruction"]);
+                // $("#related_part").text(rst["data"]["relatedPart"]);
+                // $("#smt_part").text(rst["data"]["smtPart"]);
+                // $("#aff_areas").text(rst["data"]["affAreas"]);
+                // $("#mfg_area").text(rst["data"]["mfgArea"]);
+                // $("#mfq_type").text(rst["data"]["mfqType"]);
+                // $(".water_mark").text(wm_msg);
                 //以上  填值【联调关闭】
 
                 //按钮：生成PDF  >> 逻辑
@@ -1190,11 +1190,11 @@
                 //按钮：返回修改  >> 逻辑
                 $("#back_btn").on("click", function(){
                     //以下是正式代码，【联调时，打开！】
-                    // $(location).attr('href', '???');
+                    $(location).attr('href', 'BSD_afterPP.jsp');
                     //以上是正式代码，【联调时，打开！】
 
                     //以下是本地测试代码 【联调关闭】
-                    $(location).attr('href', 'http://www.baidu.com');
+                    // $(location).attr('href', 'http://www.baidu.com');
                     //以上是本地测试代码 【联调关闭】
                 });
 
