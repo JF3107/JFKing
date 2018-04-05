@@ -392,6 +392,13 @@
                                 </tr>
                                 <tr class="cell_h_60px">
                                     <td class="to_right_side font_bold">
+                                        <div>审批清单</div>
+                                        <div>Reviewer List</div>
+                                    </td>
+                                    <td colspan="5" class="to_middle_posi" id="reviewer_list"></td>
+                                </tr>
+                                <tr class="cell_h_60px">
+                                    <td class="to_right_side font_bold">
                                         <div>影响区域</div>
                                         <div>Affected SMTs</div>
                                     </td>
@@ -509,35 +516,6 @@
                                 </tr>
                             </thead>
                             <tbody id="info_tbd">
-                                <!-- <tr>
-                                    <td id="pf1_itemno">1</td>
-                                    <td id="pf1_partno">28187</td>
-                                    <td id="pf1_partname">XXXX名称1XXXXX</td>
-                                    <td id="pf1_rev">V 6.6.6</td>
-                                    <td id="pf1_change">增加</td>
-                                    <td id="pf1_qty">6666</td>
-                                    <td id="pf1_shop"></td>
-                                    <td id="pf1_makeorbuy">XXXX采购信息1XXXX</td>
-                                    <td id="pf1_relatedcr">6262</td>
-                                    <td id="pf1_arrivingdate">2018.4.4</td>
-                                    <td id="pf1_reamrks">xxxxxxxxx</td>
-                                </tr>
-                                <tr>
-                                    <td id="pf2_itemno">2</td>
-                                    <td id="pf2_partno">28188</td>
-                                    <td id="pf2_partname">XXXX名称2XXXXX</td>
-                                    <td id="pf2_rev">V 6.6.6</td>
-                                    <td id="pf2_change">更改</td>
-                                    <td id="pf2_qty">6666</td>
-                                    <td id="pf2_shop"></td>
-                                    <td id="pf2_makeorbuy">XXXX采购信息2XXXX</td>
-                                    <td id="pf2_relatedcr">62622</td>
-                                    <td id="pf2_arrivingdate">2018.4.4</td>
-                                    <td id="pf2_reamrks">xxxxxxxxx</td>
-                                </tr>
-                                <tr>
-                                    <td colspan="11" height="3px" class="borderbtm_0"></td>
-                                </tr> -->
                             </tbody>
                         </table>
                     </div>
@@ -834,6 +812,7 @@
             $(document).ready(function(){
                 var objectId = getUrlParam('parentOID');
                 var wm_msg = '- 状态未知 - 状态未知 -';
+                var reviewer_list = "";
 
                 // NIO后台方向 对接 ajax【联调开放！！】
                 //以下是  AJAX A！【联调开启】
@@ -866,6 +845,14 @@
                 //         $("#app_date").text(result["data"]["appDate"]);
                 //         $("#aff_veh").text(result["data"]["affVeh"]);
                 //         $("#severity_def").text(result["data"]["severityDef"]);
+
+                //         for(var j=0; j<result["data"]["reviewerList"].length; j++){
+                //             reviewer_list += "" + result["data"]["reviewerList"][j]["reviewName"];
+                //             if(j != result["data"]["reviewerList"].length-1){
+                //                 reviewer_list += ", ";
+                //             }
+                //         }
+                //         $("#reviewer_list").text(reviewer_list);
                 //         $("#affected_smts").text(result["data"]["affectedSMTs"]);
                 //         $("#part").text(result["data"]["part"]);
                 //         $("#in_house").text(result["data"]["inHouse"]);
@@ -950,65 +937,105 @@
                 
 
                 // 以下是数据 json data  AJAX1/2/3 【联调关闭】
+                // var rst = {
+                //     "data":{
+                //         "program": "ES8",                   		 //----项目号
+                //         "impactPhase": "Before PP",				 	//----涉及阶段
+                //         "bsdNo": "xxx",								 //----BSD编号
+                //         "subDep": "XXX",							//----PQM
+                //         "submitter": "XXX",							//----发起人
+                //         "appDate": "XXX",							//----实施阶段，如果是时间阶段以	2018-3-1~2018-3-29”
+                //         "affVeh": "XXX",   							//----影响车辆
+                //         "severityDef": ["A","B"],					//----问题严重定义
+                //         "reviewerList": [
+                //             {
+                //                 "reviewId": "1",
+                //                 "reviewName": "yoyogi"
+                //             },{
+                //                 "reviewId": "2",
+                //                 "reviewName": "JAY FAN"
+                //             }
+                //         ],
+                //         "affectedSMTs": ["BODY","CHASS"],			//-----影响区域
+                //         "part": "yes",								//----零件
+                //         "inHouse": "yes",							//----厂内
+                //         "issueDes": "XXXXX",						//-----问题描述
+                //         "shortTerm": "xxxxxxxxx",					//-----短期措施
+                //         "longTerm": "XXXXXXXXX",					//----长期措施
+                //         "typeOfChange": ["xxx","XXX","XXXX"], 		// ----更改类型
+                //         "partInformation": [				  		//----零件信息
+                //             {
+                //                 "itemNo":"11111111",
+                //                 "partNo":"x22222",
+                //                 "partName":"xxxxxx",
+                //                 "rev":"xxasd",
+                //                 "status": "1 STATUS...",
+                //                 "change":"x",
+                //                 "qty":"2",
+                //                 "shop":"车间1",
+                //                 "makeorbuy":"d",
+                //                 "relatedCR":"c",
+                //                 "arrivingDate":"b",
+                //                 "remarks":"a"
+                //             },
+                //             {
+                //                 "itemNo":"22222222",
+                //                 "partNo":"3322",
+                //                 "partName":"xxxxx",
+                //                 "rev":"xxzxzx",
+                //                 "status": "2 STATUS...",
+                //                 "change":"y",
+                //                 "qty":"1",
+                //                 "shop":"车间2",
+                //                 "makeorbuy":"a",
+                //                 "relatedCR":"b",
+                //                 "arrivingDate":"c",
+                //                 "remarks":"d"
+                //             }
+                //         ],
+                //         "operation": ["","",""],      		 	//---实施方式
+                //         "dre": "yes",							//----相关图纸与文件已由DRE作为附件提供
+                //         "instruction": "xxxxxxxxxxxx",   		//-----特殊指导
+                //         "relatedPart": "yes",					//--------是否影响本子系统内零件的试验认证结果
+                //         "smtPart": "yes",						//----是否影响其他子系统零件的试验认证结果
+                //         "affAreas": ["","",""],				//-----影响区域
+                //         "mfgArea": ["","",""], 					//------MFG评估区域
+                //         "mfqType": ["","",""],					//----MFG评估类型
+                //         "current": "Create",
+                //         "email": "jayfan_k290@126.com"
+                //     }
+                // };
+                //  AW  0405给的数据 <<
                 var rst = {
-                    "data":{
-                        "program": "ES8",                   		 //----项目号
-                        "impactPhase": "Before PP",				 	//----涉及阶段
-                        "bsdNo": "xxx",								 //----BSD编号
-                        "subDep": "XXX",							//----PQM
-                        "submitter": "XXX",							//----发起人
-                        "appDate": "XXX",							//----实施阶段，如果是时间阶段以	2018-3-1~2018-3-29”
-                        "affVeh": "XXX",   							//----影响车辆
-                        "severityDef": ["A","B"],					//----问题严重定义
-                        "affectedSMTs": ["BODY","CHASS"],			//-----影响区域
-                        "part": "yes",								//----零件
-                        "inHouse": "yes",							//----厂内
-                        "issueDes": "XXXXX",						//-----问题描述
-                        "shortTerm": "xxxxxxxxx",					//-----短期措施
-                        "longTerm": "XXXXXXXXX",					//----长期措施
-                        "typeOfChange": ["xxx","XXX","XXXX"], 		// ----更改类型
-                        "partInformation": [				  		//----零件信息
-                            {
-                                "itemNo":"11111111",
-                                "partNo":"x22222",
-                                "partName":"xxxxxx",
-                                "rev":"xxasd",
-                                "status": "1 STATUS...",
-                                "change":"x",
-                                "qty":"2",
-                                "shop":"车间1",
-                                "makeorbuy":"d",
-                                "relatedCR":"c",
-                                "arrivingDate":"b",
-                                "remarks":"a"
-                            },
-                            {
-                                "itemNo":"22222222",
-                                "partNo":"3322",
-                                "partName":"xxxxx",
-                                "rev":"xxzxzx",
-                                "status": "2 STATUS...",
-                                "change":"y",
-                                "qty":"1",
-                                "shop":"车间2",
-                                "makeorbuy":"a",
-                                "relatedCR":"b",
-                                "arrivingDate":"c",
-                                "remarks":"d"
-                            }
-                        ],
-                        "operation": ["","",""],      		 	//---实施方式
-                        "dre": "yes",							//----相关图纸与文件已由DRE作为附件提供
-                        "instruction": "xxxxxxxxxxxx",   		//-----特殊指导
-                        "relatedPart": "yes",					//--------是否影响本子系统内零件的试验认证结果
-                        "smtPart": "yes",						//----是否影响其他子系统零件的试验认证结果
-                        "affAreas": ["","",""],				//-----影响区域
-                        "mfgArea": ["","",""], 					//------MFG评估区域
-                        "mfqType": ["","",""],					//----MFG评估类型
-                        "current": "Create",
-                        "email": "jayfan_k290@126.com"
+                    "data": {
+                        "affAreas":[],
+                        "submitter":"baoping.wen",
+                        "part":"FALSE",
+                        "appDate":["GA-CB"],
+                        "bsdNo":"BSD-0001648",
+                        "current":"Evaluate",
+                        "longTerm":"输入正确版本号给MBOM\nInput Correct version to MBOM.",
+                        "shortTerm":"发起BSD将MBOM更改为AB状态。\n\nRaise BSD To change MBOM Verfion from AA to AB",
+                        "dre":"N",
+                        "smtPart":"No",
+                        "issueDes":"ES6 AC LINECB 合作伙伴交货实际状态为AB版本，MBOM为AA 状态.\n\nCB parts version is AB, MBOM version is AA.",
+                        "email":"baoping.wen@nio.com",
+                        "pragrom":"ES6",
+                        "partInformation":[],
+                        "mfqType":[],
+                        "affVeh":null,
+                        "relatedPart":"No",
+                        "typeOfChange":["Part Correction as supplier's mistake"],
+                        "severityDef":null,
+                        "subDep":"INTERIOR AND HVAC SMT",
+                        "inHouse":"FALSE",
+                        "instruction":null,
+                        "affectedSMTs":["I&H"],
+                        "mfgArea":[],
+                        "impactPhase":null,
+                        "operation":["Incoming Part Revision Change"]
                     }
-                };
+                }
 
                 //  // 取消，mock jsondata
                 var rst_aj2 = {
@@ -1061,6 +1088,15 @@
                 $("#app_date").text(rst["data"]["appDate"]);
                 $("#aff_veh").text(rst["data"]["affVeh"]);
                 $("#severity_def").text(rst["data"]["severityDef"]);
+            
+                // for(var j=0; j<rst["data"]["reviewerList"].length; j++){
+                //     reviewer_list += "" + rst["data"]["reviewerList"][j]["reviewName"];
+                //     if(j != rst["data"]["reviewerList"].length-1){
+                //         reviewer_list += ", ";
+                //     }
+                // }
+                // $("#reviewer_list").text(reviewer_list);
+
                 $("#affected_smts").text(rst["data"]["affectedSMTs"]);
                 $("#part").text(rst["data"]["part"]);
                 $("#in_house").text(rst["data"]["inHouse"]);
@@ -1142,33 +1178,14 @@
                     //2  chrome/firfox “无法关闭‘非自打开窗口’”应对办法
                     // open(location, '_self').close();
                     //3  chrome最新版本下：无法关闭“非自打开窗口”
-                    window.location.href="about:blank";
-                    window.close();
+                    // window.location.href="about:blank";
+                    // window.close();
+                    //cancel， 直接（ajax本ID后）跳转给定的JSP（本地状态下  无法跳转）
+                    $(location).attr('href', '../components/NioBSDCancell.jsp'+"?id="+objectId );
                 });
                 //按钮：超级审批  >> 逻辑
                 $("#supapp_btn").on("click", function(){
-                    $("#loading_icon").css("display", "");
-
-                    //以下是正式代码，【联调时，打开！】
-                    // $.ajax({
-                    //     type: "GET",
-                    //     dataType: "json",
-                    //     url: "???.jsp" ,
-                    //     success: function(result){
-                    //         $("#loading_icon").css("display", "none");
-                    //         $(location).attr('href', '???');
-                    //     },
-                    //     error:function(e,r,a){
-                    //         $("#loading_icon").css("display", "none");
-                    //         alert("异常！（无法获取超级审批 结果/情况）");
-                    //     }
-                    // });
-                    //以上是正式代码，【联调时，打开！】
-
-                    //以下是本地测试代码 【联调关闭】
-                    $("#loading_icon").css("display", "none");
-                    $(location).attr('href', 'http://www.baidu.com');
-                    //以上是本地测试代码 【联调关闭】
+                    window.open('../components/NioBSDSuperApproval.jsp'+"?id="+objectId);
                 });
                 //按钮：返回修改  >> 逻辑
                 $("#back_btn").on("click", function(){
@@ -1177,7 +1194,7 @@
                     //以上是正式代码，【联调时，打开！】
 
                     //以下是本地测试代码 【联调关闭】
-                    $(location).attr('href', 'http://www.126.com');
+                    $(location).attr('href', 'http://www.baidu.com');
                     //以上是本地测试代码 【联调关闭】
                 });
 

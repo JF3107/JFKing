@@ -386,6 +386,13 @@
                                 </tr>
                                 <tr class="cell_h_60px">
                                     <td class="to_right_side font_bold">
+                                        <div>审批清单</div>
+                                        <div>Reviewer List</div>
+                                    </td>
+                                    <td colspan="5" class="to_middle_posi" id="reviewer_list"></td>
+                                </tr>
+                                <tr class="cell_h_60px">
+                                    <td class="to_right_side font_bold">
                                         <div>影响区域</div>
                                         <div>Affected SMTs</div>
                                     </td>
@@ -799,6 +806,7 @@
             $(document).ready(function(){
                 var objectId = getUrlParam('parentOID');
                 var wm_msg = '- 状态未知 - 状态未知 -';
+                var reviewer_list = "";
 
                 
                 // NIO后台方向 对接 ajax【联调开放！！】
@@ -832,6 +840,13 @@
                 //         $("#app_date").text(result["data"]["appDate"]);
                 //         $("#aff_veh").text(result["data"]["affVeh"]);
                 //         $("#severity_def").text(result["data"]["severityDef"]);
+                //         for(var j=0; j<rst["data"]["reviewerList"].length; j++){
+                //             reviewer_list += "" + rst["data"]["reviewerList"][j]["reviewName"];
+                //             if(j != rst["data"]["reviewerList"].length-1){
+                //                 reviewer_list += ", ";
+                //             }
+                //         }
+                //         $("#reviewer_list").text(reviewer_list);
                 //         $("#affected_smts").text(result["data"]["affectedSMTs"]);
                 //         $("#part").text(result["data"]["part"]);
                 //         $("#in_house").text(result["data"]["inHouse"]);
@@ -926,6 +941,15 @@
                         "appDate": "XXX",							//----实施阶段，如果是时间阶段以	2018-3-1~2018-3-29”
                         "affVeh": "XXX",   							//----影响车辆
                         "severityDef": ["A","B"],					//----问题严重定义
+                        "reviewerList": [
+                            {
+                                "reviewId": "1",
+                                "reviewName": "yoyogi"
+                            },{
+                                "reviewId": "2",
+                                "reviewName": "JAY FAN"
+                            }
+                        ],
                         "affectedSMTs": ["BODY","CHASS"],			//-----影响区域
                         "part": "yes",								//----零件
                         "inHouse": "yes",							//----厂内
@@ -1027,6 +1051,15 @@
                 $("#app_date").text(rst["data"]["appDate"]);
                 $("#aff_veh").text(rst["data"]["affVeh"]);
                 $("#severity_def").text(rst["data"]["severityDef"]);
+
+                // for(var j=0; j<rst["data"]["reviewerList"].length; j++){
+                //     reviewer_list += "" + rst["data"]["reviewerList"][j]["reviewName"];
+                //     if(j != rst["data"]["reviewerList"].length-1){
+                //         reviewer_list += ", ";
+                //     }
+                // }
+                // $("#reviewer_list").text(reviewer_list);
+
                 $("#affected_smts").text(rst["data"]["affectedSMTs"]);
                 $("#part").text(rst["data"]["part"]);
                 $("#in_house").text(rst["data"]["inHouse"]);
@@ -1108,33 +1141,14 @@
                     //2  chrome/firfox “无法关闭‘非自打开窗口’”应对办法
                     // open(location, '_self').close();
                     //3  chrome最新版本下：无法关闭“非自打开窗口”
-                    window.location.href="about:blank";
-                    window.close();
+                    // window.location.href="about:blank";
+                    // window.close();
+                    //cancel， 直接（ajax本ID后）跳转给定的JSP（本地状态下  无法跳转）
+                    $(location).attr('href', '../components/NioBSDCancell.jsp'+"?id="+objectId );
                 });
                 //按钮：超级审批  >> 逻辑
                 $("#supapp_btn").on("click", function(){
-                    $("#loading_icon").css("display", "");
-
-                    //以下是正式代码，【联调时，打开！】
-                    // $.ajax({
-                    //     type: "GET",
-                    //     dataType: "json",
-                    //     url: "???.jsp" ,
-                    //     success: function(result){
-                    //         $("#loading_icon").css("display", "none");
-                    //         $(location).attr('href', '???');
-                    //     },
-                    //     error:function(e,r,a){
-                    //         $("#loading_icon").css("display", "none");
-                    //         alert("异常！（无法获取超级审批 结果/情况）");
-                    //     }
-                    // });
-                    //以上是正式代码，【联调时，打开！】
-
-                    //以下是本地测试代码 【联调关闭】
-                    $("#loading_icon").css("display", "none");
-                    $(location).attr('href', 'http://www.baidu.com');
-                    //以上是本地测试代码 【联调关闭】
+                    window.open('../components/NioBSDSuperApproval.jsp'+"?id="+objectId);
                 });
                 //按钮：返回修改  >> 逻辑
                 $("#back_btn").on("click", function(){
@@ -1143,7 +1157,7 @@
                     //以上是正式代码，【联调时，打开！】
 
                     //以下是本地测试代码 【联调关闭】
-                    $(location).attr('href', 'http://www.126.com');
+                    $(location).attr('href', 'http://www.baidu.com');
                     //以上是本地测试代码 【联调关闭】
                 });
 
