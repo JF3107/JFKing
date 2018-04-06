@@ -114,7 +114,7 @@
                 /* margin: 0 auto 0; */
             }
             .fixbtn_p_sty {
-                text-align: center;
+                /* text-align: center; */
                 margin: 15px;
             }
             .nav_wrap_fff {
@@ -237,6 +237,45 @@
                 left:903px;
                 display:none;
             }
+            .pop_wrap {
+                z-index: 1400;
+                width: 1360px;
+                position: absolute;
+                top: 150px;
+                display: none;
+            }
+            .pop_con {
+                width: 500px;
+                height: 200px;
+                margin: 0 auto 0;
+                background: #fafafa
+            }
+            .pop_p {
+                font-size: 20px;
+                margin-top: 50px;
+                text-align: center;
+            }
+            .pop_row {
+                margin-top: 50px;
+            }
+            .pop_btn {
+                text-align: center;
+                height: 30px;
+            }
+            .w_200 {
+                width: 200px;
+            }
+            .pop_mask {
+                z-index:1300;
+                position: absolute;
+                top:0px;
+                left:0px;
+                background:#000000;
+                opacity:0.5;
+                width:1920px;
+                height:2052px;
+                display: none;
+            }
         </style>
     </head>
     <body id="bd_all">
@@ -252,10 +291,10 @@
         <div class="navbar-fixed-top fixbtn_wrap_sty">
             <div class="fixbtn_con_sty">
                 <p class="fixbtn_p_sty">
-                    <button type="button" id="cancel_btn" class="btn btn-lg btn-default w_100">取消</button>
-                    <button type="button" id="supapp_btn" class="btn btn-lg btn-default marglft_15 w_100">超级审批</button>
+                    <button type="button" id="cancel_btn" style="display:none;" class="btn btn-lg btn-default w_100">取消</button>
+                    <button type="button" id="supapp_btn" style="display:none;" class="btn btn-lg btn-default marglft_15 w_100">超级审批</button>
                     <button type="button" id="gen_pdf" class="btn btn-lg btn-primary marglft_15 w_100">生成PDF</button>
-                    <button type="button" id="back_btn" class="btn btn-lg btn-default marglft_15 w_100">返回修改</button>
+                    <button type="button" id="back_btn" class="btn btn-lg btn-default marglft_15 w_100">修改</button>
                 </p>
             </div>
         </div>
@@ -805,9 +844,10 @@
 
             $(document).ready(function(){
                 var objectId = getUrlParam('objectId');
+                // var objectId = '123';
                 var wm_msg = '- 状态未知 - 状态未知 -';
                 var reviewer_list = "";
-
+                var program = "";
                 
                 // NIO后台方向 对接 ajax【联调开放！！】
                 //以下是  AJAX A！【联调开启】
@@ -815,10 +855,10 @@
                     type: "GET",
                     dataType: "json",
                     data: {"objectId": objectId},
-                    url: "programs.jsp" ,//url
+                    url: "bsdData.jsp" ,//url
                     success: function (result) {
                         console.log(result);
-                        // alert("SUCCESS");
+                        // ("SUCCESS");
                         console.log("SUCCESS");
 
                         if(/Create/.exec(result["data"]["current"])){
@@ -833,6 +873,7 @@
                             wm_msg = "Failed 失败 Failed 失败";
                         }
 
+                        program = result["data"]["program"];
                         $("#program").text(result["data"]["program"]);
                         $("#impact_phase").text(result["data"]["impactPhase"]);
                         $("#bsd_no").text(result["data"]["bsdNo"]);
@@ -841,13 +882,8 @@
                         $("#app_date").text(result["data"]["appDate"]);
                         $("#aff_veh").text(result["data"]["affVeh"]);
                         $("#severity_def").text(result["data"]["severityDef"]);
-                        // for(var j=0; j<rst["data"]["reviewerList"].length; j++){
-                        //     reviewer_list += "" + rst["data"]["reviewerList"][j]["reviewName"];
-                        //     if(j != rst["data"]["reviewerList"].length-1){
-                        //         reviewer_list += ", ";
-                        //     }
-                        // }
-                        // $("#reviewer_list").text(reviewer_list);
+                        
+                        $("#reviewer_list").text(result["data"]["reviewName"]);
                         $("#affected_smts").text(result["data"]["affectedSMTs"]);
                         $("#part").text(result["data"]["part"]);
                         $("#in_house").text(result["data"]["inHouse"]);
@@ -861,10 +897,11 @@
                         for(var i=0; i<result["data"]["partInformation"].length; i++){
                             var tds = $('<tr><td id="itemno_'+i+'"></td><td id="partno_'+i+'"></td><td id="partname_'+i+'"></td><td id="rev_'+i+'"></td><td id="change_'+i+'"></td><td id="qty_'+i+'"></td><td id="shop_'+i+'"></td><td id="makeorbuy_'+i+'"></td><td id="relatedcr_'+i+'"></td><td id="arrivingdate_'+i+'"></td><td id="reamrks_'+i+'"></td></tr>');
                             tbd.append(tds);
-                            $("#itemno_"+i+"").text(result["data"]["partInformation"][i]["itemNo"]);
+                            $("#itemno_"+i+"").text(i+1);
                             $("#partno_"+i+"").text(result["data"]["partInformation"][i]["partNo"]);
                             $("#partname_"+i+"").text(result["data"]["partInformation"][i]["partName"]);
                             $("#rev_"+i+"").text(result["data"]["partInformation"][i]["rev"]);
+                            $("#sta_"+i+"").text(result["data"]["partInformation"][i]["status"]);
                             $("#change_"+i+"").text(result["data"]["partInformation"][i]["change"]);
                             $("#qty_"+i+"").text(result["data"]["partInformation"][i]["qty"]);
                             $("#shop_"+i+"").text(result["data"]["partInformation"][i]["shop"]);
@@ -873,7 +910,7 @@
                             $("#arrivingdate_"+i+"").text(result["data"]["partInformation"][i]["arrivingDate"]);
                             $("#reamrks_"+i+"").text(result["data"]["partInformation"][i]["remarks"]);
                         }
-                        var tdx = $('<tr><td colspan="11" height="3px" class="borderbtm_0"></td></tr>');
+                        var tdx = $('<tr><td colspan="12" height="3px" class="borderbtm_0"></td></tr>');
                         tbd.append(tdx);
 
                         $("#operation").text(result["data"]["operation"]);
@@ -895,19 +932,18 @@
                     }
                 });
                 $.ajax({
-                    type: "GET",
+                    type: "POST",
                     dataType: "json",
                     data: {"objectId": objectId},
                     url: "powerCancel.jsp" ,
                     success: function(result){
                         //这里的result 两个结果： true/false
                         //处理逻辑(控制“ 取消 ”按钮)
-                        if(result["data"]["powerCancel"]){
+                        if(result["cancelFlag"] === 'true'){
                             $("#cancel_btn").css("display", "");
                         }else{
                             $("#cancel_btn").css("display", "none");
                         }
-                        
                     },
                     error:function(e,r,a){
                         // alert("异常！（取消 按钮显示与否）");
@@ -915,14 +951,14 @@
                     }
                 });
                 $.ajax({
-                    type: "GET",
+                    type: "POST",
                     dataType: "json",
                     data: {"objectId": objectId},
                     url: "powerSuperApprove.jsp" ,
                     success: function(result){
                         //这里的result 两个结果： true/false
                         //处理逻辑(控制“ 超级审批 ”按钮)
-                        if(result["data"]["powerSuperApprove"]){
+                        if(result["superFlag"] === 'true'){
                             $("#supapp_btn").css("display", "");
                         }else{
                             $("#supapp_btn").css("display", "none");
@@ -1049,6 +1085,7 @@
                 // 以上 是水印 message处理逻辑【联调关闭】
 
                 //以下 B【联调关闭】
+                // program = rst["data"]["program"];
                 // $("#program").text(rst["data"]["program"]);
                 // $("#impact_phase").text(rst["data"]["impactPhase"]);
                 // $("#bsd_no").text(rst["data"]["bsdNo"]);
@@ -1151,23 +1188,25 @@
                     // window.close();
                     //cancel， 直接（ajax本ID后）跳转给定的JSP（本地状态下  无法跳转）
                     // $(location).attr('href', '../components/NioBSDCancell.jsp'+"?id="+objectId );
-                    $(location).attr('href', '/3dspace/components/NioBSDCancell'+"?id="+objectId );
+                    $(location).attr('href', '/3dspace/components/NioBSDCancell.jsp'+"?objectId="+objectId );
                 });
                 //按钮：超级审批  >> 逻辑
                 $("#supapp_btn").on("click", function(){
                     // window.open('../components/NioBSDSuperApproval.jsp'+"?id="+objectId);
-                    window.open('/3dspace/components/NioBSDSupperApprove'+"?id="+objectId);
+                    // window.open('/3dspace/components/NioBSDSuperApproval.jsp'+"?id="+objectId);
+                    window.open('/3dspace/components/NioBSDSuperApproval.jsp'+"?objectId="+objectId, 'newwindow', 'height=550, width=820, top=100, left=300, toolbar=no, menubar=no, resizable=no, location=no, status=no');
                 });
                 //按钮：返回修改  >> 逻辑
                 $("#back_btn").on("click", function(){
                     //以下是正式代码，【联调时，打开！】
-                    $(location).attr('href', 'BSD_beforePP.jsp');
+                    $(location).attr('href', 'BSD_beforePP.jsp'+'?Program='+program);
                     //以上是正式代码，【联调时，打开！】
 
                     //以下是本地测试代码 【联调关闭】
                     // $(location).attr('href', 'http://www.baidu.com');
                     //以上是本地测试代码 【联调关闭】
                 });
+                
 
             });
 
