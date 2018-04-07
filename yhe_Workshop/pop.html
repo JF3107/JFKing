@@ -78,18 +78,18 @@
             $(function(){
                 $('#enter').on("click", function(){
                     $("#pop_mask").show();
-                    // var pop = $('<div class="pop_wrap" id="confirm_pop"><div class="container pop_con"><p class="pop_p">确定要取消么?</p><div class="row pop_row"><div class="col-xs-6 pop_btn"><button type="button" id="btn_x" class="btn btn-lg btn-default w_200">算了</button></div><div class="col-xs-6 pop_btn"><button type="button" id="btn_o" class="btn btn-lg btn-primary w_200">确定</button></div></div></div></div>');
-                    // $('body').prepend(pop);
+                    var pop = $('<div class="pop_wrap" id="confirm_pop"><div class="container pop_con"><p class="pop_p">确定要取消么?</p><div class="row pop_row"><div class="col-xs-6 pop_btn"><button type="button" id="btn_x" class="btn btn-lg btn-default w_200">算了</button></div><div class="col-xs-6 pop_btn"><button type="button" id="btn_o" class="btn btn-lg btn-primary w_200">确定</button></div></div></div></div>');
+                    $('body').prepend(pop);
                     $("#confirm_pop").show();
                     $("#btn_x").on("click", function(){
                         alert('xxxx');
-                        $("#confirm_pop").hide();
+                        $("#confirm_pop").remove();
                         $("#pop_mask").hide();
 
                     });
                     $("#btn_o").on("click", function(){
                         alert('oooo');
-                        $("#confirm_pop").hide();
+                        $("#confirm_pop").remove();
                         $("#pop_mask").hide();
                     });
                 });

@@ -757,8 +757,8 @@
             <div class="wm_div_sty margtp_400"><div class="water_mark wm_font"></div></div>
         </div>
 
-        <!-- <div id="loading_icon" style="position: absolute;top:450px;left:903px;display:none;"> -->
-        <div id="loading_icon" style="position: absolute;top:450px;left:903px;">
+        <div id="loading_icon" style="position: absolute;top:450px;left:903px;display:none;">
+        <!-- <div id="loading_icon" style="position: absolute;top:450px;left:903px;"> -->
             <!-- <img src="../yhe_resource/loading_0.gif" /> -->
             <img src='data:img/jpg;base64,R0lGODlhgACAAKIAAP///93d3bu7u5mZmQAA/wAAAAAAAAAAACH/C05FVFNDQVBFMi4wAwEAAAAh
                 +QQFBQAEACwCAAIAfAB8AAAD/0i63P4wygYqmDjrzbtflvWNZGliYXiubKuloivPLlzReD7al+7/
@@ -902,7 +902,7 @@
                         // for render
                         var tbd = $("#info_tbd");
                         for(var i=0; i<result["data"]["partInformation"].length; i++){
-                            var tds = $('<tr><td id="itemno_'+i+'"></td><td id="partno_'+i+'"></td><td id="partname_'+i+'"></td><td id="rev_'+i+'"></td><td id="change_'+i+'"></td><td id="qty_'+i+'"></td><td id="shop_'+i+'"></td><td id="makeorbuy_'+i+'"></td><td id="relatedcr_'+i+'"></td><td id="arrivingdate_'+i+'"></td><td id="reamrks_'+i+'"></td></tr>');
+                            var tds = $('<tr><td id="itemno_'+i+'"></td><td id="partno_'+i+'"></td><td id="partname_'+i+'"></td><td id="rev_'+i+'"></td><td id="sta_'+i+'"></td><td id="change_'+i+'"></td><td id="qty_'+i+'"></td><td id="shop_'+i+'"></td><td id="makeorbuy_'+i+'"></td><td id="relatedcr_'+i+'"></td><td id="arrivingdate_'+i+'"></td><td id="reamrks_'+i+'"></td></tr>');
                             tbd.append(tds);
                             $("#itemno_"+i+"").text(i+1);
                             $("#partno_"+i+"").text(result["data"]["partInformation"][i]["partNo"]);
@@ -919,7 +919,7 @@
                         }
                         var tdx = $('<tr><td colspan="12" height="3px" class="borderbtm_0"></td></tr>');
                         tbd.append(tdx);
-                
+
                         $("#operation").text(result["data"]["operation"]);
                         $("#dre").text(result["data"]["dre"]);
                         $("#instruction").text(result["data"]["instruction"]);
@@ -946,11 +946,12 @@
                     success: function(result){
                         //这里的result 两个结果： true/false
                         //处理逻辑(控制“ 取消 ”按钮)
-                        if(result["cancelFlag"] === 'true' ){
+                        if(result["cancelFlag"] === 'true'){
                             $("#cancel_btn").css("display", "");
                         }else{
                             $("#cancel_btn").css("display", "none");
                         }
+                        
                     },
                     error:function(e,r,a){
                         // alert("异常！（取消 按钮显示与否）");
@@ -1048,38 +1049,7 @@
                 //         "email": "jayfan_k290@126.com"
                 //     }
                 // };
-                //   //  AW  0405给的数据 <<
-                // var rst = {
-                //     "data": {
-                //         "affAreas":[],
-                //         "submitter":"baoping.wen",
-                //         "part":"FALSE",
-                //         "appDate":["GA-CB"],
-                //         "bsdNo":"BSD-0001648",
-                //         "current":"Evaluate",
-                //         "longTerm":"输入正确版本号给MBOM\nInput Correct version to MBOM.",
-                //         "shortTerm":"发起BSD将MBOM更改为AB状态。\n\nRaise BSD To change MBOM Verfion from AA to AB",
-                //         "dre":"N",
-                //         "smtPart":"No",
-                //         "issueDes":"ES6 AC LINECB 合作伙伴交货实际状态为AB版本，MBOM为AA 状态.\n\nCB parts version is AB, MBOM version is AA.",
-                //         "email":"baoping.wen@nio.com",
-                //         "pragrom":"ES6",
-                //         "partInformation":[],
-                //         "mfqType":[],
-                //         "affVeh":null,
-                //         "relatedPart":"No",
-                //         "typeOfChange":["Part Correction as supplier's mistake"],
-                //         "severityDef":null,
-                //         "subDep":"INTERIOR AND HVAC SMT",
-                //         "inHouse":"FALSE",
-                //         "instruction":null,
-                //         "affectedSMTs":["I&H"],
-                //         "mfgArea":[],
-                //         "impactPhase":null,
-                //         "operation":["Incoming Part Revision Change"]
-                //     }
-                // }
-
+                //   //  AW  +给的数据 <<
                 // var rst = {
                 //     "data":{
                 //         "affAreas":[],
@@ -1096,32 +1066,31 @@
                 //         "issueDes":"VB3 MBOM已经冻结前，相关零件的CR还没结束。",
                 //         "email":"chao.liu.o@nio.com",
                 //         "partInformation":[{
-                //                 "rev":"AC",
-                //                 "relatedCR":"CR-0000845",
-                //                 "shop":"",
-                //                 "arrivingDate":"",
-                //                 "qty":"0.0",
-                //                 "change":"",
-                //                 "id":"14464.24512.12800.34274",
-                //                 "partName":"RR_DR SPEAKER BRACKET",
-                //                 "remarks":"",
-                //                 "makeorbuy":"",
-                //                 "status":"Release",
-                //                 "partNo":"P0005133"
-                //             },{
-                //                 "rev":"AC",
-                //                 "relatedCR":"CR-0000845",
-                //                 "shop":"",
-                //                 "arrivingDate":"",
-                //                 "qty":"0.0",
-                //                 "change":"",
-                //                 "id":"14464.24512.39936.12774",
-                //                 "partName":"FRT DR SPEAKER BRKT",
-                //                 "remarks":"",
-                //                 "makeorbuy":"",
-                //                 "status":"Release",
-                //                 "partNo":"P0005090"
-                //             }],
+                //             "rev":"AC",
+                //             "relatedCR":"CR-0000845",
+                //             "shop":"",
+                //             "arrivingDate":"",
+                //             "qty":"0.0",
+                //             "change":"",
+                //             "id":"14464.24512.12800.34274",
+                //             "partName":"RR_DR SPEAKER BRACKET",
+                //             "remarks":"",
+                //             "makeorbuy":"",
+                //             "status":"Release",
+                //             "partNo":"P0005133"
+                //         },{
+                //             "rev":"AC",
+                //             "relatedCR":"CR-0000845",
+                //             "shop":"",
+                //             "arrivingDate":"",
+                //             "qty":"0.0",
+                //             "change":"",
+                //             "id":"14464.24512.39936.12774",
+                //             "partName":"FRT DR SPEAKER BRKT",
+                //             "remarks":"",
+                //             "makeorbuy":"",
+                //             "status":"Release",
+                //             "partNo":"P0005090"}],
                 //         "mfqType":[],
                 //         "affVeh":"VB3",
                 //         "relatedPart":"No",
@@ -1137,12 +1106,12 @@
                 //         "reviewId":"51456.32231.31744.44575",
                 //         "operation":["Logistics update BOM"]
                 //     }
-                // }
+                // };
 
                 // //  // 取消，mock jsondata
                 // var rst_aj2 = {
                 //     "data":{
-                //         "powerCancel": false
+                //         "powerCancel": true
                 //     }
                 // }
 
@@ -1225,7 +1194,6 @@
                 //     $("#arrivingdate_"+i+"").text(rst["data"]["partInformation"][i]["arrivingDate"]);
                 //     $("#reamrks_"+i+"").text(rst["data"]["partInformation"][i]["remarks"]);
                 // }
-
                 // var tdx = $('<tr class="con_partinfo_sty"><td colspan="12" height="3px" class="borderbtm_0"></td></tr>');
                 // tbd.append(tdx);
 
@@ -1291,13 +1259,13 @@
                 //按钮：超级审批  >> 逻辑
                 $("#supapp_btn").on("click", function(){
                     // window.open('../components/NioBSDSuperApproval.jsp'+"?id="+objectId);
-                    // window.open('/3dspace/components/NioBSDSuperApproval.jsp'+"?id="+objectId);
+                    // window.open('/3dspace/components/NioBSDSupperApprove.jsp'+"?id="+objectId);
                     window.open('/3dspace/components/NioBSDSuperApproval.jsp'+"?objectId="+objectId, 'newwindow', 'height=550, width=820, top=100, left=300, toolbar=no, menubar=no, resizable=no, location=no, status=no');
                 });
                 //按钮：返回修改  >> 逻辑
                 $("#back_btn").on("click", function(){
                     //以下是正式代码，【联调时，打开！】
-                    $(location).attr('href', 'BSD_afterPP.jsp'+'?Program='+program);
+                    $(location).attr('href', 'BSD_afterPP.jsp'+'?Program='+program+'&objectId='+objectId);
                     //以上是正式代码，【联调时，打开！】
 
                     //以下是本地测试代码 【联调关闭】

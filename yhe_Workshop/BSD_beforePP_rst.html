@@ -848,6 +848,7 @@
                 var wm_msg = '- 状态未知 - 状态未知 -';
                 var reviewer_list = "";
                 var program = "";
+
                 
                 // NIO后台方向 对接 ajax【联调开放！！】
                 //以下是  AJAX A！【联调开启】
@@ -895,7 +896,7 @@
                         // for render
                         var tbd = $("#info_tbd");
                         for(var i=0; i<result["data"]["partInformation"].length; i++){
-                            var tds = $('<tr><td id="itemno_'+i+'"></td><td id="partno_'+i+'"></td><td id="partname_'+i+'"></td><td id="rev_'+i+'"></td><td id="change_'+i+'"></td><td id="qty_'+i+'"></td><td id="shop_'+i+'"></td><td id="makeorbuy_'+i+'"></td><td id="relatedcr_'+i+'"></td><td id="arrivingdate_'+i+'"></td><td id="reamrks_'+i+'"></td></tr>');
+                            var tds = $('<tr><td id="itemno_'+i+'"></td><td id="partno_'+i+'"></td><td id="partname_'+i+'"></td><td id="rev_'+i+'"></td><td id="sta_'+i+'"></td><td id="change_'+i+'"></td><td id="qty_'+i+'"></td><td id="shop_'+i+'"></td><td id="makeorbuy_'+i+'"></td><td id="relatedcr_'+i+'"></td><td id="arrivingdate_'+i+'"></td><td id="reamrks_'+i+'"></td></tr>');
                             tbd.append(tds);
                             $("#itemno_"+i+"").text(i+1);
                             $("#partno_"+i+"").text(result["data"]["partInformation"][i]["partNo"]);
@@ -944,6 +945,7 @@
                         }else{
                             $("#cancel_btn").css("display", "none");
                         }
+                        
                     },
                     error:function(e,r,a){
                         // alert("异常！（取消 按钮显示与否）");
@@ -1039,6 +1041,64 @@
                 //         "mfqType": ["","",""],					//----MFG评估类型
                 //         "current": "Create",
                 //         "email": "jayfan_k290@126.com"
+                //     }
+                // };
+                //   //  AW  +给的数据 <<
+                // var rst = {
+                //     "data":{
+                //         "affAreas":[],
+                //         "submitter":"chao.liu.o",
+                //         "part":"FALSE",
+                //         "appDate":"GA-VB3",
+                //         "program":"ES8",
+                //         "bsdNo":"BSD-0000083",
+                //         "current":"Approved",
+                //         "longTerm":"Logistics accept the new AD version  part .\n物流接受AC状态的新样件。",
+                //         "shortTerm":"N/A",
+                //         "dre":"N",
+                //         "smtPart":"No",
+                //         "issueDes":"VB3 MBOM已经冻结前，相关零件的CR还没结束。",
+                //         "email":"chao.liu.o@nio.com",
+                //         "partInformation":[{
+                //             "rev":"AC",
+                //             "relatedCR":"CR-0000845",
+                //             "shop":"",
+                //             "arrivingDate":"",
+                //             "qty":"0.0",
+                //             "change":"",
+                //             "id":"14464.24512.12800.34274",
+                //             "partName":"RR_DR SPEAKER BRACKET",
+                //             "remarks":"",
+                //             "makeorbuy":"",
+                //             "status":"Release",
+                //             "partNo":"P0005133"
+                //         },{
+                //             "rev":"AC",
+                //             "relatedCR":"CR-0000845",
+                //             "shop":"",
+                //             "arrivingDate":"",
+                //             "qty":"0.0",
+                //             "change":"",
+                //             "id":"14464.24512.39936.12774",
+                //             "partName":"FRT DR SPEAKER BRKT",
+                //             "remarks":"",
+                //             "makeorbuy":"",
+                //             "status":"Release",
+                //             "partNo":"P0005090"}],
+                //         "mfqType":[],
+                //         "affVeh":"VB3",
+                //         "relatedPart":"No",
+                //         "typeOfChange":["BOM Change"],
+                //         "severityDef":"",
+                //         "subDep":"BODY SMT",
+                //         "inHouse":"FALSE",
+                //         "instruction":"",
+                //         "affectedSMTs":["BODY"],
+                //         "reviewName":"ES8_BSD_Evaluate_BOM_Chg",
+                //         "mfgArea":[],
+                //         "impactPhase":"",
+                //         "reviewId":"51456.32231.31744.44575",
+                //         "operation":["Logistics update BOM"]
                 //     }
                 // };
 
@@ -1193,13 +1253,13 @@
                 //按钮：超级审批  >> 逻辑
                 $("#supapp_btn").on("click", function(){
                     // window.open('../components/NioBSDSuperApproval.jsp'+"?id="+objectId);
-                    // window.open('/3dspace/components/NioBSDSuperApproval.jsp'+"?id="+objectId);
+                    // window.open('/3dspace/components/NioBSDSupperApprove.jsp'+"?id="+objectId);
                     window.open('/3dspace/components/NioBSDSuperApproval.jsp'+"?objectId="+objectId, 'newwindow', 'height=550, width=820, top=100, left=300, toolbar=no, menubar=no, resizable=no, location=no, status=no');
                 });
                 //按钮：返回修改  >> 逻辑
                 $("#back_btn").on("click", function(){
                     //以下是正式代码，【联调时，打开！】
-                    $(location).attr('href', 'BSD_beforePP.jsp'+'?Program='+program);
+                    $(location).attr('href', 'BSD_afterPP.jsp'+'?Program='+program+'&objectId='+objectId);
                     //以上是正式代码，【联调时，打开！】
 
                     //以下是本地测试代码 【联调关闭】
@@ -1207,7 +1267,6 @@
                     //以上是本地测试代码 【联调关闭】
                 });
                 
-
             });
 
         </script>
