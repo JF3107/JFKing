@@ -227,7 +227,7 @@
                 text-align:center;
             }
             .wm_font {
-                font-size:80px;
+                font-size:73px;
                 opacity:0.1;
             }
             #wm_wrap .margtp_400 { margin-top:400px; }
@@ -294,7 +294,7 @@
                     <button type="button" id="cancel_btn" style="display:none;" class="btn btn-lg btn-default w_100">取消</button>
                     <button type="button" id="supapp_btn" style="display:none;" class="btn btn-lg btn-default marglft_15 w_100">超级审批</button>
                     <button type="button" id="gen_pdf" class="btn btn-lg btn-primary marglft_15 w_100">生成PDF</button>
-                    <button type="button" id="back_btn" class="btn btn-lg btn-default marglft_15 w_100">修改</button>
+                    <button type="button" id="back_btn" style="display:none;" class="btn btn-lg btn-default marglft_15 w_100">修改</button>
                 </p>
             </div>
         </div>
@@ -845,7 +845,7 @@
             $(document).ready(function(){
                 var objectId = getUrlParam('objectId');
                 // var objectId = '123';
-                var wm_msg = '- 状态未知 - 状态未知 -';
+                var wm_msg = '- 状态未知 -';
                 var reviewer_list = "";
                 var program = "";
 
@@ -863,15 +863,15 @@
                         console.log("SUCCESS");
 
                         if(/Create/.exec(result["data"]["current"])){
-                            wm_msg = "Create 创建 Create 创建";
+                            wm_msg = "Create 创建";
                         }else if(/Evaluate/.exec(result["data"]["current"])){
-                            wm_msg = "Evaluate 评审 Evaluate 评审";
+                            wm_msg = "Evaluate 评审";
                         }else if(/Approved/.exec(result["data"]["current"])){
-                            wm_msg = "Approved 批准 Approved 批准";
+                            wm_msg = "Approved 批准";
                         }else if(/Implemented/.exec(result["data"]["current"])){
-                            wm_msg = "Implemented 实施 Implemented";
+                            wm_msg = "Implemented 实施";
                         }else if(/Failed/.exec(result["data"]["current"])){
-                            wm_msg = "Failed 失败 Failed 失败";
+                            wm_msg = "Failed 失败";
                         }
 
                         program = result["data"]["program"];
@@ -942,8 +942,10 @@
                         //处理逻辑(控制“ 取消 ”按钮)
                         if(result["cancelFlag"] === 'true'){
                             $("#cancel_btn").css("display", "");
+                            $("#back_btn").css("display", "");
                         }else{
                             $("#cancel_btn").css("display", "none");
+                            $("#back_btn").css("display", "none");
                         }
                         
                     },
@@ -1130,17 +1132,17 @@
                 // }
                 // 以上 是 按钮[取消/超级审批] 显示/不显 处理逻辑【联调关闭】
 
-                // 以下 是水印 message处理逻辑【联调关闭】
+                // 以下 是水印 message处理逻辑【联调关闭】(内容暂时维持)
                 // if(/Create/.exec(rst["data"]["current"])){
-                //     wm_msg = "Create 创建 Create 创建";
+                //     wm_msg = "Create 创建";
                 // }else if(/Evaluate/.exec(rst["data"]["current"])){
-                //     wm_msg = "Evaluate 评审 Evaluate 评审";
+                //     wm_msg = "Evaluate 评审";
                 // }else if(/Approved/.exec(rst["data"]["current"])){
-                //     wm_msg = "Approved 批准 Approved 批准";
+                //     wm_msg = "Approved 批准";
                 // }else if(/Implemented/.exec(rst["data"]["current"])){
-                //     wm_msg = "Implemented 实施 Implemented";
+                //     wm_msg = "Implemented 实施";
                 // }else if(/Failed/.exec(rst["data"]["current"])){
-                //     wm_msg = "Failed 失败 Failed 失败";
+                //     wm_msg = "Failed 失败";
                 // }
                 // 以上 是水印 message处理逻辑【联调关闭】
 
@@ -1201,6 +1203,12 @@
                 // $("#mfq_type").text(rst["data"]["mfqType"]);
                 // $(".water_mark").text(wm_msg);
                 //  以上 B【联调关闭】
+                // wm_msg = "Create 创建";
+                // // wm_msg = "Approved 批准";
+                // // wm_msg = "Implemented 实施";
+                // $(".water_mark").text(wm_msg);
+                // // 水印还是要有的，以上。
+
 
                 //按钮：生成PDF  >> 逻辑
                 $("#gen_pdf").on("click", function(){
@@ -1217,11 +1225,11 @@
                             
                             //文字水印
                             ctx.fillStyle = "rgba(0,0,0,0.1)";
-                            ctx.font = "80px 微软雅黑";
-                            ctx.fillText(wm_msg,520,480);
-                            ctx.fillText(wm_msg,520,980);
-                            ctx.fillText(wm_msg,520,1480);
-                            ctx.fillText(wm_msg,520,1980);
+                            ctx.font = "73px 微软雅黑";
+                            ctx.fillText(wm_msg,705,480);
+                            ctx.fillText(wm_msg,705,980);
+                            ctx.fillText(wm_msg,705,1480);
+                            ctx.fillText(wm_msg,705,1980);
 
                             //NIO LOG0
                             ctx.drawImage(img, 390, 120);
