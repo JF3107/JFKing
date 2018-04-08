@@ -298,7 +298,8 @@
                 <p class="fixbtn_p_sty">
                     <button type="button" id="cancel_btn" style="display:none;" class="btn btn-lg btn-default w_100">取消</button>
                     <button type="button" id="supapp_btn" style="display:none;" class="btn btn-lg btn-default marglft_15 w_100">超级审批</button>
-                    <button type="button" id="gen_pdf" class="btn btn-lg btn-primary marglft_15 w_100">生成PDF</button>
+                    <!-- <button type="button" id="gen_pdf" class="btn btn-lg btn-primary marglft_15 w_100">生成PDF</button> -->
+                    <button type="button" id="gen_pdf" class="btn btn-lg btn-primary marglft_15 w_100">打印</button>
                     <button type="button" id="back_btn" style="display:none;" class="btn btn-lg btn-default marglft_15 w_100">修改</button>
                 </p>
             </div>
@@ -756,8 +757,8 @@
             <div class="wm_div_sty margtp_400"><div class="water_mark wm_font"></div></div>
         </div>
         
-        <!-- <div id="loading_icon" style="position: absolute;top:450px;left:903px;display:none;"> -->
-        <div id="loading_icon" style="position: absolute;top:450px;left:903px;">
+        <!-- <div id="loading_icon" style="position: absolute;top:450px;left:785px;display:none;"> -->
+        <div id="loading_icon" style="position: absolute;top:450px;left:785px;">
             <!-- <img src="../yhe_resource/loading_0.gif" /> -->
             <img src='data:img/jpg;base64,R0lGODlhgACAAKIAAP///93d3bu7u5mZmQAA/wAAAAAAAAAAACH/C05FVFNDQVBFMi4wAwEAAAAh
                 +QQFBQAEACwCAAIAfAB8AAAD/0i63P4wygYqmDjrzbtflvWNZGliYXiubKuloivPLlzReD7al+7/
@@ -885,7 +886,7 @@
                         $("#bsd_no").text(result["data"]["bsdNo"]);
                         bsdno =  "" + result["data"]["bsdNo"];
                         $("#sub_dep").text(result["data"]["subDep"]);
-                        $("#submitter").text(result["data"]["submitter"]+"—— ——"+result["data"]["email"]);
+                        $("#submitter").text(result["data"]["submitter"]+"--"+result["data"]["email"]);
                         $("#app_date").text(result["data"]["appDate"]);
                         $("#aff_veh").text(result["data"]["affVeh"]);
                         $("#severity_def").text(result["data"]["severityDef"]);
@@ -1159,7 +1160,7 @@
                 // $("#bsd_no").text(rst["data"]["bsdNo"]);
                 // bsdno =  "" + rst["data"]["bsdNo"];
                 // $("#sub_dep").text(rst["data"]["subDep"]);
-                // $("#submitter").text(rst["data"]["submitter"]+"—— ——"+rst["data"]["email"]);
+                // $("#submitter").text(rst["data"]["submitter"]+"--"+rst["data"]["email"]);
                 // $("#app_date").text(rst["data"]["appDate"]);
                 // $("#aff_veh").text(rst["data"]["affVeh"]);
                 // $("#severity_def").text(rst["data"]["severityDef"]);
@@ -1216,42 +1217,49 @@
                 // $(".water_mark").text(wm_msg);
                 // // 水印还是要有的，以上。
 
-
                 //按钮：生成PDF  >> 逻辑
-                $("#gen_pdf").on("click", function(){
-                    //click后开始进入loading << 开启
-                    $("#loading_icon").css("display", "");
-                    //先撤掉水印 << 关闭
-                    $("#wm_wrap").css("display", "none");
-                    html2canvas(document.querySelector("#bd_all")).then(canvas => {
-                        // $("#for_canvas").append(canvas);
-                        var img = new Image();
-                        img.src = "data:img/jpg;base64,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"
-                        img.onload = function(){
-                            var ctx = canvas.getContext("2d");
+                // 打印方案一（调用 html2canvas+jsPDF）：
+                // $("#gen_pdf").on("click", function(){
+                //     //click后开始进入loading << 开启
+                //     $("#loading_icon").css("display", "");
+                //     $(window).scrollTop(0);
+                //     //先撤掉水印 << 关闭
+                //     $("#wm_wrap").css("display", "none");
+                //     html2canvas(document.querySelector("#bd_all")).then(canvas => {
+                //         // $("#for_canvas").append(canvas);
+                //         var img = new Image();
+                //         img.src = "data:img/jpg;base64,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";
+                //         img.onload = function(){
+                //             var ctx = canvas.getContext("2d");
                             
-                            //文字水印
-                            ctx.fillStyle = "rgba(0,0,0,0.1)";
-                            ctx.font = "73px 微软雅黑";
-                            ctx.fillText(wm_msg,705,480);
-                            ctx.fillText(wm_msg,705,980);
-                            ctx.fillText(wm_msg,705,1480);
-                            ctx.fillText(wm_msg,705,1980);
+                //             //文字水印
+                //             ctx.fillStyle = "rgba(0,0,0,0.1)";
+                //             ctx.font = "73px 微软雅黑";
+                //             ctx.fillText(wm_msg,590,480);
+                //             ctx.fillText(wm_msg,590,980);
+                //             ctx.fillText(wm_msg,590,1480);
+                //             ctx.fillText(wm_msg,590,1980);
 
-                            //NIO LOG0
-                            ctx.drawImage(img, 390, 120);
+                //             //NIO LOG0
+                //             ctx.drawImage(img, 150, 120);
 
-                            var dataURL = canvas.toDataURL('image/png');
-                            var doc = new jsPDF('landscape','pt',[2300, 2300]);
-                            doc.addImage(dataURL, 'PNG', 0, -90, 2300, 2385);
-                            doc.save(bsdno+'.pdf');
-                            //重开 水印
-                            $("#wm_wrap").css("display", "");
-                            //关闭 loading
-                            $("#loading_icon").css("display", "none");
-                        }
-                    });
+                //             var dataURL = canvas.toDataURL('image/png');
+                //             var doc = new jsPDF('landscape','pt',[2300, 2300]);
+                //             doc.addImage(dataURL, 'PNG', 0, -90, 2300, 2385);
+                //             doc.save(bsdno+'.pdf');
+                //             //重开 水印
+                //             $("#wm_wrap").css("display", "");
+                //             //关闭 loading
+                //             $("#loading_icon").css("display", "none");
+                //         }
+                //     });
+                // });
+                //打印方案二（调用 浏览器自带打印）：
+                $("#gen_pdf").on("click", function(){
+                    $(window).scrollTop(0);
+                    window.print();
                 });
+
                 //按钮：取消  >> 逻辑
                 $("#cancel_btn").on("click", function(){
                     //1  关闭窗口
@@ -1274,7 +1282,7 @@
                 //按钮：返回修改  >> 逻辑
                 $("#back_btn").on("click", function(){
                     //以下是正式代码，【联调时，打开！】
-                    $(location).attr('href', 'BSD_afterPP.jsp'+'?Program='+program+'&objectId='+objectId);
+                    $(location).attr('href', 'BSD_beforePP.jsp'+'?Program='+program+'&objectId='+objectId);
                     //以上是正式代码，【联调时，打开！】
 
                     //以下是本地测试代码 【联调关闭】

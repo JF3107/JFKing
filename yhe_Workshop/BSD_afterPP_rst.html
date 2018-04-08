@@ -308,7 +308,7 @@
         </div>
         
         <!-- 以下是 “‘黑头’页面nav” -->
-        <div class="nav_wrap w_1680imp" >
+        <div class="nav_wrap w_1680imp" id="test">
             <div class="container nav_container">
                 <div class="row">
                     <div class="col-xs-4">
@@ -762,8 +762,8 @@
             <div class="wm_div_sty margtp_400"><div class="water_mark wm_font"></div></div>
         </div>
 
-        <div id="loading_icon" style="position: absolute;top:450px;left:903px;display:none;">
-        <!-- <div id="loading_icon" style="position: absolute;top:450px;left:903px;"> -->
+        <!-- <div id="loading_icon" style="position: absolute;top:450px;left:785px;display:none;"> -->
+        <div id="loading_icon" style="position: absolute;top:450px;left:785px;">
             <!-- <img src="../yhe_resource/loading_0.gif" /> -->
             <img src='data:img/jpg;base64,R0lGODlhgACAAKIAAP///93d3bu7u5mZmQAA/wAAAAAAAAAAACH/C05FVFNDQVBFMi4wAwEAAAAh
                 +QQFBQAEACwCAAIAfAB8AAAD/0i63P4wygYqmDjrzbtflvWNZGliYXiubKuloivPLlzReD7al+7/
@@ -870,7 +870,6 @@
                     data: {"objectId": objectId},
                     url: "bsdData.jsp" ,//url
                     success: function (result) {
-                        alert("HEI! IN");
                         console.log(result);
                         // alert("SUCCESS");
                         console.log("SUCCESS");
@@ -893,7 +892,7 @@
                         $("#bsd_no").text(result["data"]["bsdNo"]);
                         bsdno =  "" + result["data"]["bsdNo"];
                         $("#sub_dep").text(result["data"]["subDep"]);
-                        $("#submitter").text(result["data"]["submitter"]+"—— ——"+result["data"]["email"]);
+                        $("#submitter").text(result["data"]["submitter"]+"--"+result["data"]["email"]);
                         $("#app_date").text(result["data"]["appDate"]);
                         $("#aff_veh").text(result["data"]["affVeh"]);
                         $("#severity_def").text(result["data"]["severityDef"]);
@@ -1167,7 +1166,7 @@
                 // $("#bsd_no").text(rst["data"]["bsdNo"]);
                 // bsdno =  "" + rst["data"]["bsdNo"];
                 // $("#sub_dep").text(rst["data"]["subDep"]);
-                // $("#submitter").text(rst["data"]["submitter"]+"—— ——"+rst["data"]["email"]);
+                // $("#submitter").text(rst["data"]["submitter"]+"--"+rst["data"]["email"]);
                 // $("#app_date").text(rst["data"]["appDate"]);
                 // $("#aff_veh").text(rst["data"]["affVeh"]);
                 // $("#severity_def").text(rst["data"]["severityDef"]);
@@ -1219,15 +1218,19 @@
                 // $(".water_mark").text(wm_msg);
                 //以上  填值【联调关闭】
                 // wm_msg = "Create 创建";
-                // // wm_msg = "Approved 批准";
-                // // wm_msg = "Implemented 实施";
+                // wm_msg = "Approved 批准";
+                // wm_msg = "Implemented 实施";
                 // $(".water_mark").text(wm_msg);
                 // // 水印还是要有的，以上。
 
+
+
                 //按钮：生成PDF  >> 逻辑
+                // 打印方案一（调用 html2canvas+jsPDF）：
                 $("#gen_pdf").on("click", function(){
                     //click后开始进入loading << 开启
                     $("#loading_icon").css("display", "");
+                    $(window).scrollTop(0);
                     //先撤掉水印 << 关闭
                     $("#wm_wrap").css("display", "none");
                     html2canvas(document.querySelector("#bd_all")).then(canvas => {
@@ -1240,13 +1243,13 @@
                             //文字水印
                             ctx.fillStyle = "rgba(0,0,0,0.1)";
                             ctx.font = "73px 微软雅黑";
-                            ctx.fillText(wm_msg,705,480);
-                            ctx.fillText(wm_msg,705,980);
-                            ctx.fillText(wm_msg,705,1480);
-                            ctx.fillText(wm_msg,705,1980);
+                            ctx.fillText(wm_msg,590,480);
+                            ctx.fillText(wm_msg,590,980);
+                            ctx.fillText(wm_msg,590,1480);
+                            ctx.fillText(wm_msg,590,1980);
 
                             //NIO LOG0
-                            ctx.drawImage(img, 390, 120);
+                            ctx.drawImage(img, 150, 120);
 
                             var dataURL = canvas.toDataURL('image/png');
                             var doc = new jsPDF('landscape','pt',[2300, 2300]);
@@ -1259,6 +1262,12 @@
                         }
                     });
                 });
+                //  //打印方案二（调用 浏览器自带打印）：
+                // $("#gen_pdf").on("click", function(){
+                //     $(window).scrollTop(0);
+                //     window.print();
+                // });
+
                 //按钮：取消  >> 逻辑
                 $("#cancel_btn").on("click", function(){
                     //1  关闭窗口
