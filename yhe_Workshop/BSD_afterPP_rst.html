@@ -87,9 +87,14 @@
             .marglft_15  { margin-left: 15px; }
             .marglft_30 { margin-left: 30px; }
             /* .margtp_300 { margin-top:300px; } */
-            .w_190 { width: 190px; }
             .w_100 { width: 100px; }
+            .w_190 { width: 190px; }
             .w_1920 { width: 1920px; }
+            .w_1920imp { width:1920px !important; }
+            .w_1680 { width: 1680px; }
+            .w_1680imp { width:1680px !important; }
+            .w_1340 { width: 1340px; }
+            .w_1340imp { width:1340px !important; }
             .margtp_21 { margin-top: 21px; }
             .margtp_18 { margin-top: 18px; }
             .paddlft_20 { padding-left: 20px; }
@@ -104,13 +109,13 @@
 
             /* chips spe-style below */
             .fixbtn_wrap_sty {
-                width:1920px;
+                /* width:1920px; */
                 height: 80px;
                 background: #fafafa;
             }
             .fixbtn_con_sty {
                 width: 630px !important;
-                /* width: 1200px !important; */
+                /* width: 1500px !important; */
                 /* margin: 0 auto 0; */
             }
             .fixbtn_p_sty {
@@ -122,14 +127,14 @@
                 /* margin-bottom: 20px; */
                 margin: 80px 0 20px 0;
                 height:120px;
-                width:1920px !important;
+                /* width:1920px !important; */
             }
             .nav_container {
                 background:black;
                 margin: 0 auto 0;
                 height:120px;
                 padding-top: 5px;
-                width:1200px !important;
+                width: 1500px !important;
             }
             .nav_divedt_marg { margin: 26px 0 0 83px; }
             .nav_bianzhi_sty {
@@ -150,10 +155,10 @@
             .main_wrap {
                 margin-bottom: 20px;
                 height:120px;
-                width:1920px !important;
+                /* width:1920px !important; */
             }
             .main_container {
-                width: 1200px !important;
+                width: 1500px !important;
                 margin: 0 auto 0;
             }
             .tbx_title_sty { border-bottom-width:0px }
@@ -216,7 +221,7 @@
                 /* border: 3px solid #000(247, 32, 32); */
                 text-decoration: none;
             }
-            .btn_wrap {width: 1920px;}
+            /* .btn_wrap {width: 1920px;} */
             .btn_sty {
                 height:100px;
                 line-height:100px;
@@ -225,7 +230,7 @@
                 vertical-align:middle;
             }
             .wm_div_sty {
-                width:1200px;
+                width: 1500px;
                 margin:0 auto 0;
                 text-align:center;
             }
@@ -275,7 +280,7 @@
                 left:0px;
                 background:#000000;
                 opacity:0.5;
-                width:1920px;
+                /* width:1920px; */
                 height:2052px;
                 display: none;
             }
@@ -285,13 +290,13 @@
         <!-- <div class="navbar navbar-inverse navbar-fixed-top"> -->
 
         <!-- 方案1：   以下是 “PDF生成按钮”  -->
-        <!-- <div class="btn_wrap">
+        <!-- <div class="btn_wrap w_1680">
             <div class="btn_sty">
                 <a class="btn_pdf" href="#" target="_blank">生成 PDF</a>
             </div>
         </div> -->
         <!-- 方案2：   PDF生成按钮 + 修改(跳转)按钮 -->
-        <div class="navbar-fixed-top fixbtn_wrap_sty">
+        <div class="navbar-fixed-top fixbtn_wrap_sty w_1680">
             <div class="fixbtn_con_sty">
                 <p class="fixbtn_p_sty">
                     <button type="button" id="cancel_btn" style="display:none;" class="btn btn-lg btn-default w_100">取消</button>
@@ -303,7 +308,7 @@
         </div>
         
         <!-- 以下是 “‘黑头’页面nav” -->
-        <div class="nav_wrap" >
+        <div class="nav_wrap w_1680imp" >
             <div class="container nav_container">
                 <div class="row">
                     <div class="col-xs-4">
@@ -370,7 +375,7 @@
         </div>
 
         <!-- 以下主区 -->
-        <div class="main_wrap">
+        <div class="main_wrap w_1680imp">
             <div class="container theme-showcase main_container" role="main">
                 <div class="row">
                     <!-- <div class="col-xs-12"> -->
@@ -750,7 +755,7 @@
             </div>
         </div>
 
-        <div id="wm_wrap" class="w_1920">
+        <div id="wm_wrap" class="w_1680">
             <div class="wm_div_sty"><div class="water_mark wm_font"></div></div>
             <div class="wm_div_sty margtp_400"><div class="water_mark wm_font"></div></div>
             <div class="wm_div_sty margtp_400"><div class="water_mark wm_font"></div></div>
@@ -855,6 +860,7 @@
                 var wm_msg = '- 状态未知 -';
                 var reviewer_list = "";
                 var program = "";
+                var bsdno = "BSD-x";
 
                 // NIO后台方向 对接 ajax【联调开放！！】
                 //以下是  AJAX A！【联调开启】
@@ -885,6 +891,7 @@
                         $("#program").text(result["data"]["program"]);
                         $("#impact_phase").text(result["data"]["impactPhase"]);
                         $("#bsd_no").text(result["data"]["bsdNo"]);
+                        bsdno =  "" + result["data"]["bsdNo"];
                         $("#sub_dep").text(result["data"]["subDep"]);
                         $("#submitter").text(result["data"]["submitter"]+"—— ——"+result["data"]["email"]);
                         $("#app_date").text(result["data"]["appDate"]);
@@ -1158,6 +1165,7 @@
                 // $("#program").text(rst["data"]["program"]);
                 // $("#impact_phase").text(rst["data"]["impactPhase"]);
                 // $("#bsd_no").text(rst["data"]["bsdNo"]);
+                // bsdno =  "" + rst["data"]["bsdNo"];
                 // $("#sub_dep").text(rst["data"]["subDep"]);
                 // $("#submitter").text(rst["data"]["submitter"]+"—— ——"+rst["data"]["email"]);
                 // $("#app_date").text(rst["data"]["appDate"]);
@@ -1216,7 +1224,6 @@
                 // $(".water_mark").text(wm_msg);
                 // // 水印还是要有的，以上。
 
-
                 //按钮：生成PDF  >> 逻辑
                 $("#gen_pdf").on("click", function(){
                     //click后开始进入loading << 开启
@@ -1244,7 +1251,7 @@
                             var dataURL = canvas.toDataURL('image/png');
                             var doc = new jsPDF('landscape','pt',[2300, 2300]);
                             doc.addImage(dataURL, 'PNG', 0, -90, 2300, 2385);
-                            doc.save('a4.pdf');
+                            doc.save(bsdno+'.pdf');
                             //重开 水印
                             $("#wm_wrap").css("display", "");
                             //关闭 loading
