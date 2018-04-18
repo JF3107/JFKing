@@ -83,18 +83,19 @@
             .bd_0px { border: 0px; }
             .bdtp_0px { border-top: 0px; }
             .margbtm_0 { margin-bottom: 0px; }
+            .marglft_10 { margin-left: 10px; }
             .marglft_150 { margin-left: 150px; }
+            .marglft_200 { margin-left: 200px; }
             .marglft_15  { margin-left: 15px; }
             .marglft_30 { margin-left: 30px; }
             /* .margtp_300 { margin-top:300px; } */
             .w_100 { width: 100px; }
             .w_190 { width: 190px; }
-            .w_1920 { width: 1920px; }
-            .w_1920imp { width:1920px !important; }
-            .w_1680 { width: 1680px; }
-            .w_1680imp { width:1680px !important; }
-            .w_1340 { width: 1340px; }
-            .w_1340imp { width:1340px !important; }
+            .w_150 { width: 150px; }
+            .w_250 { width: 250px; }
+            /* .w_1920 { width: 1920px; }
+            .w_1920imp { width:1920px !important; } */
+            
             .margtp_21 { margin-top: 21px; }
             .margtp_18 { margin-top: 18px; }
             .paddlft_20 { padding-left: 20px; }
@@ -105,7 +106,6 @@
             .cell_h_60px { height:50px; }
             .cell_h_120px { height:120px; }
             .cell_th_87px { height:87px; }
-            
 
             /* chips spe-style below */
             .fixbtn_wrap_sty {
@@ -114,9 +114,7 @@
                 background: #fafafa;
             }
             .fixbtn_con_sty {
-                width: 630px !important;
-                /* width: 1500px !important; */
-                /* margin: 0 auto 0; */
+                width: 790px !important;
             }
             .fixbtn_p_sty {
                 /* text-align: center; */
@@ -134,16 +132,15 @@
                 margin: 0 auto 0;
                 height:120px;
                 padding-top: 5px;
-                width: 1500px !important;
             }
-            .nav_divedt_marg { margin: 26px 0 0 83px; }
+            /* .nav_divedt_marg { margin: 26px 0 0 83px; } */
+            .nav_divedt_marg { margin: 26px 0 0 0px; }
             .nav_bianzhi_sty {
                 margin-bottom: -3px;
             }
             .nav_divarr_sty {
                 display: inline-block;
                 margin-left: 12px;
-                /* position: relative; */
             }
             .nav_arr_sty {
                 transform: translateY(-10px);
@@ -155,10 +152,8 @@
             .main_wrap {
                 margin-bottom: 20px;
                 height:120px;
-                /* width:1920px !important; */
             }
             .main_container {
-                width: 1500px !important;
                 margin: 0 auto 0;
             }
             .tbx_title_sty { border-bottom-width:0px }
@@ -230,7 +225,6 @@
                 vertical-align:middle;
             }
             .wm_div_sty {
-                width: 1500px;
                 margin:0 auto 0;
                 text-align:center;
             }
@@ -295,35 +289,46 @@
                 top: 35px;
                 left: 90px;
             }
+            .con_mltty_sty {
+                margin-left:20px;
+                transform:translateY(-10px);
+            }
+
+            @media screen and (max-width: 1343px) {
+                .w_wrapper { width:1343px !important; }
+                .w_container { width: 1200px; }
+            }
+            @media screen and (max-width: 1920px) {
+                .w_wrapper { width:100% !important; }
+                .w_container { width: 89.4%; }
+            }
+            @media screen and (min-width: 1921px) {
+                .w_wrapper { width:1920px !important; }
+                .w_container { width: 1716px; }
+            }
         </style>
     </head>
     <body id="bd_all">
         <!-- <div class="navbar navbar-inverse navbar-fixed-top"> -->
 
-        <!-- 方案1：   以下是 “PDF生成按钮”  -->
-        <!-- <div class="btn_wrap w_1680">
-            <div class="btn_sty">
-                <a class="btn_pdf" href="#" target="_blank">生成 PDF</a>
-            </div>
-        </div> -->
         <!-- 方案2：   PDF生成按钮 + 修改(跳转)按钮 -->
-        <div id="fix_top" class="navbar-fixed-top fixbtn_wrap_sty w_1680">
+        <div id="fix_top" class="navbar-fixed-top fixbtn_wrap_sty w_wrapper">
             <div class="fixbtn_con_sty">
                 <p class="fixbtn_p_sty">
-                    <button type="button" id="cancel_btn" style="display:none;" class="btn btn-lg btn-default w_100">取消</button>
-                    <button type="button" id="supapp_btn" style="display:none;" class="btn btn-lg btn-default marglft_15 w_100">超级审批</button>
+                    <button type="button" id="cancel_btn" style="display:none;" class="btn btn-lg btn-danger w_150">Cancel / 作废</button>
+                    <button type="button" id="supapp_btn" style="display:none;" class="btn btn-lg btn-default marglft_15 w_250">Super Approve / 超级审批</button>
                     <!-- <button type="button" id="gen_pdf" class="btn btn-lg btn-primary marglft_15 w_100">生成PDF</button> -->
-                    <button type="button" id="gen_pdf" class="btn btn-lg btn-primary marglft_15 w_100">打印</button>
-                    <button type="button" id="back_btn" style="display:none;" class="btn btn-lg btn-default marglft_15 w_100">修改</button>
+                    <button type="button" id="gen_pdf" class="btn btn-lg btn-primary marglft_15 w_150">Print / 打印</button>
+                    <button type="button" id="back_btn" style="display:none;" class="btn btn-lg btn-default marglft_15 w_150">Modify / 修改</button>
                 </p>
             </div>
         </div>
         
         <!-- 以下是 “‘黑头’页面nav” -->
-        <div class="nav_wrap w_1680imp" id="test">
-            <div class="container nav_container">
+        <div class="nav_wrap w_wrapper" id="test">
+            <div class="container nav_container w_container">
                 <div class="row">
-                    <div class="col-xs-4">
+                    <div class="col-xs-3">
                         <div class="logo_img">
                             <!-- <img id="logo_img"  src="../yhe_resource/nio_logo_ffffff.png" /> -->
                             <img id="logo_img" src='data:img/jpg;base64,iVBORw0KGgoAAAANSUhEUgAAAHIAAAAoCAYAAAAiyK7sAAAAAXNSR0IArs4c6QAAB41JREFUeAHt
@@ -364,13 +369,13 @@
                                 SUVORK5CYII='/>
                         </div>
                     </div>
-                    <div class="col-xs-4 title_color">
+                    <div class="col-xs-6 title_color">
                         <div class="hcenter">
-                            <h2 class="title_margin group01">制造现场变更-量产阶段</h2>
+                            <h2 class="title_margin group01">制造现场临时变更 - 量产阶段</h2>
                             <span class="fsize_18px group02">BUILD SITE DEVIATION - After PP</span>
                         </div>
                     </div>
-                    <div class="col-xs-4 title_color hright paddrgt_36">
+                    <div class="col-xs-3 title_color hright paddrgt_36">
                         <div class="nav_divedt_marg">
                             <div class="inline_block">
                                 <div class="hright nav_bianzhi_sty fsize_18px">编制</div>
@@ -703,8 +708,8 @@
             RK5CYII='/>
 
         <!-- 以下主区 -->
-        <div class="main_wrap w_1680imp">
-            <div class="container theme-showcase main_container" role="main">
+        <div class="main_wrap w_wrapper">
+            <div class="container theme-showcase main_container w_container" role="main">
                 <div class="row">
                     <!-- <div class="col-xs-12"> -->
                         <table id="tb_01" class="table table-bordered margbtm_0">
@@ -781,7 +786,19 @@
                                         <div>影响关键特性</div>
                                         <div>CC/SC Impacted</div>
                                     </td>
-                                    <td class="to_middle_posi together_cell w_190 posi_relative" >
+                                    <td colspan="5">
+                                        <div class="inline_block marglft_10 font_bold group03">
+                                            <div>零件</div>
+                                            <div>Part</div>
+                                        </div>
+                                        <div class="inline_block con_mltty_sty group03" id="part" ></div>
+                                        <div class="inline_block marglft_200 font_bold group03">
+                                            <div>厂内</div>
+                                            <div>In house</div>
+                                        </div>
+                                        <div class="inline_block con_mltty_sty group03" id="in_house" ></div>
+                                    </td>
+                                    <!-- <td class="to_middle_posi together_cell w_190 posi_relative" >
                                         <div class="inline_block font_bold group03">
                                             <div>零件</div>
                                             <div>Part</div>
@@ -794,8 +811,8 @@
                                             <div>In house</div>
                                         </div>
                                         <div class="inline_block posi_absolute tb1_inhouse_sty group03" id="in_house" ></div>
-                                    </td>
-                                    <td colspan="3" class="together_cell"></td>
+                                    </td> -->
+                                    <!-- <td colspan="3" class="together_cell"></td> -->
                                 </tr>
                                 <tr class="cell_h_60px">
                                     <td class="to_right_side font_bold group03">
@@ -805,22 +822,18 @@
                                     <td colspan="5" id="issue_des" class="to_middle_posi group03"></td>
                                 </tr>
                                 <tr class="cell_h_60px">
-                                    <td rowspan="2" class="to_right_side to_middle_posi font_bold col-xs-2 group03">
+                                    <td class="to_right_side font_bold group03">
                                         <div>更改操作描述</div>
                                         <div>Corrective Action Plan Description</div>
                                     </td>
-                                    <td class="font_bold col-xs-1 to_right_side group03">
-                                        <div>短期措施</div>
-                                        <div>Short Term</div>
-                                    </td>
-                                    <td colspan="4" id="short_term" class="to_middle_posi col-xs-9 group03"></td>
+                                    <td colspan="5" id="short_term" class="to_middle_posi group03"></td>
                                 </tr>
                                 <tr class="cell_h_60px">
-                                    <td class="font_bold to_right_side group03">
-                                        <div>长期措施</div>
-                                        <div>Long Term</div>
+                                    <td class="to_right_side font_bold group03">
+                                        <div>更改后接受标准</div>
+                                        <div>Acceptance Criteria after Change</div>
                                     </td>
-                                    <td colspan="4" id="long_term" class="to_middle_posi group03"></td>
+                                    <td colspan="5" id="long_term" class="to_middle_posi group03"></td>
                                 </tr>
                                 <tr class="cell_h_60px">
                                     <td class="to_right_side font_bold group03">
@@ -1083,11 +1096,11 @@
             </div>
         </div>
 
-        <div id="wm_wrap" class="w_1680">
-            <div class="wm_div_sty"><div class="water_mark wm_font"></div></div>
-            <div class="wm_div_sty margtp_400"><div class="water_mark wm_font"></div></div>
-            <div class="wm_div_sty margtp_400"><div class="water_mark wm_font"></div></div>
-            <div class="wm_div_sty margtp_400"><div class="water_mark wm_font"></div></div>
+        <div id="wm_wrap" class="w_wrapper">
+            <div class="wm_div_sty w_container"><div class="water_mark wm_font"></div></div>
+            <div class="wm_div_sty w_container margtp_400"><div class="water_mark wm_font"></div></div>
+            <div class="wm_div_sty w_container margtp_400"><div class="water_mark wm_font"></div></div>
+            <div class="wm_div_sty w_container margtp_400"><div class="water_mark wm_font"></div></div>
         </div>
 
         <!-- <div id="loading_icon" style="position: absolute;top:450px;left:785px;display:none;"> -->
@@ -1610,6 +1623,10 @@
 
                 //按钮：取消  >> 逻辑
                 $("#cancel_btn").on("click", function(){
+                    var r = confirm("确定进行作废操作？");
+                    if( r==true ){
+                        $(location).attr('href', '/3dspace/components/NioBSDCancell.jsp'+"?objectId="+objectId );
+                    }
                     //1  关闭窗口
                     // window.close();
                     //2  chrome/firfox “无法关闭‘非自打开窗口’”应对办法
@@ -1618,8 +1635,7 @@
                     // window.location.href="about:blank";
                     // window.close();
                     //cancel， 直接（ajax本ID后）跳转给定的JSP（本地状态下  无法跳转）
-                    // $(location).attr('href', '../components/NioBSDCancell.jsp'+"?id="+objectId );
-                    $(location).attr('href', '/3dspace/components/NioBSDCancell.jsp'+"?objectId="+objectId );
+                    // $(location).attr('href', '/3dspace/components/NioBSDCancell.jsp'+"?objectId="+objectId );
                 });
                 //按钮：超级审批  >> 逻辑
                 $("#supapp_btn").on("click", function(){
