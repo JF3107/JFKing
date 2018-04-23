@@ -1,0 +1,36 @@
+<html>
+    <head>
+        <meta http-equiv="contentType" content="text/html;charset=UTF-8" />
+        <meta charset="UTF-8" />
+        <title>test HW</title>
+    </head>
+    <body>
+        <h1>HELLO WORLD TEST</h1>
+        <div id="myapp" >
+            <ol>
+                <test 
+                  v-for="e in arr" 
+                  v-bind:key1="e.id" 
+                  v-bind:obj="e" 
+                  v-bind:value="e.name"></test>
+            </ol>
+        </div>
+        <script src="../../zhe_repo/vue.js"></script>
+        <script>
+            Vue.component('test', {
+                props: ["key1", "value", "obj"],
+                template: '<li>{{ value }}>>>{{ key1 }}!!!!!!!!{{ obj.id }}</li>'
+            });
+            var ma = new Vue({
+                el: "#myapp",
+                data: {
+                    arr: [
+                        {"id":"1","name":"JAY"},
+                        {"id":"2","name":"TINA"},
+                        {"id":"3","name":"FANTUAN"}
+                    ]
+                }
+            });
+        </script>
+    </body>
+</html>
