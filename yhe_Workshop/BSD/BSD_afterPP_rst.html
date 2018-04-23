@@ -1,0 +1,1657 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+        <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+        <title> NIO PLM BSD Display (After PP) </title>
+        <!-- Bootstrap -->
+        <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+        <!-- HTML5 shim 和 Respond.js 是为了让 IE8 支持 HTML5 元素和媒体查询（media queries）功能 -->
+        <!-- 警告：通过 file:// 协议（就是直接将 html 页面拖拽到浏览器中）访问页面时 Respond.js 不起作用 -->
+        <!--[if lt IE 9]>
+        <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+        <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+        <style>
+            body {
+                padding-bottom: 30px;
+            }
+
+            .logo_img {
+                height:95px;
+                padding: 8px 0 0 20px;
+                line-height:95px;
+            }
+
+            .title_color {
+                color:#FFFFFF
+            }
+
+            .title_margin {
+                margin: 24px 0 3px 0
+            }
+
+            .to_right_side {text-align:right;}
+
+            #tb_01 .to_middle_posi,
+            #tb_02 .to_middle_posi,
+            #tb_03 .to_middle_posi,
+            #tb_04 .to_middle_posi,
+            #tb_05 .to_middle_posi  {vertical-align:middle;}
+
+            #tb_05 .to_bottom_pposi  {vertical-align:bottom;}
+
+            #tb_05 .tb05_tr_hcenter,
+            #tb_05 .tb05_td_hcenter { text-align: center; }
+
+            #tb_02 td {
+                vertical-align:middle;
+                text-align: center;
+            }
+
+            #tb_05 .sign_title_middle {
+                height:60px;
+                vertical-align:middle;
+            }
+
+            #tb_05 .sign_line_bottom { 
+                height:60px;
+                vertical-align:bottom;
+            }
+            
+            /* function-style below */
+            .inline_block { display: inline-block; }
+
+            .posi_relative { position: relative; }
+            .posi_absolute { position: absolute; }
+
+            .hcenter { text-align: center; }
+            .vcenter { vertical-align: middle; }
+
+            .hright { text-align: right; }
+
+            .font_bold { font-weight: bold; }
+
+            .bg_E6FAFA { background: #E6FAFA; }
+
+            /* quick-tool-style below */
+            .bd_0px { border: 0px; }
+            .bdtp_0px { border-top: 0px; }
+            .margbtm_0 { margin-bottom: 0px; }
+            .marglft_10 { margin-left: 10px; }
+            .marglft_150 { margin-left: 150px; }
+            .marglft_200 { margin-left: 200px; }
+            .marglft_15  { margin-left: 15px; }
+            .marglft_30 { margin-left: 30px; }
+            .w_100 { width: 100px; }
+            .w_190 { width: 190px; }
+            .w_150 { width: 150px; }
+            .w_250 { width: 250px; }
+            
+            .margtp_21 { margin-top: 21px; }
+            .margtp_18 { margin-top: 18px; }
+            .paddlft_20 { padding-left: 20px; }
+            .paddrgt_36 { padding-right: 36px; }
+            .border_0 { border: 0px }
+            .borderbtm_0 { border-bottom: 0px }
+            .fsize_18px { font-size: 18px; }
+            .fweight_300 { font-weight: 300 }
+            .cell_h_60px { height:50px; }
+            .cell_h_ma_60px { height:60px; }
+            .cell_h_120px { height:120px; }
+            .cell_th_87px { height:87px; }
+
+            /* title栏边框消除 样式 */
+            #tb_01 .bd_tp_0,
+            #tb_04 .bd_tp_0,
+            #tb_05 .bd_tp_0 { border-top: 0px; }
+            #tb_01.tb_tlr_0,
+            #tb_04.tb_tlr_0,
+            #tb_05.tb_tlr_0 {
+                border-top: 0px;
+                border-left: 0px;
+                border-right: 0px;
+            }
+            #tb_01 .bd_lr_0,
+            #tb_04 .bd_lr_0,
+            #tb_05 .bd_lr_0 {
+                border-left: 0px;
+                border-right: 0px;
+            }
+            /* 5号表格 各<td>设置 */
+            #tb_05 .bd_0 { border: 0px; }
+            #tb_05 .bd_tlr_0 {
+                border-top: 0px;
+                border-bottom: 0px;
+                border-left: 0px;
+            }
+
+            /* chips spe-style below */
+            .fixbtn_wrap_sty {
+                height: 80px;
+                background: #fafafa;
+            }
+            .fixbtn_con_sty {
+                width: 790px !important;
+            }
+            .fixbtn_p_sty {
+                margin: 15px;
+            }
+            .nav_wrap {
+                margin: 80px 0 20px 0;
+                height:120px;
+            }
+            .nav_container {
+                background:black;
+                margin: 0 auto 0;
+                height:120px;
+                padding-top: 5px;
+            }
+            .nav_divedt_marg { margin: 26px 0 0 0px; }
+            .nav_bianzhi_sty {
+                margin-bottom: -3px;
+            }
+            .nav_divarr_sty {
+                display: inline-block;
+                margin-left: 12px;
+            }
+            .nav_arr_sty {
+                transform: translateY(-10px);
+            }
+            .nav_ver_sty {
+                font-size: 14px;
+                margin-left: 205px;
+            }
+            .main_wrap {
+                margin-bottom: 20px;
+                height:120px;
+            }
+            .main_container {
+                margin: 0 auto 0;
+            }
+            .tbx_title_sty { 
+                border-bottom-width: 0px;
+                font-size: 18px; 
+            }
+            .tb3_xgtzyes_sty {
+                left:22px;
+                top:-24px;
+            }
+            .tb1_part_sty {
+                left:50px;
+                top:18px;
+            }
+            .tb1_inhouse_sty {
+                left:236px;
+                top:18px;
+            }
+            .con_sprst_sty {
+                transform: translate(10px,-10px);
+            }
+            #tb_01 .con_impacn_sty {
+                padding-left: 160px;
+            }
+            #info_tbd .borderbtm_0 { border-bottom: 0px; }
+            #tb_01 .paddlft_20,
+            #tb_04 .paddlft_20,
+            #tb_05 .paddlft_20 {
+                padding-left: 20px;
+                border-bottom: 0px;
+            }
+            .con_partinfo_sty {
+                height:13px;
+            }
+            .btn_pdf {
+                color: #000;
+                border: 3px solid #000;
+                height: 72px;
+                line-height: 72px;
+                font-size: 30px;
+                padding: 0 72px;
+                display: inline-block;
+                transition: all .15s;
+                margin-top:13px;
+                text-decoration: none;
+            }
+            .btn_pdf:link {
+                color: #000;
+                text-decoration: none;
+            }
+            .btn_pdf:visited {
+                color: #000;
+                text-decoration: none;
+            }
+            .btn_pdf:active {
+                color: #000;
+                text-decoration: none;
+            }
+            .btn_pdf:hover {
+                background: black;
+                color: #fff;
+                text-decoration: none;
+            }
+            .btn_sty {
+                height:100px;
+                line-height:100px;
+                margin: 0 auto 0;
+                text-align:center;
+                vertical-align:middle;
+            }
+            .wm_div_sty {
+                margin:0 auto 0;
+                text-align:center;
+            }
+            .wm_font {
+                font-size:73px;
+                opacity:0.1;
+            }
+            #wm_wrap .margtp_400 { margin-top:400px; }
+            .loading_div_sty {
+                position: absolute;
+                top:450px;
+                left:903px;
+                display:none;
+            }
+            .pop_wrap {
+                z-index: 1400;
+                width: 1360px;
+                position: absolute;
+                top: 150px;
+                display: none;
+            }
+            .pop_con {
+                width: 500px;
+                height: 200px;
+                margin: 0 auto 0;
+                background: #fafafa
+            }
+            .pop_p {
+                font-size: 20px;
+                margin-top: 50px;
+                text-align: center;
+            }
+            .pop_row {
+                margin-top: 50px;
+            }
+            .pop_btn {
+                text-align: center;
+                height: 30px;
+            }
+            .w_200 {
+                width: 200px;
+            }
+            .pop_mask {
+                z-index:1300;
+                position: absolute;
+                top:0px;
+                left:0px;
+                background:#000000;
+                opacity:0.5;
+                height:2052px;
+                display: none;
+            }
+            .font_wei01 {
+                font-weight: bold;
+                font-size: 35px;
+            }
+            .font_wei02 { font-size: 22px; }
+            .font_wei03 { font-size: 17px; }
+            .fake_pic {
+                position: absolute;
+                top: 35px;
+                left: 90px;
+            }
+            .con_mltty_sty {
+                margin-left:20px;
+                transform:translateY(-10px);
+            }
+            /* btn颜色及交互 */
+            #delete_btn {
+                background-color: #EF0500;
+                border-color: #EF0500;
+            }
+            #delete_btn:hover {
+                box-shadow: 0px 5px 10px 0 rgba(239, 5, 0, 0.4);
+            }
+            #gen_pdf {
+                background-color: #00BEBE;
+                border-color: #00BEBE;
+            }
+            #gen_pdf:hover {
+                box-shadow: 0px 5px 10px 0 rgba(0, 190, 190, 0.4);
+            }
+
+            /* 以下是BSD1全局样式 */
+            .w_wrapper { width:1680px !important; }
+            .w_container { width: 1500px; }
+            /* 以下是BSD2全局样式( 各屏[3]自适应 ) */
+            /* @media screen and (max-width: 1343px) {
+                .w_wrapper { width:1343px !important; }
+                .w_container { width: 1200px !important; }
+            }
+            @media screen and (max-width: 1920px) {
+                .w_wrapper { width:100% !important; }
+                .w_container { width: 89.4% !important; }
+            }
+            @media screen and (min-width: 1921px) {
+                .w_wrapper { width:1920px !important; }
+                .w_container { width: 1716px !important;  }
+            } */
+            /* 以下是BSD2 单一宽度设置-container：1200px（避免页面挤压时混乱） */
+            /* .w_wrapper { width:1343px !important; }
+            .w_container { width: 1200px !important; } */
+        </style>
+    </head>
+    <body id="bd_all">
+
+        <div id="fix_top" class="navbar-fixed-top fixbtn_wrap_sty w_wrapper">
+            <!-- <div class="fixbtn_con_sty"> -->
+            <div>
+                <p class="fixbtn_p_sty">
+                    <button type="button" id="supapp_btn" style="display:none;" class="btn btn-lg btn-default w_250">Super Approve / 超级审批</button>
+                    <button type="button" id="gen_pdf" class="btn btn-lg btn-primary marglft_15 w_250">generate PDF / 生成PDF</button>
+                    <button type="button" id="retract_btn" style="display:none;" class="btn btn-lg btn-default marglft_15 w_150">Retract / 撤回</button>
+                    <button type="button" id="modi_btn" style="display:none;" class="btn btn-lg btn-default marglft_15 w_150">Modify / 修改</button>
+                    <button type="button" id="delete_btn" style="display:none;" class="btn btn-lg btn-danger marglft_15 w_150">Delete / 删除</button>
+                    <!-- <button type="button" id="supapp_btn"  class="btn btn-lg btn-default w_250">Super Approve / 超级审批</button>
+                    <button type="button" id="gen_pdf" class="btn btn-lg btn-primary marglft_15 w_250">generate PDF / 生成PDF</button>
+                    <button type="button" id="retract_btn"  class="btn btn-lg btn-default marglft_15 w_150">Retract / 撤回</button>
+                    <button type="button" id="modi_btn"  class="btn btn-lg btn-default marglft_15 w_150">Modify / 修改</button>
+                    <button type="button" id="delete_btn"  class="btn btn-lg btn-danger marglft_15 w_150">Delete / 删除</button> -->
+                </p>
+            </div>
+        </div>
+        
+        <!-- 以下是 “‘黑头’页面nav” -->
+        <div class="nav_wrap w_wrapper" id="test">
+            <div class="container nav_container w_container">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <div class="logo_img">
+                            <!-- <img id="logo_img"  src="../yhe_resource/nio_logo_ffffff.png" /> -->
+                            <img id="logo_img" src='data:img/jpg;base64,iVBORw0KGgoAAAANSUhEUgAAAHIAAAAoCAYAAAAiyK7sAAAAAXNSR0IArs4c6QAAB41JREFUeAHt
+                                m2mMFEUUx3e5FFEQiUgIZDceIF88UKIYERAMKIdEAcMHj6BoIBoCCRgEZVZDEG+NIPEDAaMQEhTR
+                                IHgkrgoi4TDiEYhEbgEJxwLK5bL+/pvpsaenq7u6p2eGsPuSf7rr1Xv/qnqvq7u6eqa8LE+pq6tr
+                                DUVX0BZcClS+EBwDNWns5bi1vLz8X46Ncq5EgOTdAF4A68BZYCPHMFoGxgIlvVFKFQES0AN8CvKV
+                                oxDMAO1KNZYG2S4BrwDLQdKiWTodNGuQgS3moAnyEHAIFFK+hbxjMcfVYNoisM3AS8D2GYhpXvIX
+                                3nc1mAAXa6AEdV5eaYnnfLoxmQlmmGA+Hy8PiXhpIXRjgsNpmFQE8fFE0pEfyV7cKxtmBuKNutzt
+                                RvCup7wBNHXrS3S+nnZvYRPhbInaL1mz5KEFjTdl7CdsO+FNZDWOvW2di2D3KIOZF6cdgjEKv2td
+                                vrWcbwZLolwc8PTEpx9oDhxZCMcWp5AO/IOUOwMnpjXYvObYBB3xv4b6+8EQ0AXo/Vo8R8A28BlY
+                                Cp8mWbBANhyca7KPDl0S3HP/Wvw+NgxmCfom/l7ZWuw6glM+PAp4Rqif5mOzI2NgOMGnArwHaoGN
+                                rMBId80cqR8QldobfTmn1l6hK2UiuA60AXrB7wD6A12Vh0AcuQKnaXEcA3x05b8VUO+uupKCbnNh
+                                0i3MwFtPzAej2wQ0k60uLOwGgvX4juWYK1SMBHFkD05DcxmzNdi0BjOB7ZWHaUZqOLMJZlaj+Jhm
+                                pEM8KcvBp4DhHY6x5+idkQs99SoaZyR1Y0CcWIjXkVnuLjtXwnC30vJ8LXbduW9/EmaPzVEwBbtB
+                                4J8we099a8qF2CiYRUQe8LRV8CJt6nk7Bzixj9vmZLjGOM5NKLSkcI+jsDz+gd1gkrPf0r7eDPuV
+                                nOhWUhfFD9s4F1pYE1pMLGD8vcIMk6qnrYvh+gCY9pbPUPcleAXMBB+CY8Akb8Op2z8Rrau7D0QR
+                                bdndZGK20eP/RpQGsdVer2nwvk1iH3ZrdbogbvfqNsOHPtFbK3xBGy1rqNd33SxB1w4sAiZZLAdN
+                                b031KKLluxY3+cgMnI9HIND3y4oI9lFMxa3VoBZWBRP4m0P+lKGBhehvJ66ZVxrHDt1BMIqy6Zk+
+                                Au5OSmQ3x8nymM/qtr4JOnaAk/mW7Tlmhfw6Ukkj+kzXymmsAMc+cOoXFF7ZjWIcMan1VnjKr1L+
+                                2qNTUY+IYUrkVSpZyg4aXGdpG2a2JMzAU9/eU45T3I6TntN+osfFYpLZ1K8yAd2dBo4UMa0x1GXU
+                                2GhdMSGjyD7pq0Tqvc9WbN+/bPi+w+hHG8O0zUURbE2m+s3QCGBqdxB1s03Oeeo7GfxNF1aOOcn8
+                                CeW+nIqysk5aQIwHSqhJtNd5EmwFu7hiR3LULUhTOq6IUz/I6g16As02PUOCZG1QpW0dwTjOGJSw
+                                NcDvufsE9Tuw06oxSTHdURSHKCL7Dh6H9s3o8AKP0rfI4LRM3wy0OEhKqiEaSh+ClthJtZXhob29
+                                jEevXKuB33NLvyfaSd2ujFP+J4cNFIrnQUOdn9ov/keCZmKGhEFp5qwAfiQZuxgnffD5An699BdV
+                                SOZvNDgMnPZpWHcbbdb39amLq/rT4Gj9HkucOsNR6cOzJzSR6SQux1m300LIrZB+XqJkfkPbjwAt
+                                JLyibcHpXmUe5R8MvlMZu+078nMGjrWBiSxCEp1+lTKZi+jEM05HPEfNzKREd7RTPmQ3o5vio89S
+                                kYu7UTyWpfy/sNSYyCIm0elOKZP5Ip2Y63SkEMf0OkAXjZ9UEe/ZIOeuh07bqBNx+sjPEd33cP/i
+                                O6Vx1DOxkLdTQ5/KnGQOoHNHTUYF0j8Jr14RBheIX7TPAm3Ut1TBJZr548AgYv8+x01A+65dgN4S
+                                ugOTTPKtUBKBluilFO075rUAwt9vr/V330Gnlfi0AvobRJgMcfNgbP0ZC9txYeQR6t90+pF1a4Ug
+                                iZm4DPIJYLvTSIyjMzPzSmbUdrkL/I2PZuS2qL629rQxB9vZtvYBdiup0y03W5REkO9MnOGwwnU5
+                                2Ajykdgzk0Yjz0hX37vifzCg47FnpNqAtxxMB/qSFEfm4XSB018d3TNyIOWch63bOOS8iqttqmPD
+                                +QHO+4GNji7GsQc+FTH8TC47TRVuPX3fQvlecMKtT+oc/jpQBZ9Wor9G4N2N7cP4jgZZK2D3Ykez
+                                6SEQ5ytDFcQpfLME3WGunP4ovwJBD+wsP1dhLhw/u8pRTvWO6N4x0i/SXrcloN1V9L0n9qPBZR4/
+                                BdQtqyjUuhWch+7W0Iben/UhWQuaEWAA8E4mbVhUg6VgPj4nOQYLpKNAVEkFs9bfStpCuiEi8X7s
+                                k95JCutqSesZb3NQCW4DvcDVwLvCtesjju8CW0nZsUZO5hk60MeWu9HOJwIEsAXQIiNMUj7ugSoI
+                                bWfm+ECixkq7CBDwsBVnyo4p18oimZmVb653oyZyBAh4G7AaeCUVmczjAKFpZk72mDYWk4gAAW8J
+                                3nFlMpUErzg8ydQv2Qrxk8ekunt+8BBk/f386aRHk06mLhTTzyCSbvK85fsP4Qg6ll0sergAAAAA
+                                SUVORK5CYII='/>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 title_color">
+                        <div class="hcenter">
+                            <h2 class="title_margin group01">制造现场临时变更 - 量产阶段</h2>
+                            <span class="fsize_18px group02">BUILD SITE DEVIATION - After PP</span>
+                        </div>
+                    </div>
+                    <div class="col-xs-3 title_color hright paddrgt_36">
+                        <div class="nav_divedt_marg">
+                            <div class="inline_block">
+                                <div class="hright nav_bianzhi_sty fsize_18px">编制</div>
+                                <span class="fsize_18px">Edit By</span>
+                            </div>
+                            <div class="nav_divarr_sty">
+                                <div class="nav_arr_sty fsize_18px">CD-PM, VI VAL, ME</div>
+                            </div>
+                        </div>
+                        <span class="nav_ver_sty">Version 4.5</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- <img src="../yhe_resource/blackTou.png" class="fake_pic" id="fake_pic" style="display:none;" /> -->
+        <img style="display:none;" class="fake_pic" id="fake_pic" src='data:img/jpg;base64,iVBORw0KGgoAAAANSUhEUgAABdwAAAB4CAYAAADogDA7AAAAAXNSR0IArs4c6QAAAARnQU1BAACx
+            jwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAEVLSURBVHhe7d0PcJv1fT/wd2j4zVwDlVdY7Rau
+            URbWyAcFu8ld7VvWi9zQRqlpiQu92AttIsON2nBL5NCCHdoGB1qwkzU4rBek0IWTWaE2a1ObtpmU
+            3aWz2cJsbmFSduSsdLDJW2iljXQ2C+3ze/58H+mR9Eh6ZD+25eT9Oj7k+adHjx49sh59nu/z+S4D
+            IMlBRERERERERERERERzcIX4l4iIiIiIiIiIiIiI5oAJdyIiIiIiIiIiIiIiGzDhTkRERERERERE
+            RERkAybciYiIiIiIiIiIiIhswIQ7EREREREREREREZENmHAnIiIiIiIiIiIiIrIBE+5ERERERERE
+            RERERDZgwp2IiIiIiIiIiIiIyAZMuBMRERERERERERER2YAJdyIiIiIiIiIiIiIiGzDhTkRERERE
+            RERERERkAybciYiIiIiIiIiIiIhswIQ7EREREREREREREZENmHAnIiIiIiIiIiIiIrIBE+5ERERE
+            RERERERERDZgwp2IiIiIiIiIiIiIyAZMuBMRERERERERERER2YAJdyIiIiIiIiIiIiIiGzDhTkRE
+            RERERERERERkAybciYiIiIiIiIiIiIhswIQ7EREREREREREREZENmHAnIiIiIiIiIiIiIrIBE+5E
+            RERERERERERERDZgwp2IiIiIiIiIiIiIyAZMuBMRERERERERERER2YAJdyIiIiIiIiIiIiIiGzDh
+            TkRERERERERERERkAybciYiIiIiIiIiIiIhswIQ7EREREREREREREZENmHAnIiIiIiIiIiIiIrIB
+            E+5ERER0edsZQkKSIMkROSKmzYE/qq1LkiLwi2nzwRdOLMjzLDib34+FUQvvwWFEEgmM7nWKabSk
+            rW5Bz1AEiXgIvtViGhERERGRBUy4ExER0WXCj8j0NBKxcYQOesW0RdDUi9F4HKHdFhKze0eRmE4g
+            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
+            KnxwVgHxc/aU3bObxGAwGAwGg3G5hi+ckM/xrIn/3Cc5sx7v3B2S4hfFAvkkxqX+pszHKaE/dyLs
+            M0z3SSFLmxSR5FPRjPUUl5DGD3oMz1U8PE+Mzur1mb+27NBfa0IK7TSbL+KIfHpdgsLPqcVc91kp
+            x41C/nGQsw41VvdL48r+Fft4+mSX+XJq+OV3XaG/9y3ScFydIE0OuLOWzQ3nwXFt4Yvy+7U6e372
+            us2j2PvqkZ8jUex4mZ6Uhnc7cx5r6ZjZPiyJlywrvK2zjZYfi2d4Iyi5TeZnhP7+ycYP6q8pz77c
+            GJQm1elCbDC1fuXvSP4jalo+fgzH4E6xbCIkyT+D09OLhLXPpFlY/JwyGAwGg8FY2NDPkaN+k+nG
+            723tu1w/B/BHsx6jLm84b1HPNfTHa+c12rmsOCdIPTZrPONxWuQ8V97I3EazyFmX8nwlng8tVLCF
+            OxEREVEhMzNInhvDwIONaLitL6dkR+zJRlTXdyBwIorkBa0Ws07pJHXipX1oXVeHjmNi4iKYuZBE
+            7BdD2NdSh7oHRsRUa0YebMj/+t6OYawMXt98mMs+K8nZPoy+Lv+rtFIv2qI6y/ZW1Cn9er43gREL
+            rZ9jDwxqLamX18KT0/mvPUYeqEOlOF702uSq92bk4yWK8DOdaLx5FTY/ab0Vf4ZnN6P3uNafwvzw
+            ysez1lmqpdI+Zzsw+Ir2OovWxz/ejb4X5c/Re2Lc4UC9GFT+jtS19GHkTBIz+nxZ8q0JDDzQgJod
+            83gMEhER0dKk1l4HomNZRVl21KBT6SR1f7r1eN1EZ/4+bOTlA2fSNdyl/W7En6006chUKT3TiXCV
+            N90qfSpQoFTN3PjCCUiJEPR29krr+4B8rqY9t7Kd1RisbCzpjsmFskwOJfNORERERERERERERERz
+            wBbuREREREREREREREQ2YMKdiIiIiIiIiIiIiMgGTLgTEREREREREREREdmACXciIiIiIiIiIiIi
+            Ihsw4U5EREREREREREREZAMm3ImIiIiIiIiIiIiIbMCEOxERERERERERERGRDZhwJyIiIiIiIiIi
+            IiKyARPuREREREREREREREQ2YMKdiIiIiIiIiIiIiMgGTLgTEREREREREREREdmACXciIiIiIiIi
+            IiIiIhsw4U5EREREREREREREZAMm3ImIiIiIiIiIiIiIbMCEOxERERERERERERGRDZhwJyIiIiIi
+            IiIiIiKyARPuREREREREREREREQ2YMKdiIiIiIiIiIiIiMgGTLgTEREREREREREREdmACXciIiIi
+            IiIiIiIiIhsw4U5EREREREREREREZAMm3ImIiIiIiIiIiIiIbMCEOxERERERERERERGRDZhwJyIi
+            IiIiIiIiIiKyARPuREREREREREREREQ2YMKdiIiIiIiIiIiIiGjOgP8P9NIhyhNYWn4AAAAASUVO
+            RK5CYII='/>
+
+        <!-- 以下主区 -->
+        <div class="main_wrap w_wrapper">
+            <div class="container theme-showcase main_container w_container" role="main">
+                <div class="row">
+                    <table id="tb_01" class="table table-bordered margbtm_0 tb_tlr_0">
+                        <thead>
+                            <tr class="cell_h_60px">
+                                <th colspan="6" class="bd_lr_0 tbx_title_sty to_middle_posi paddlft_20 bg_E6FAFA group02">BSD提交区域，由提交者填写 ABOVE THE LINE IS SUBMIT AREA, FILLED BY SUBMITTER</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="cell_h_60px">
+                                <td class="to_right_side w_190 font_bold col-xs-2 group03 bd_tp_0">
+                                    <div>项目号</div>
+                                    <div>Program</div>
+                                </td>
+                                <td colspan="2" class="fweight_300 to_middle_posi col-xs-4 group03 bd_tp_0" id="program"></td>
+                                <td class="to_right_side w_190 font_bold col-xs-2 group03 bd_tp_0">
+                                    <div>涉及阶段</div>
+                                    <div>Impact Phase</div>
+                                </td>
+                                <td colspan="2" class="fweight_300 to_middle_posi col-xs-4 group03 bd_tp_0" id="impact_phase"></td>
+                            </tr>
+                            <tr class="cell_h_60px">
+                                <td class="to_right_side font_bold group03">
+                                    <div>BSD编号</div>
+                                    <div>BSD No.</div>
+                                </td>
+                                <td colspan="2" class="fweight_300 to_middle_posi group03" id="bsd_no"></td>
+                                <td class="to_right_side font_bold group03">
+                                    <div>发起部门</div>
+                                    <div>Submit Department</div>
+                                </td>
+                                <td colspan="2" class="fweight_300 to_middle_posi group03" id="sub_dep"></td>
+                            </tr>
+                            <tr class="cell_h_60px">
+                                <td class="to_right_side font_bold group03">
+                                    <div>发起人</div>
+                                    <div>Submitter</div>
+                                </td>
+                                <td colspan="2" class="fweight_300 to_middle_posi group03" id="submitter"></td>
+                                <td class="to_right_side font_bold group03">
+                                    <div>实施阶段</div>
+                                    <div>Application Date</div>
+                                </td>
+                                <td colspan="2" class="fweight_300 to_middle_posi group03" id="app_date"></td>
+                            </tr>
+                            <tr class="cell_h_60px">
+                                <td class="to_right_side font_bold group03">
+                                    <div>影响车辆</div>
+                                    <div>Affected Vehicles</div>
+                                </td>
+                                <td colspan="2" class="fweight_300 to_middle_posi group03" id="aff_veh"></td>
+                                <td class="to_right_side font_bold group03">
+                                    <div>问题严重度定义</div>
+                                    <div>Severity Definition</div>
+                                </td>
+                                <td colspan="2" class="fweight_300 to_middle_posi group03" id="severity_def"></td>
+                            </tr>
+                            <tr class="cell_h_60px">
+                                <td class="to_right_side font_bold group03">
+                                    <div>审批清单</div>
+                                    <div>Reviewer List</div>
+                                </td>
+                                <td colspan="2" class="fweight_300 to_middle_posi group03" id="reviewer_list"></td>
+                                <td class="to_right_side font_bold group03">
+                                    <div>相关问题</div>
+                                    <div>Related Issue</div>
+                                </td>
+                                <td colspan="2" class="fweight_300 to_middle_posi group03" id="related_issue"></td>
+                            </tr>
+                            <tr class="cell_h_60px">
+                                <td class="to_right_side font_bold group03">
+                                    <div>影响区域</div>
+                                    <div>Affected SMTSMTs</div>
+                                </td>
+                                <td colspan="5" class="fweight_300 to_middle_posi group03" id="affected_smts"></td>
+                            </tr>
+                            <tr class="cell_h_60px">
+                                <td class="to_right_side font_bold group03">
+                                    <div>影响关键特性</div>
+                                    <div>CC/SC Impacted</div>
+                                </td>
+                                <td colspan="5">
+                                    <div class="to_right_side inline_block marglft_10 font_bold group03">
+                                        <div>零件</div>
+                                        <div>Part</div>
+                                    </div>
+                                    <div class="fweight_300 inline_block con_mltty_sty group03" id="part" ></div>
+                                    <div class="to_right_side inline_block marglft_200 font_bold group03">
+                                        <div>厂内</div>
+                                        <div>In house</div>
+                                    </div>
+                                    <div class="fweight_300 inline_block con_mltty_sty group03" id="in_house" ></div>
+                                </td>
+                            </tr>
+                            <tr class="cell_h_60px">
+                                <td class="to_right_side font_bold group03">
+                                    <div>问题描述</div>
+                                    <div>Issue Description</div>
+                                </td>
+                                <td colspan="5" id="issue_des" class="fweight_300 to_middle_posi group03"></td>
+                            </tr>
+                            <tr class="cell_h_60px">
+                                <td class="to_right_side font_bold group03">
+                                    <div>更改操作描述</div>
+                                    <div>Corrective Action Plan Description</div>
+                                </td>
+                                <td colspan="5" id="short_term" class="fweight_300 to_middle_posi group03"></td>
+                            </tr>
+                            <tr class="cell_h_60px">
+                                <td class="to_right_side font_bold group03">
+                                    <div>更改后接受标准</div>
+                                    <div>Acceptance Criteria after Change</div>
+                                </td>
+                                <td colspan="5" id="long_term" class="fweight_300 to_middle_posi group03"></td>
+                            </tr>
+                            <tr class="cell_h_60px">
+                                <td class="to_right_side font_bold group03">
+                                    <div>更改类型</div>
+                                    <div>Type of Change</div>
+                                </td>
+                                <td colspan="5" id="type_of_change" class="fweight_300 to_middle_posi group03"></td>
+                            </tr>
+                            <tr class="cell_h_60px">
+                                <td colspan="6" class="hcenter font_bold to_middle_posi group02">零件信息 Part Information</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table id="tb_02" class="table table-bordered table-striped margbtm_0 border_0">
+                        <thead>
+                            <tr class="cell_th_87px">
+                                <th class="to_middle_posi hcenter group03">
+                                    <div>编号</div>
+                                    <div>Item No.</div>
+                                </th>
+                                <th class="to_middle_posi hcenter group03">
+                                    <div>零件号</div>
+                                    <div>Part No.</div>
+                                </th>
+                                <th class="to_middle_posi hcenter group03">
+                                    <div>SMT</div>
+                                    <!-- <div>SMT</div> -->
+                                </th>
+                                <th class="to_middle_posi hcenter group03">
+                                    <div>零件名称</div>
+                                    <div>Part Name</div>
+                                </th>
+                                <th class="to_middle_posi hcenter group03">
+                                    <div>版本</div>
+                                    <div>Revision</div>
+                                </th>
+                                <th class="to_middle_posi hcenter group03">
+                                    <div>零件状态</div>
+                                    <div>Part Status</div>
+                                </th>
+                                <th class="to_middle_posi hcenter group03">
+                                    <div>增加/删除/更改</div>
+                                    <div>Add/Delete/Modify</div>
+                                </th>
+                                <th class="to_middle_posi hcenter group03">
+                                    <div>数量</div>
+                                    <div>Qty</div>
+                                </th>
+                                <th class="to_middle_posi hcenter group03">
+                                    <div>车间</div>
+                                    <div>Shop</div>
+                                </th>
+                                <th class="to_middle_posi hcenter group03">
+                                    <div>采购信息</div>
+                                    <div>Make/Buy/Child</div>
+                                </th>
+                                <th class="to_middle_posi hcenter group03">
+                                    <div>相关CR</div>
+                                    <div>Related CR</div>
+                                </th>
+                                <th class="to_middle_posi hcenter group03">
+                                    <div>零件到货时间</div>
+                                    <div>Arriving Date</div>
+                                </th>
+                                <th class="to_middle_posi hcenter group03">
+                                    <div>备注</div>
+                                    <div>Remarks</div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody id="info_tbd" class="group03">
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row">
+                    <table id="tb_03" class="table table-bordered">
+                        <tbody >
+                            <tr class="cell_h_60px">
+                                <td class="to_right_side w_190 font_bold col-xs-2 group03">
+                                    <div>实施方式</div>
+                                    <div>Operation</div>
+                                </td>
+                                <td colspan="5" id="operation" class="fweight_300 to_middle_posi col-xs-10 group03"></td>
+                            </tr>
+                            <tr class="cell_h_60px">
+                                <td colspan="6" >
+                                    <div class="to_right_side inline_block marglft_30 font_bold group03">
+                                        <div>相关图纸与文件已由DRE作为附件提供</div>
+                                        <div>Related documents are provided by DRE as attachment</div>
+                                    </div>
+                                    <div class="inline_block con_sprst_sty"><span id="dre" class="fweight_300 tb3_xgtzyes_sty group03"></span></div>
+                                    <div class="inline_block marglft_150 group03">
+                                        <div>注意！该流程最长有效期为一个造车阶段</div>
+                                        <div>Attention! Maximum valid period is one build phases</div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="cell_h_60px">
+                                <td class="to_right_side font_bold group03">
+                                    <div>特殊指导</div>
+                                    <div>Special Instruction</div>
+                                </td>
+                                <td colspan="5" id="instruction" class="fweight_300 to_middle_posi group03"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table id="tb_04" class="table table-bordered tb_tlr_0" >
+                        <thead>
+                            <tr class="cell_h_60px">
+                                <th colspan="6" class="bd_lr_0 tbx_title_sty to_middle_posi paddlft_20 bg_E6FAFA group02">审批区域，由DRE/VI/PQM/MFG签署 ABOVE THE LINE IS APPROVE AREA, SIGNED BY DRE/VI/PQM/MFG</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="cell_h_60px">
+                                <td colspan="2" class="bd_tp_0 to_right_side font_bold group03">
+                                    <div>是否影响本子系统内零件的试验认证结果</div>
+                                    <div>Effect test and validation of BSD related parts</div>
+                                </td>
+                                <td class="fweight_300 bd_tp_0 to_middle_posi w_190 group03" id="related_part" ></td>
+                                <td colspan="2" class="bd_tp_0 to_right_side font_bold group03">
+                                    <div>是否影响其它子系统零件的试验认证结果</div>
+                                    <div>Effect test and validation of other SMT parts</div>
+                                </td>
+                                <td class="fweight_300 bd_tp_0 to_middle_posi w_190 group03" id="smt_part" ></td>
+                            </tr>
+                            <tr class="cell_h_60px">
+                                <td class="to_right_side w_190 font_bold group03">
+                                    <div>影响区域</div>
+                                    <div>Affected Areas</div>
+                                </td>
+                                <td colspan="5" id="aff_areas" class="fweight_300 to_middle_posi group03"></td>
+                            </tr>
+                            <tr class="cell_h_60px">
+                                <td rowspan="2" class="to_right_side to_middle_posi font_bold group03">
+                                    <div>MFG评估</div>
+                                    <div>MFG Evaluation</div>
+                                </td>
+                                <td class="to_right_side w_190 font_bold group03">
+                                    <div>区域</div>
+                                    <div>Area</div>
+                                </td>
+                                <td colspan="4" id="mfg_area" class="fweight_300 to_middle_posi group03"></td>
+                            </tr>
+                            <tr class="cell_h_60px">
+                                
+                                <td class="to_right_side font_bold group03">
+                                    <div>类型</div>
+                                    <div>Type</div>
+                                </td>
+                                <td colspan="4" id="mfq_type" class="fweight_300 to_middle_posi group03"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table id="tb_05" style="display:none;" class="tb_tlr_0 table table-bordered">
+                        <thead>
+                            <tr class="cell_h_60px">
+                                <th colspan="6" class="bd_lr_0 tbx_title_sty to_middle_posi paddlft_20 bg_E6FAFA group02">审批区域，由DRE/VI/PQM/MFG签署 ABOVE THE LINE IS APPROVE AREA, SIGNED BY DRE/VI/PQM/MFG</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="cell_h_60px">
+                                <td rowspan="4" class="w_190 bd_tp_0">
+                                    <div class="to_right_side font_bold group03">
+                                        <div>现场实施确认</div>
+                                        <div>Onsite Confirm</div>
+                                    </div>
+                                    <div class="to_right_side margtp_21 font_bold group03">
+                                        <div>签字</div>
+                                        <div>Sign</div>
+                                    </div>
+                                    <div class="to_right_side margtp_21 font_bold group03">
+                                        <div>现场实施确认</div>
+                                        <div>Onsite Confirm</div>
+                                    </div>
+                                    <div class="to_right_side margtp_18 font_bold group03">
+                                        <div>签字</div>
+                                        <div>Sign</div>
+                                    </div>
+                                </td>
+                                <td class="bd_0 bd_tp_0 tb05_td_hcenter sign_title_middle group03">
+                                    <div>工程师</div>
+                                    <div>DRE</div>
+                                </td>
+                                <td class="bd_0 bd_tp_0 tb05_td_hcenter sign_title_middle group03">
+                                    <div>整车工程</div>
+                                    <div>VI</div>
+                                </td>
+                                <td class="bd_0 bd_tp_0 tb05_td_hcenter sign_title_middle group03">
+                                    <div>零件质量</div>
+                                    <div>PQM</div>
+                                </td>
+                                <td class="bd_0 bd_tp_0 tb05_td_hcenter sign_title_middle group03">
+                                    <div>工程质量</div>
+                                    <div>EQ</div>
+                                </td>
+                                <td class="bd_tlr_0 bd_tp_0 tb05_td_hcenter sign_title_middle group03">
+                                    <div>制造质量</div>
+                                    <div>MFQ</div>
+                                </td>
+                            </tr>
+                            <tr class="tb05_tr_hcenter cell_h_60px">
+                                <td class="bd_0 sign_line_bottom">________________</td>
+                                <td class="bd_0 sign_line_bottom">________________</td>
+                                <td class="bd_0 sign_line_bottom">________________</td>
+                                <td class="bd_0 sign_line_bottom">________________</td>
+                                <td class="bd_tlr_0 sign_line_bottom">________________</td>
+                            </tr>
+                            <tr class="tb05_tr_hcenter cell_h_60px">
+                                <td class="bd_0 sign_title_middle group03">
+                                    <div>物流</div>
+                                    <div>Logistic</div>
+                                </td>
+                                <td class="bd_0 sign_title_middle group03">
+                                    <div>制造</div>
+                                    <div>MFG</div>
+                                </td>
+                                <td class="bd_0 sign_title_middle group03">
+                                    <div>制造</div>
+                                    <div>HF AMTECH</div>
+                                </td>
+                                <td class="bd_0 sign_title_middle group03">
+                                    <div>其它</div>
+                                    <div>Others</div>
+                                </td>
+                                <td class="bd_tlr_0 sign_title_middle group03">
+                                    <div>其它</div>
+                                    <div>Others</div>
+                                </td>
+                            </tr>
+                            <tr class="tb05_tr_hcenter cell_h_60px">
+                                <td class="bd_0 sign_line_bottom">________________</td>
+                                <td class="bd_0 sign_line_bottom">________________</td>
+                                <td class="bd_0 sign_line_bottom">________________</td>
+                                <td class="bd_0 sign_line_bottom">________________</td>
+                                <td class="bd_tlr_0 sign_line_bottom">________________</td>
+                            </tr>
+                            <tr class="cell_h_120px">
+                                <td colspan="2" class="hcenter to_bottom_pposi">
+                                    <div class="inline_block hright font_bold group03">
+                                        <div>批准(NIO)</div>
+                                        <div>Approve(NIO)</div>
+                                    </div>
+                                    <div class="inline_block">&nbsp;&nbsp;&nbsp;&nbsp;_____________________</div>
+                                </td>
+                                <td colspan="2" class="hcenter to_bottom_pposi">
+                                    <div class="inline_block hright font_bold group03">
+                                        <div>签收(工厂)</div>
+                                        <div>Accept(Plant)</div>
+                                    </div>
+                                    <div class="inline_block">&nbsp;&nbsp;&nbsp;&nbsp;_____________________</div>
+                                </td>
+                                <td colspan="2" class="hcenter to_bottom_pposi">
+                                    <div class="inline_block hright font_bold group03">
+                                        <div>日期</div>
+                                        <div>Date</div>
+                                    </div>
+                                    <div class="inline_block">&nbsp;&nbsp;&nbsp;&nbsp;_____________________</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div id="wm_wrap" class="w_wrapper">
+            <div class="wm_div_sty w_container"><div class="water_mark wm_font"></div></div>
+            <div class="wm_div_sty w_container margtp_400"><div class="water_mark wm_font"></div></div>
+            <div class="wm_div_sty w_container margtp_400"><div class="water_mark wm_font"></div></div>
+            <!-- <div class="wm_div_sty w_container margtp_400"><div class="water_mark wm_font"></div></div> -->
+        </div>
+
+        <!-- <div id="loading_icon" style="position: absolute;top:450px;left:785px;display:none;"> -->
+        <div id="loading_icon" style="position: absolute;top:450px;left:785px;">
+            <!-- <img src="../yhe_resource/loading_0.gif" /> -->
+            <img src='data:img/jpg;base64,R0lGODlhgACAAKIAAP///93d3bu7u5mZmQAA/wAAAAAAAAAAACH/C05FVFNDQVBFMi4wAwEAAAAh
+                +QQFBQAEACwCAAIAfAB8AAAD/0i63P4wygYqmDjrzbtflvWNZGliYXiubKuloivPLlzReD7al+7/
+                Eh5wSFQIi8hHYBkwHUmD6CD5YTJLz49USuVYraRsZ7vtar7XnQ1Kjpoz6LRHvGlz35O4nEPP2O94
+                EnpNc2sef1OBGIOFMId/inB6jSmPdpGScR19EoiYmZobnBCIiZ95k6KGGp6ni4wvqxilrqBfqo6s
+                kLW2YBmjDa28r6Eosp27w8Rov8ekycqoqUHODrTRvXsQwArC2NLF29UM19/LtxO5yJd4Au4CK7DU
+                NxPebG4e7+8n8iv2WmQ66BtoYpo/dvfacBjIkITBE9DGlMvAsOIIZjIUAixliv9ixYZVtLUos5Gj
+                wI8gzc3iCGghypQqrbFsme8lwZgLZtIcYfNmTJ34WPTUZw5oRxdD9w0z6iOpO15MgTh1BTTJUKos
+                39jE+o/KS64IFVmsFfYT0aU7capdy7at27dw48qdS7eu3bt480I02vUbX2F/JxYNDImw4GiGE/P9
+                qbhxVpWOI/eFKtlNZbWXuzlmG1mv58+gQ4seTbq06dOoU6vGQZJy0FNlMcV+czhQ7SQmYd8eMhPs
+                5BxVdfcGEtV3buDBXQ+fURxx8oM6MT9P+Fh6dOrH2zavc13u9JXVJb520Vp8dvC76wXMuN5Sepm/
+                1WtkEZHDefnzR9Qvsd9+/wi8+en3X0ntYVcSdAE+UN4zs7ln24CaLagghIxBaGF8kFGoIYV+Ybgh
+                h841GIyI5ICIFoklJsigihmimJOLEbLYIYwxSgigiZ+8l2KB+Ml4oo/w8dijjcrouCORKwIpnJIj
+                MnkkksalNeR4fuBIm5UEYImhIlsGCeWNNJphpJdSTlkml1jWeOY6TnaRpppUctcmFW9mGSaZceYo
+                pH9zkjnjUe59iR5pdapWaGqHopboaYua1qije67GJ6CuJAAAIfkEBQUABAAsCgACAFcAMAAAA/9I
+                utz+ML5Ag7w46z0r5WAoSp43nihXVmnrdusrv+s332dt4Tyo9yOBUJD6oQBIQGs4RBlHySSKyczV
+                TtHoidocPUNZaZAr9F5FYbGI3PWdQWn1mi36buLKFJvojsHjLnshdhl4L4IqbxqGh4gahBJ4eY1k
+                iX6LgDN7fBmQEJI4jhieD4yhdJ2KkZk8oiSqEaatqBekDLKztBG2CqBACq4wJRi4PZu1sA2+v8C6
+                EJexrBAD1AOBzsLE0g/V1UvYR9sN3eR6lTLi4+TlY1wz6Qzr8u1t6FkY8vNzZTxaGfn6mAkEGFDg
+                L4LrDDJDyE4hEIbdHB6ESE1iD4oVLfLAqPETIsOODwmCDJlv5MSGJklaS6khAQAh+QQFBQAEACwf
+                AAIAVwAwAAAD/0i63P5LSAGrvTjrNuf+YKh1nWieIumhbFupkivPBEzR+GnnfLj3ooFwwPqdAshA
+                azhEGUXJJIrJ1MGOUamJ2jQ9QVltkCv0XqFh5IncBX01afGYnDqD40u2z76JK/N0bnxweC5sRB9v
+                F34zh4gjg4uMjXobihWTlJUZlw9+fzSHlpGYhTminKSepqebF50NmTyor6qxrLO0L7YLn0ALuhCw
+                CrJAjrUqkrjGrsIkGMW/BMEPJcphLgDaABjUKNEh29vdgTLLIOLpF80s5xrp8ORVONgi8PcZ8zlR
+                Jvf40tL8/QPYQ+BAgjgMxkPIQ6E6hgkdjoNIQ+JEijMsasNY0RQix4gKP+YIKXKkwJIFF6JMudFE
+                AgAh+QQFBQAEACw8AAIAQgBCAAAD/kg0PPowykmrna3dzXvNmSeOFqiRaGoyaTuujitv8Gx/661H
+                tSv8gt2jlwIChYtc0XjcEUnMpu4pikpv1I71astytkGh9wJGJk3QrXlcKa+VWjeSPZHP4Rtw+I2O
+                W81DeBZ2fCB+UYCBfWRqiQp0CnqOj4J1jZOQkpOUIYx/m4oxg5cuAaYBO4Qop6c6pKusrDevIrG2
+                rkwptrupXB67vKAbwMHCFcTFxhLIt8oUzLHOE9Cy0hHUrdbX2KjaENzey9Dh08jkz8Tnx83q66bt
+                8PHy8/T19vf4+fr6AP3+/wADAjQmsKDBf6AOKjS4aaHDgZMeSgTQcKLDhBYPEswoA1BBAgAh+QQF
+                BQAEACxOAAoAMABXAAAD7Ei6vPOjyUkrhdDqfXHm4OZ9YSmNpKmiqVqykbuysgvX5o2HcLxzup8o
+                KLQQix0UcqhcVo5ORi+aHFEn02sDeuWqBGCBkbYLh5/NmnldxajX7LbPBK+PH7K6narfO/t+SIBw
+                fINmUYaHf4lghYyOhlqJWgqDlAuAlwyBmpVnnaChoqOkpaanqKmqKgGtrq+wsbA1srW2ry63uras
+                u764Jr/CAb3Du7nGt7TJsqvOz9DR0tPU1TIA2ACl2dyi3N/aneDf4uPklObj6OngWuzt7u/d8fLY
+                9PXr9eFX+vv8+PnYlUsXiqC3c6PmUUgAACH5BAUFAAQALE4AHwAwAFcAAAPpSLrc/m7IAau9bU7M
+                O9GgJ0ZgOI5leoqpumKt+1axPJO1dtO5vuM9yi8TlAyBvSMxqES2mo8cFFKb8kzWqzDL7Xq/4LB4
+                TC6bz1yBes1uu9uzt3zOXtHv8xN+Dx/x/wJ6gHt2g3Rxhm9oi4yNjo+QkZKTCgGWAWaXmmOanZhg
+                np2goaJdpKGmp55cqqusrZuvsJays6mzn1m4uRAAvgAvuBW/v8GwvcTFxqfIycA3zA/OytCl0tPP
+                O7HD2GLYvt7dYd/ZX99j5+Pi6tPh6+bvXuTuzujxXens9fr7YPn+7egRI9PPHrgpCQAAIfkEBQUA
+                BAAsPAA8AEIAQgAAA/lIutz+UI1Jq7026h2x/xUncmD5jehjrlnqSmz8vrE8u7V5z/m5/8CgcEgs
+                Go/IpHLJbDqf0Kh0ShBYBdTXdZsdbb/Yrgb8FUfIYLMDTVYz2G13FV6Wz+lX+x0fdvPzdn9WeoJG
+                AYcBN39EiIiKeEONjTt0kZKHQGyWl4mZdREAoQAcnJhBXBqioqSlT6qqG6WmTK+rsa1NtaGsuEu6
+                o7yXubojsrTEIsa+yMm9SL8osp3PzM2cStDRykfZ2tfUtS/bRd3ewtzV5pLo4eLjQuUp70Hx8t9E
+                9eqO5Oku5/ztdkxi90qPg3x2EMpR6IahGocPCxp8AGtigwQAIfkEBQUABAAsHwBOAFcAMAAAA/9I
+                utz+MMo36pg4682J/V0ojs1nXmSqSqe5vrDXunEdzq2ta3i+/5DeCUh0CGnF5BGULC4tTeUTFQVO
+                NYAs4CfoCkZPjFar83rBx8l4XDObSUL1Ott2d1U4yZwcs5/xSBB7dBMBhgEYfncrTBGDW4WHhomK
+                UY+QEZKSE4qLRY8YmoeUfkmXoaKInJ2fgxmpqqulQKCvqRqsP7WooriVO7u8mhu5NacasMTFMMHC
+                m8qzzM2RvdDRK9PUwxzLKdnaz9y/Kt8SyR3dIuXmtyHpHMcd5+jvWK4i8/TXHff47SLjQvQLkU+f
+                G29rUhQ06IkEG4X/Rryp4mwUxSgLL/7IqFETB8eONT6ChCFy5ItqJomES6kgAQAh+QQFBQAEACwK
+                AE4AVwAwAAAD/0i63A4QuEmrvTi3yLX/4MeNUmieITmibEuppCu3sDrfYG3jPKbHveDktxIaF8TO
+                cZmMLI9NyBPanFKJp4A2IBx4B5lkdqvtfb8+HYpMxp3Pl1qLvXW/vWkli16/3dFxTi58ZRcChwIY
+                f3hWBIRchoiHiotWj5AVkpIXi4xLjxiaiJR/T5ehoomcnZ+EGamqq6VGoK+pGqxCtaiiuJVBu7ya
+                Hrk4pxqwxMUzwcKbyrPMzZG90NGDrh/JH8t72dq3IN1jfCHb3L/e5ebh4ukmxyDn6O8g08jt7tf2
+                6ybz+m/W9GNXzUQ9fm1Q/APoSWAhhfkMAmpEbRhFKwsvCsmosRIHx444PoKcIXKkjIImjTzjkQAA
+                IfkEBQUABAAsAgA8AEIAQgAAA/VIBNz+8KlJq72Yxs1d/uDVjVxogmQqnaylvkArT7A63/V47/m2
+                /8CgcEgsGo/IpHLJbDqf0Kh0Sj0FroGqDMvVmrjgrDcTBo8v5fCZki6vCW33Oq4+0832O/at3+f7
+                fICBdzsChgJGeoWHhkV0P4yMRG1BkYeOeECWl5hXQ5uNIAOjA1KgiKKko1CnqBmqqk+nIbCkTq20
+                taVNs7m1vKAnurtLvb6wTMbHsUq4wrrFwSzDzcrLtknW16tI2tvERt6pv0fi48jh5h/U6Zs77EXS
+                N/BE8jP09ZFA+PmhP/xvJgAMSGBgQINvEK5ReIZhQ3QEMTBLAAAh+QQFBQAEACwCAB8AMABXAAAD
+                50i6DA4syklre87qTbHn4OaNYSmNqKmiqVqyrcvBsazRpH3jmC7yD98OCBF2iEXjBKmsAJsWHDQK
+                mw571l8my+16v+CweEwum8+hgHrNbrvbtrd8znbR73MVfg838f8BeoB7doN0cYZvaIuMjY6PkJGS
+                k2gClgJml5pjmp2YYJ6dX6GeXaShWaeoVqqlU62ir7CXqbOWrLafsrNctjIDwAMWvC7BwRWtNsbG
+                FKc+y8fNsTrQ0dK3QtXAYtrCYd3eYN3c49/a5NVj5eLn5u3s6e7x8NDo9fbL+Mzy9/T5+tvUzdN3
+                Zp+GBAAh+QQJBQAEACwCAAIAfAB8AAAD/0i63P4wykmrvTjrzbv/YCiOZGmeaKqubOu+cCzPdArc
+                QK2TOL7/nl4PSMwIfcUk5YhUOh3M5nNKiOaoWCuWqt1Ou16l9RpOgsvEMdocXbOZ7nQ7DjzTaeq7
+                zq6P5fszfIASAYUBIYKDDoaGIImKC4ySH3OQEJKYHZWWi5iZG0ecEZ6eHEOio6SfqCaqpaytrpOw
+                JLKztCO2jLi1uoW8Ir6/wCHCxMG2x7muysukzb230M6H09bX2Nna29zd3t/g4cAC5OXm5+jn3Ons
+                7eba7vHt2fL16tj2+QL0+vXw/e7WAUwnrqDBgwgTKlzIsKHDh2gGSBwAccHEixAvaqTYcFCjRoYe
+                NyoM6REhyZIHT4o0qPIjy5YTTcKUmHImx5cwE85cmJPnSYckK66sSAAj0aNIkypdyrSp06dQo0qd
+                SrWq1atYs2rdyrWr169gwxZJAAA7'/>
+        </div>
+        
+        <div id="for_canvas" style="display:none"></div>
+        
+        <!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
+        <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+        <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
+        <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <!-- <script src="../yhe_resource/html2canvas.min.js"></script> -->
+        <script src="https://cdn.bootcss.com/html2canvas/0.5.0-beta4/html2canvas.min.js"></script>
+        <!-- <script src="../yhe_resource/jsPdf.debug.js"></script> -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.debug.js" integrity="sha384-CchuzHs077vGtfhGYl9Qtc7Vx64rXBXdIAZIPbItbNyWIRTdG0oYAqki3Ry13Yzu" crossorigin="anonymous"></script>
+        <script>
+            
+            function getUrlParam(name) {  
+                var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); // 构造一个含有目标参数的正则表达式对象  
+                var r = window.location.search.substr(1).match(reg);  // 匹配目标参数  
+                if (r != null) return unescape(r[2]); return null; // 返回参数值  
+            }
+
+            function getPDF(objectId){
+                $.ajax({
+                    type: "POST",
+                    dataType: "json",
+                    data: {"objectId": objectId},
+                    url: "exportPDF.jsp" ,
+                    success: function(result){
+                        // alert(result);
+                        window.location.href=result;
+                    },
+                    error:function(e,r,a){
+                        console.log("异常！无法获取PDF文件");
+                    }
+                });
+            }
+
+            $(document).ready(function(){
+                var objectId = getUrlParam('objectId');
+                var wm_msg = '- 状态未知 -';
+                // current status
+                var stat_curr = '';
+                // a flag to control retract_btn
+                var retract_flag = false;
+                var reviewer_list = "";
+                var related_issue = "";
+                var program = "";
+                var bsdno = "BSD-x";
+
+                //以下是  AJAX A！【联调开启】
+                $.ajax({
+                    type: "GET",
+                    dataType: "json",
+                    data: {"objectId": objectId},
+                    url: "bsdData.jsp" ,//url
+                    success: function (result) {
+                        console.log(result);
+                        console.log("SUCCESS");
+
+                        // water_mark fill
+                        // status gain!
+                        if(/Create/.exec(result["data"]["current"])){
+                            wm_msg = "Create 创建";
+                            stat_curr = "create";
+                        }else if(/Evaluate/.exec(result["data"]["current"])){
+                            wm_msg = "Evaluate 评审中";
+                            stat_curr = "evaluate";
+                        }else if(/Approved/.exec(result["data"]["current"])){
+                            wm_msg = "Approved 批准";
+                            stat_curr = "approved";
+                        }else if(/Implemented/.exec(result["data"]["current"])){
+                            wm_msg = "Implemented 实施";
+                            stat_curr = "implemented";
+                        }else if(/Failed/.exec(result["data"]["current"])){
+                            wm_msg = "Failed 失败";
+                            stat_curr = "failed";
+                        }
+                        // logic for retractBTN_flag
+                        if(result["data"]["submitter"] === result["user"]){
+                            retract_flag = true;
+                        }
+                        
+
+                        program = result["data"]["program"];
+                        $("#program").text(result["data"]["program"]);
+                        $("#impact_phase").text(result["data"]["impactPhase"]);
+                        $("#bsd_no").text(result["data"]["bsdNo"]);
+                        bsdno =  "" + result["data"]["bsdNo"];
+                        $("#sub_dep").text(result["data"]["subDep"]);
+                        $("#submitter").text(result["data"]["submitter"]+"--"+result["data"]["email"]);
+                        $("#app_date").text(result["data"]["appDate"]);
+                        $("#aff_veh").text(result["data"]["affVeh"]);
+                        $("#severity_def").text(result["data"]["severityDef"]);
+
+                        $("#reviewer_list").text(result["data"]["reviewName"]);
+                        // !!!  需要确认   “相关问题”data对接
+                        $("#related_issue").text(result["data"]["relatedIssue"]);
+                        $("#affected_smts").text(result["data"]["affectedSMTs"]);
+                        $("#part").text(result["data"]["part"]);
+                        $("#in_house").text(result["data"]["inHouse"]);
+                        $("#issue_des").text(result["data"]["issueDes"]);
+                        $("#short_term").text(result["data"]["shortTerm"]);
+                        $("#long_term").text(result["data"]["longTerm"]);
+                        $("#type_of_change").text(result["data"]["typeOfChange"]);
+
+                        // for render
+                        var tbd = $("#info_tbd");
+                        for(var i=0; i<result["data"]["partInformation"].length; i++){
+                            var tds = $('<tr class="cell_h_ma_60px"><td id="itemno_'+i+'"></td><td id="partno_'+i+'"></td><td id="smt_'+i+'"></td><td id="partname_'+i+'"></td><td id="rev_'+i+'"></td><td id="sta_'+i+'"></td><td id="change_'+i+'"></td><td id="qty_'+i+'"></td><td id="shop_'+i+'"></td><td id="makeorbuy_'+i+'"></td><td id="relatedcr_'+i+'"></td><td id="arrivingdate_'+i+'"></td><td id="reamrks_'+i+'"></td></tr>');
+                            tbd.append(tds);
+                            $("#itemno_"+i+"").text(i+1);
+                            $("#partno_"+i+"").text(result["data"]["partInformation"][i]["partNo"]);
+                            $("#smt_"+i+"").text(result["data"]["partInformation"][i]["partSMT"]);
+                            $("#partname_"+i+"").text(result["data"]["partInformation"][i]["partName"]);
+                            $("#rev_"+i+"").text(result["data"]["partInformation"][i]["rev"]);
+                            $("#sta_"+i+"").text(result["data"]["partInformation"][i]["status"]);
+                            $("#change_"+i+"").text(result["data"]["partInformation"][i]["change"]);
+                            $("#qty_"+i+"").text(result["data"]["partInformation"][i]["qty"]);
+                            $("#shop_"+i+"").text(result["data"]["partInformation"][i]["shop"]);
+                            $("#makeorbuy_"+i+"").text(result["data"]["partInformation"][i]["makeorbuy"]);
+                            $("#relatedcr_"+i+"").text(result["data"]["partInformation"][i]["relatedCR"]);
+                            $("#arrivingdate_"+i+"").text(result["data"]["partInformation"][i]["arrivingDate"]);
+                            $("#reamrks_"+i+"").text(result["data"]["partInformation"][i]["remarks"]);
+                        }
+                        var tdx = $('<tr><td colspan="13" height="3px" class="borderbtm_0"></td></tr>');
+                        tbd.append(tdx);
+
+                        $("#operation").text(result["data"]["operation"]);
+                        $("#dre").text(result["data"]["dre"]);
+                        $("#instruction").text(result["data"]["instruction"]);
+                        $("#related_part").text(result["data"]["relatedPart"]);
+                        $("#smt_part").text(result["data"]["smtPart"]);
+                        $("#aff_areas").text(result["data"]["affAreas"]);
+                        $("#mfg_area").text(result["data"]["mfgArea"]);
+                        $("#mfq_type").text(result["data"]["mfqType"]);
+                        $(".water_mark").text(wm_msg);
+
+                        $("#loading_icon").css("display", "none");
+                    },
+                    error : function(e,r,a) {
+                        $("#loading_icon").css("display", "none");
+                        console.log("异常！");
+                    }
+                });
+                // 删除按钮 权限控制
+                $.ajax({
+                    type: "POST",
+                    dataType: "json",
+                    data: {"objectId": objectId},
+                    url: "powerCancel.jsp" ,
+                    success: function(result){
+                        //这里的result 两个结果： true/false
+                        //处理逻辑(控制“ 取消 ”按钮)
+                        if(result["cancelFlag"] === 'true'){
+                            $("#delete_btn").css("display", "");
+                            $("#modi_btn").css("display", "");
+                        }else{
+                            $("#delete_btn").css("display", "none");
+                            $("#modi_btn").css("display", "none");
+                        }
+                    },
+                    error:function(e,r,a){
+                        console.log("异常！（取消 按钮显示与否）");
+                    }
+                });
+                // 修改按钮 权限控制（暂停。。）
+                // $.ajax({
+                //     type: "POST",
+                //     dataType: "json",
+                //     data: {"objectId": objectId},
+                //     url: "powerCancel.jsp" ,
+                //     success: function(result){
+                //         //这里的result 两个结果： true/false
+                //         //处理逻辑(控制“ 取消 ”按钮)
+                //         if(result["cancelFlag"] === 'true'){
+                //             $("#delete_btn").css("display", "");
+                //             $("#modi_btn").css("display", "");
+                //         }else{
+                //             $("#delete_btn").css("display", "none");
+                //             $("#modi_btn").css("display", "none");
+                //         }
+                        
+                //     },
+                //     error:function(e,r,a){
+                //         console.log("异常！（取消 按钮显示与否）");
+                //     }
+                // });
+                // 超审按钮 权限控制
+                $.ajax({
+                    type: "POST",
+                    dataType: "json",
+                    data: {"objectId": objectId},
+                    url: "powerSuperApprove.jsp" ,
+                    success: function(result){
+                        //这里的result 两个结果： true/false
+                        //处理逻辑(控制“ 超级审批 ”按钮)
+                        if(result["superFlag"] === 'true'){
+                            $("#supapp_btn").css("display", "");
+                        }else{
+                            $("#supapp_btn").css("display", "none");
+                        }
+                    },
+                    error:function(e,r,a){
+                        console.log("异常！（超级审批 按钮显示与否）");
+                    }
+                });
+                //以上是  AJAX A/2/3 【联调开启】
+
+                
+
+                // 以下是数据 json data  AJAX1/2/3 【联调关闭】
+                //   //  AW  给的数据 << mock
+                // var rst = {
+                //     "data":{
+                //         "affAreas":[],
+                //         "submitter":"chao.liu.o",
+                //         "part":"FALSE",
+                //         "appDate":"GA-VB3",
+                //         "program":"ES8",
+                //         "bsdNo":"BSD-0000083",
+                //         "current":"Approved",
+                //         "longTerm":"Logistics accept the new AD version  part .\n物流接受AC状态的新样件。",
+                //         "shortTerm":"N/A",
+                //         "dre":"N",
+                //         "smtPart":"No",
+                //         "issueDes":"VB3 MBOM已经冻结前，相关零件的CR还没结束。",
+                //         "email":"chao.liu.o@nio.com",
+                //         "partInformation":[{
+                //             "rev":"AC",
+                //             "relatedCR":"CR-0000845",
+                //             "shop":"",
+                //             "arrivingDate":"",
+                //             "qty":"0.0",
+                //             "change":"",
+                //             "id":"14464.24512.12800.34274",
+                //             "partName":"RR_DR SPEAKER BRACKET",
+                //             "remarks":"",
+                //             "makeorbuy":"",
+                //             "status":"Release",
+                //             "partNo":"P0005133"
+                //         },{
+                //             "rev":"AC",
+                //             "relatedCR":"CR-0000845",
+                //             "shop":"",
+                //             "arrivingDate":"",
+                //             "qty":"0.0",
+                //             "change":"",
+                //             "id":"14464.24512.39936.12774",
+                //             "partName":"FRT DR SPEAKER BRKT",
+                //             "remarks":"",
+                //             "makeorbuy":"",
+                //             "status":"Release",
+                //             "partNo":"P0005090"}],
+                //         "mfqType":[],
+                //         "affVeh":"VB3",
+                //         "relatedPart":"No",
+                //         "typeOfChange":["BOM Change"],
+                //         "severityDef":"",
+                //         "subDep":"BODY SMT",
+                //         "inHouse":"FALSE",
+                //         "instruction":"",
+                //         "affectedSMTs":["BODY"],
+                //         "reviewName":"ES8_BSD_Evaluate_BOM_Chg",
+                //         "mfgArea":[],
+                //         "impactPhase":"",
+                //         "reviewId":"51456.32231.31744.44575",
+                //         "operation":["Logistics update BOM"]
+                //     }
+                // };
+
+                // //  // 取消，mock jsondata
+                // var rst_aj2 = {
+                //     "data":{
+                //         "powerCancel": true
+                //     }
+                // }
+
+                // //  // 超级审批，mock jsondata
+                // var rst_aj3 = {
+                //     "data":{
+                //         "powerSuperApprove": true
+                //     }
+                // }
+                // 以上是数据 json data AJAX1/2/3 【联调关闭】
+
+                // 以下 是 按钮[取消/超级审批] 显示/不显 处理逻辑【联调关闭】
+                // if(rst_aj2["data"]["powerCancel"]){
+                //     $("#delete_btn").css("display", "");
+                // }else{
+                //     $("#delete_btn").css("display", "none");
+                // }
+                // if(rst_aj3["data"]["powerSuperApprove"]){
+                //     $("#supapp_btn").css("display", "");
+                // }else{
+                //     $("#supapp_btn").css("display", "none");
+                // }
+                // 以上 是 按钮[取消/超级审批] 显示/不显 处理逻辑【联调关闭】
+
+                // 以下 是水印 message处理逻辑【联调关闭】
+                // if(/Create/.exec(rst["data"]["current"])){
+                //     wm_msg = "Create 创建";
+                // }else if(/Evaluate/.exec(rst["data"]["current"])){
+                //     wm_msg = "Evaluate 评审中";
+                // }else if(/Approved/.exec(rst["data"]["current"])){
+                //     wm_msg = "Approved 批准";
+                // }else if(/Implemented/.exec(rst["data"]["current"])){
+                //     wm_msg = "Implemented 实施";
+                // }else if(/Failed/.exec(rst["data"]["current"])){
+                //     wm_msg = "Failed 失败";
+                // }
+                // 以上 是水印 message处理逻辑【联调关闭】
+
+                //以下  填值【联调关闭】
+                // program = rst["data"]["program"];
+                // $("#program").text(rst["data"]["program"]);
+                // $("#impact_phase").text(rst["data"]["impactPhase"]);
+                // $("#bsd_no").text(rst["data"]["bsdNo"]);
+                // bsdno =  "" + rst["data"]["bsdNo"];
+                // $("#sub_dep").text(rst["data"]["subDep"]);
+                // $("#submitter").text(rst["data"]["submitter"]+"--"+rst["data"]["email"]);
+                // $("#app_date").text(rst["data"]["appDate"]);
+                // $("#aff_veh").text(rst["data"]["affVeh"]);
+                // $("#severity_def").text(rst["data"]["severityDef"]);
+            
+                // // for(var j=0; j<rst["data"]["reviewerList"].length; j++){
+                // //     reviewer_list += "" + rst["data"]["reviewerList"][j]["reviewName"];
+                // //     if(j != rst["data"]["reviewerList"].length-1){
+                // //         reviewer_list += ", ";
+                // //     }
+                // // }
+                // // $("#reviewer_list").text(reviewer_list);
+
+                // // for(var j=0; j<rst["data"]["relatedissueList"].length; j++){
+                // //     related_issue += "" + rst["data"]["relatedissueList"][j]["reviewName"];
+                // //     if(j != rst["data"]["relatedissueList"].length-1){
+                // //         related_issue += ", ";
+                // //     }
+                // // }
+                // // $("#related_issue").text(related_issue);
+                
+
+                // $("#affected_smts").text(rst["data"]["affectedSMTs"]);
+                // $("#part").text(rst["data"]["part"]);
+                // $("#in_house").text(rst["data"]["inHouse"]);
+                // $("#issue_des").text(rst["data"]["issueDes"]);
+                // $("#short_term").text(rst["data"]["shortTerm"]);
+                // $("#long_term").text(rst["data"]["longTerm"]);
+                // $("#type_of_change").text(rst["data"]["typeOfChange"]);
+                
+                // var tbd = $("#info_tbd");
+                // for(var i=0; i<rst["data"]["partInformation"].length; i++){
+                //     var tds = $('<tr class="cell_h_ma_60px"><td id="itemno_'+i+'"></td><td id="partno_'+i+'"></td><td id="smt_'+i+'"></td><td id="partname_'+i+'"></td><td id="rev_'+i+'"><td id="sta_'+i+'"></td><td id="change_'+i+'"></td><td id="qty_'+i+'"></td><td id="shop_'+i+'"></td><td id="makeorbuy_'+i+'"></td><td id="relatedcr_'+i+'"></td><td id="arrivingdate_'+i+'"></td><td id="reamrks_'+i+'"></td></tr>');
+                //     tbd.append(tds);
+                //     $("#itemno_"+i+"").text(i+1);
+                //     $("#partno_"+i+"").text(rst["data"]["partInformation"][i]["partNo"]);
+                //     $("#smt_"+i+"").text(rst["data"]["partInformation"][i]["smt"]);
+                //     $("#partname_"+i+"").text(rst["data"]["partInformation"][i]["partName"]);
+                //     $("#rev_"+i+"").text(rst["data"]["partInformation"][i]["rev"]);
+                //     $("#sta_"+i+"").text(rst["data"]["partInformation"][i]["status"]);
+                //     $("#change_"+i+"").text(rst["data"]["partInformation"][i]["change"]);
+                //     $("#qty_"+i+"").text(rst["data"]["partInformation"][i]["qty"]);
+                //     $("#shop_"+i+"").text(rst["data"]["partInformation"][i]["shop"]);
+                //     $("#makeorbuy_"+i+"").text(rst["data"]["partInformation"][i]["makeorbuy"]);
+                //     $("#relatedcr_"+i+"").text(rst["data"]["partInformation"][i]["relatedCR"]);
+                //     $("#arrivingdate_"+i+"").text(rst["data"]["partInformation"][i]["arrivingDate"]);
+                //     $("#reamrks_"+i+"").text(rst["data"]["partInformation"][i]["remarks"]);
+                // }
+                // var tdx = $('<tr class="con_partinfo_sty"><td colspan="13" height="3px" class="borderbtm_0"></td></tr>');
+                // tbd.append(tdx);
+
+                // $("#operation").text(rst["data"]["operation"]);
+                // $("#dre").text(rst["data"]["dre"]);
+                // $("#instruction").text(rst["data"]["instruction"]);
+                // $("#related_part").text(rst["data"]["relatedPart"]);
+                // $("#smt_part").text(rst["data"]["smtPart"]);
+                // $("#aff_areas").text(rst["data"]["affAreas"]);
+                // $("#mfg_area").text(rst["data"]["mfgArea"]);
+                // $("#mfq_type").text(rst["data"]["mfqType"]);
+                // $(".water_mark").text(wm_msg);
+                //以上  填值【联调关闭】
+                // wm_msg = "Create 创建";
+                // wm_msg = "Approved 批准";
+                // wm_msg = "Implemented 实施";
+                // $(".water_mark").text(wm_msg);
+                // // 水印还是要有的，以上。
+
+                // retract btn control
+                if(!retract_flag){
+                    $("#retract_btn").attr("disabled","disabled");
+                    $("#retract_btn").css("background","#DDDDDD");
+                }
+
+                //按钮：打印 >> 逻辑
+                $("#gen_pdf").on("click", function(){
+                    // // 1 >> 前端调用浏览器打印
+                    $(window).scrollTop(0);
+                    $(".group01").addClass("font_wei01");
+                    $(".group02").addClass("font_wei02");
+                    $(".group03").addClass("font_wei03");
+                    $("#fix_top").css("position", "inherit");
+                    $("#fix_top").css("margin-top", "-140px");
+                    $("#fake_pic").show();
+                    $("#tb_05").show();
+                    window.print();
+                    $("#tb_05").hide();
+                    $("#fake_pic").hide();
+                    $("#fix_top").css("position", "fixed");
+                    $("#fix_top").css("margin-top", "0px");
+                    $(".group01").removeClass("font_wei01");
+                    $(".group02").removeClass("font_wei02");
+                    $(".group03").removeClass("font_wei03");
+
+                    // @AW 后端 调用打印接口打印 exportPDF.jsp?objectId=
+                    // $("#loading_icon").show();
+                    // getPDF(objectId);
+                    // $("#loading_icon").hide();
+
+                });
+
+                //按钮：删除  >> 逻辑
+                $("#delete_btn").on("click", function(){
+                    var r = confirm("确定进行作废操作？");
+                    if( r==true ){
+                        $(location).attr('href', '/3dspace/components/NioBSDCancell.jsp'+"?objectId="+objectId );
+                    }
+                });
+                //按钮：撤回  >> 逻辑
+                // $("#retract_btn").on("click", function(){
+                //     var r = confirm("确定进行撤回操作？");
+                //     if( r==true ){
+                //         // 撤回跳转/操作[ 逻辑 ]， 待定
+                //         $(location).attr('href', 'https://www.baidu.com');
+                //     }                    
+                // });
+                //按钮：超级审批  >> 逻辑
+                $("#supapp_btn").on("click", function(){
+                    window.open('/3dspace/components/NioBSDSuperApproval.jsp'+"?objectId="+objectId, 'newwindow', 'height=550, width=820, top=100, left=300, toolbar=no, menubar=no, resizable=no, location=no, status=no');
+                });
+                //按钮：修改  >> 逻辑
+                $("#modi_btn").on("click", function(){
+                    //以下是正式代码，【联调时，打开！】
+                    $(location).attr('href', 'BSD_afterPP.jsp'+'?Program='+program+'&objectId='+objectId);
+                    //以上是正式代码，【联调时，打开！】
+                });
+            });
+
+        </script>
+    </body>
+</html>
