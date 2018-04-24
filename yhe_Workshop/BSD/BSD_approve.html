@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+        <title> NIO PLM BSD Display (After PP) </title>
+        <!-- Bootstrap -->
+        <link href="../src/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+        <link href="../src/dist/css/BSD_rst.css" rel="stylesheet" />
+
+        <!-- HTML5 shim 和 Respond.js 是为了让 IE8 支持 HTML5 元素和媒体查询（media queries）功能 -->
+        <!-- 警告：通过 file:// 协议（就是直接将 html 页面拖拽到浏览器中）访问页面时 Respond.js 不起作用 -->
+        <!--[if lt IE 9]>
+        <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+        <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+        <style>
+            /* global-font set */
+            .glo_fontEN {
+                font-family: BlueSkyStandard;
+            }
+            .glo_font_333 {
+                color: #333333;
+            }
+
+            /* stys */
+            .nav_wrap_app {
+                margin: 0 0 20px 0;
+                height:120px;
+            }
+            .con_textarea_sty {
+                resize: none;
+                margin-top: 20px;
+                width: 100%;
+                height: 160px;
+                border-radius: 2px;
+                border: 1px solid #ECECEC;
+            }
+            .con_btnmarg_sty { margin: 90px 0 50px 0; }
+            .con_btn_sty {
+                display: inline-block;
+                height: 50px;
+                line-height: 50px;
+                padding: 0 111px;
+                border: 1px solid #C3C3C3;
+                border-radius: 4px;
+                color: #999999;
+            }
+            #radios {
+                margin-top: 15px;
+            }
+            #radios label {
+                transform: translate(15px, 10px);
+            }
+            
+            /* swift-use */
+            .h_50 { height: 50px; }
+            .marglft_60 { margin-left: 60px; }
+            
+            .posi_rela { position: relative; }
+            /* swift-use */
+            .lineh_50 { line-height: 50px; }
+            
+        </style>
+    </head>
+    <body id="bd_all">
+
+        <!-- 以下是 “‘黑头’页面nav” -->
+        <div class="nav_wrap_app w_wrapper" id="test">
+            <div class="container nav_container w_container">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <div class="logo_img">
+                            <img id="logo_img" src="../src/dist/img/logo-white.jpg" />
+                        </div>
+                    </div>
+                    <div class="col-xs-6 title_color">
+                        <div class="hcenter">
+                            <h2 class="title_margin group01">制造现场临时变更 - 量产阶段</h2>
+                            <span class="fsize_18px group02">BUILD SITE DEVIATION - After PP</span>
+                        </div>
+                    </div>
+                    <div class="col-xs-3 title_color hright paddrgt_36">
+                        <div class="nav_divedt_marg">
+                            <div class="inline_block">
+                                <div class="hright nav_bianzhi_sty fsize_18px">编制</div>
+                                <span class="fsize_18px">Edit By</span>
+                            </div>
+                            <div class="nav_divarr_sty">
+                                <div class="nav_arr_sty fsize_18px">CD-PM, VI VAL, ME</div>
+                            </div>
+                        </div>
+                        <span class="nav_ver_sty">Version 4.5</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 以下主区 -->
+        <div class="main_wrap w_wrapper">
+            <div class="container theme-showcase main_container w_container" role="main">
+                <div class="row">
+                    <table id="tb_01" class="table table-bordered margbtm_0 tb_tlr_0">
+                        <thead>
+                            <tr class="cell_h_60px">
+                                <th colspan="6" class="bd_tlr_0 tbx_title_sty to_middle_posi paddlft_20 bg_E6FAFA group02">BSD提交区域，由提交者填写 ABOVE THE LINE IS SUBMIT AREA, FILLED BY SUBMITTER</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="cell_h_60px">
+                                <td class="to_right_side w_190 font_bold col-xs-2 group03 bd_tp_0">
+                                    <div>项目号</div>
+                                    <div>Program</div>
+                                </td>
+                                <td colspan="2" class="fweight_300 to_middle_posi col-xs-4 group03 bd_tp_0" id="program"></td>
+                                <td class="to_right_side w_190 font_bold col-xs-2 group03 bd_tp_0">
+                                    <div>涉及阶段</div>
+                                    <div>Impact Phase</div>
+                                </td>
+                                <td colspan="2" class="fweight_300 to_middle_posi col-xs-4 group03 bd_tp_0" id="impact_phase"></td>
+                            </tr>
+                            <tr class="cell_h_60px">
+                                <td class="to_right_side font_bold group03">
+                                    <div>BSD编号</div>
+                                    <div>BSD No.</div>
+                                </td>
+                                <td colspan="2" class="fweight_300 to_middle_posi group03" id="bsd_no"></td>
+                                <td class="to_right_side font_bold group03">
+                                    <div>发起部门</div>
+                                    <div>Submit Department</div>
+                                </td>
+                                <td colspan="2" class="fweight_300 to_middle_posi group03" id="sub_dep"></td>
+                            </tr>
+                            <tr class="cell_h_60px">
+                                <td class="to_right_side font_bold group03">
+                                    <div>发起人</div>
+                                    <div>Submitter</div>
+                                </td>
+                                <td colspan="2" class="fweight_300 to_middle_posi group03" id="submitter"></td>
+                                <td class="to_right_side font_bold group03">
+                                    <div>实施阶段</div>
+                                    <div>Application Date</div>
+                                </td>
+                                <td colspan="2" class="fweight_300 to_middle_posi group03" id="app_date"></td>
+                            </tr>
+                            <tr class="cell_h_60px">
+                                <td class="to_right_side font_bold group03">
+                                    <div>影响车辆</div>
+                                    <div>Affected Vehicles</div>
+                                </td>
+                                <td colspan="2" class="fweight_300 to_middle_posi group03" id="aff_veh"></td>
+                                <td class="to_right_side font_bold group03">
+                                    <div>问题严重度定义</div>
+                                    <div>Severity Definition</div>
+                                </td>
+                                <td colspan="2" class="fweight_300 to_middle_posi group03" id="severity_def"></td>
+                            </tr>
+                            <tr class="cell_h_60px">
+                                <td class="to_right_side font_bold group03">
+                                    <div>审批清单</div>
+                                    <div>Reviewer List</div>
+                                </td>
+                                <td colspan="2" class="fweight_300 to_middle_posi group03" id="reviewer_list"></td>
+                                <td class="to_right_side font_bold group03">
+                                    <div>相关问题</div>
+                                    <div>Related Issue</div>
+                                </td>
+                                <td colspan="2" class="fweight_300 to_middle_posi group03" id="related_issue"></td>
+                            </tr>
+                            <tr class="cell_h_60px">
+                                <td class="to_right_side font_bold group03">
+                                    <div>影响区域</div>
+                                    <div>Affected SMTSMTs</div>
+                                </td>
+                                <td colspan="5" class="fweight_300 to_middle_posi group03" id="affected_smts"></td>
+                            </tr>
+                            <tr class="cell_h_60px">
+                                <td class="to_right_side font_bold group03">
+                                    <div>影响关键特性</div>
+                                    <div>CC/SC Impacted</div>
+                                </td>
+                                <td colspan="5">
+                                    <div class="to_right_side inline_block marglft_10 font_bold group03">
+                                        <div>零件</div>
+                                        <div>Part</div>
+                                    </div>
+                                    <div class="fweight_300 inline_block con_mltty_sty group03" id="part" ></div>
+                                    <div class="to_right_side inline_block marglft_200 font_bold group03">
+                                        <div>厂内</div>
+                                        <div>In house</div>
+                                    </div>
+                                    <div class="fweight_300 inline_block con_mltty_sty group03" id="in_house" ></div>
+                                </td>
+                            </tr>
+                            <tr class="cell_h_60px">
+                                <td class="to_right_side font_bold group03">
+                                    <div>问题描述</div>
+                                    <div>Issue Description</div>
+                                </td>
+                                <td colspan="5" id="issue_des" class="fweight_300 to_middle_posi group03"></td>
+                            </tr>
+                            <tr class="cell_h_60px">
+                                <td class="to_right_side font_bold group03">
+                                    <div>更改操作描述</div>
+                                    <div>Corrective Action Plan Description</div>
+                                </td>
+                                <td colspan="5" id="short_term" class="fweight_300 to_middle_posi group03"></td>
+                            </tr>
+                            <tr class="cell_h_60px">
+                                <td class="to_right_side font_bold group03">
+                                    <div>更改后接受标准</div>
+                                    <div>Acceptance Criteria after Change</div>
+                                </td>
+                                <td colspan="5" id="long_term" class="fweight_300 to_middle_posi group03"></td>
+                            </tr>
+                            <tr class="cell_h_60px">
+                                <td class="to_right_side font_bold group03">
+                                    <div>更改类型</div>
+                                    <div>Type of Change</div>
+                                </td>
+                                <td colspan="5" id="type_of_change" class="fweight_300 to_middle_posi group03"></td>
+                            </tr>
+                            <tr class="cell_h_60px">
+                                <td colspan="6" class="hcenter font_bold to_middle_posi group02">零件信息 Part Information</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table id="tb_02" class="table table-bordered table-striped margbtm_0 border_0">
+                        <thead>
+                            <tr class="cell_th_87px">
+                                <th class="to_middle_posi hcenter group03">
+                                    <div>编号</div>
+                                    <div>Item No.</div>
+                                </th>
+                                <th class="to_middle_posi hcenter group03">
+                                    <div>零件号</div>
+                                    <div>Part No.</div>
+                                </th>
+                                <th class="to_middle_posi hcenter group03">
+                                    <div>SMT</div>
+                                    <!-- <div>SMT</div> -->
+                                </th>
+                                <th class="to_middle_posi hcenter group03">
+                                    <div>零件名称</div>
+                                    <div>Part Name</div>
+                                </th>
+                                <th class="to_middle_posi hcenter group03">
+                                    <div>版本</div>
+                                    <div>Revision</div>
+                                </th>
+                                <th class="to_middle_posi hcenter group03">
+                                    <div>零件状态</div>
+                                    <div>Part Status</div>
+                                </th>
+                                <th class="to_middle_posi hcenter group03">
+                                    <div>增加/删除/更改</div>
+                                    <div>Add/Delete/Modify</div>
+                                </th>
+                                <th class="to_middle_posi hcenter group03">
+                                    <div>数量</div>
+                                    <div>Qty</div>
+                                </th>
+                                <th class="to_middle_posi hcenter group03">
+                                    <div>车间</div>
+                                    <div>Shop</div>
+                                </th>
+                                <th class="to_middle_posi hcenter group03">
+                                    <div>采购信息</div>
+                                    <div>Make/Buy/Child</div>
+                                </th>
+                                <th class="to_middle_posi hcenter group03">
+                                    <div>相关CR</div>
+                                    <div>Related CR</div>
+                                </th>
+                                <th class="to_middle_posi hcenter group03">
+                                    <div>零件到货时间</div>
+                                    <div>Arriving Date</div>
+                                </th>
+                                <th class="to_middle_posi hcenter group03">
+                                    <div>备注</div>
+                                    <div>Remarks</div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody id="info_tbd" class="group03">
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row">
+                    <table id="tb_03" class="table table-bordered">
+                        <tbody >
+                            <tr class="cell_h_60px">
+                                <td class="to_right_side w_190 font_bold col-xs-2 group03">
+                                    <div>实施方式</div>
+                                    <div>Operation</div>
+                                </td>
+                                <td colspan="5" id="operation" class="fweight_300 to_middle_posi col-xs-10 group03"></td>
+                            </tr>
+                            <tr class="cell_h_60px">
+                                <td colspan="6" >
+                                    <div class="to_right_side inline_block marglft_30 font_bold group03">
+                                        <div>相关图纸与文件已由DRE作为附件提供</div>
+                                        <div>Related documents are provided by DRE as attachment</div>
+                                    </div>
+                                    <div class="inline_block con_sprst_sty"><span id="dre" class="fweight_300 tb3_xgtzyes_sty group03"></span></div>
+                                    <div class="inline_block marglft_150 group03">
+                                        <div>注意！该流程最长有效期为一个造车阶段</div>
+                                        <div>Attention! Maximum valid period is one build phases</div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="cell_h_60px">
+                                <td class="to_right_side font_bold group03">
+                                    <div>特殊指导</div>
+                                    <div>Special Instruction</div>
+                                </td>
+                                <td colspan="5" id="instruction" class="fweight_300 to_middle_posi group03"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table id="tb_04" class="table table-bordered tb_tlr_0" >
+                        <thead>
+                            <tr class="cell_h_60px">
+                                <th colspan="6" class="bd_tlr_0 tbx_title_sty to_middle_posi paddlft_20 bg_E6FAFA group02">审批区域，由DRE/VI/PQM/MFG签署 ABOVE THE LINE IS APPROVE AREA, SIGNED BY DRE/VI/PQM/MFG</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="cell_h_60px">
+                                <td colspan="2" class="bd_tp_0 to_right_side font_bold group03">
+                                    <div>是否影响本子系统内零件的试验认证结果</div>
+                                    <div>Effect test and validation of BSD related parts</div>
+                                </td>
+                                <td class="fweight_300 bd_tp_0 to_middle_posi w_190 group03" id="related_part" ></td>
+                                <td colspan="2" class="bd_tp_0 to_right_side font_bold group03">
+                                    <div>是否影响其它子系统零件的试验认证结果</div>
+                                    <div>Effect test and validation of other SMT parts</div>
+                                </td>
+                                <td class="fweight_300 bd_tp_0 to_middle_posi w_190 group03" id="smt_part" ></td>
+                            </tr>
+                            <tr class="cell_h_60px">
+                                <td class="to_right_side w_190 font_bold group03">
+                                    <div>影响区域</div>
+                                    <div>Affected Areas</div>
+                                </td>
+                                <td colspan="5" id="aff_areas" class="fweight_300 to_middle_posi group03"></td>
+                            </tr>
+                            <tr class="cell_h_60px">
+                                <td rowspan="2" class="to_right_side to_middle_posi font_bold group03">
+                                    <div>MFG评估</div>
+                                    <div>MFG Evaluation</div>
+                                </td>
+                                <td class="to_right_side w_190 font_bold group03">
+                                    <div>区域</div>
+                                    <div>Area</div>
+                                </td>
+                                <td colspan="4" id="mfg_area" class="fweight_300 to_middle_posi group03"></td>
+                            </tr>
+                            <tr class="cell_h_60px">
+                                
+                                <td class="to_right_side font_bold group03">
+                                    <div>类型</div>
+                                    <div>Type</div>
+                                </td>
+                                <td colspan="4" id="mfq_type" class="fweight_300 to_middle_posi group03"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <!-- approve radio/text -->
+                    <form action="" method="">
+                        <div class="cell_h_60px fsize_18px font_bold paddlft_20 lineh_50 bg_E6FAFA">批准/拒绝/弃权 &nbsp;&nbsp;&nbsp;审批意见</div>
+                        <div id="radios" class="col-xs-1" style="margin-top: 15px;">
+                            <p><input type="radio" name="approve_radio" value="approve" id="approve"/><label for="approve">批准<br />Approve</label></p>
+                            <p><input type="radio" name="approve_radio" value="reject" id="reject"/><label for="reject">拒绝<br />Reject</label></p>
+                            <p><input type="radio" name="approve_radio" value="abstain" id="abstain"/><label for="abstain">弃权<br />Abstain</label></p>
+                        </div>
+                        <div class="col-xs-11">
+                            <textarea name="approve_comment" placeholder="" class="con_textarea_sty"></textarea>
+                        </div>
+                        <!-- submit -->
+                        <div class="col-xs-12 h_50 con_btnmarg_sty glo_font_333 hcenter">
+                            <div class="posi_rela">
+                                <div id="form_k" class="con_btn_sty">提交审批</div>
+                                <!-- <input type="submit" value="Done" class="con_btn_sty" disabled/> -->
+                            </div>
+                        </div>
+                    </form>
+                    
+                </div>
+            </div>
+        </div>
+
+        <div id="wm_wrap" class="w_wrapper">
+            <div class="wm_div_sty w_container"><div class="water_mark wm_font"></div></div>
+            <div class="wm_div_sty w_container margtp_400"><div class="water_mark wm_font"></div></div>
+            <div class="wm_div_sty w_container margtp_400"><div class="water_mark wm_font"></div></div>
+            <!-- <div class="wm_div_sty w_container margtp_400"><div class="water_mark wm_font"></div></div> -->
+        </div>
+        
+        <script src="../src/plugins/jquery-2.2.3.min.js"></script>
+        <script src="../src/bootstrap/js/bootstrap.min.js"></script>
+        <script src="../src/dist/js/BSD_rst.js"></script>
+
+    </body>
+</html>
