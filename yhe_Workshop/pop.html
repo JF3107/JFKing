@@ -15,7 +15,7 @@
                 width: 1360px;
                 position: absolute;
                 top: 150px;
-                display: none;
+                /* display: none; */
             }
             .pop_con {
                 width: 500px;
@@ -47,12 +47,12 @@
                 opacity:0.5;
                 width:1920px;
                 height:2052px;
-                display: none;
+                /* display: none; */
             }
         </style>
     </head>
     <body>
-        <div class="pop_wrap" id="confirm_pop">
+        <!-- <div class="pop_wrap" id="confirm_pop" style="display: none;">
             <div class="container pop_con">
                 <p class="pop_p">确定要取消么?</p>
                 <div class="row pop_row">
@@ -64,9 +64,9 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
         <input id="enter" type="button" value="点击">
-        <div class="pop_mask" id="pop_mask"></div>
+        <div class="pop_mask" id="pop_mask" style="display: none;"></div>
 
         <!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
         <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
@@ -84,12 +84,13 @@
                     $("#btn_x").on("click", function(){
                         alert('xxxx');
                         $("#confirm_pop").remove();
+                        // $("#confirm_pop").hide();
                         $("#pop_mask").hide();
-
                     });
                     $("#btn_o").on("click", function(){
                         alert('oooo');
                         $("#confirm_pop").remove();
+                        // $("#confirm_pop").hide();
                         $("#pop_mask").hide();
                     });
                 });

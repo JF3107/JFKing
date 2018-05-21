@@ -4,43 +4,84 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
-        <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
         <title> NIO PLM BSD Display (After PP) </title>
         <!-- Bootstrap -->
-        <!-- <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"> -->
         <link href="../src/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+        <link href="../src/plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" />
+        <link href="../src/plugins/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet">
         <link href="../src/dist/css/BSD_rst.css" rel="stylesheet" />
+        <link href="../src/dist/css/lifecycle.css" rel="stylesheet" />
+        <link href="../src/dist/css/ystep.css" rel="stylesheet" />
+        <link href="../src/dist/css/ystep_aPP.css" rel="stylesheet" />
         <!-- HTML5 shim 和 Respond.js 是为了让 IE8 支持 HTML5 元素和媒体查询（media queries）功能 -->
         <!-- 警告：通过 file:// 协议（就是直接将 html 页面拖拽到浏览器中）访问页面时 Respond.js 不起作用 -->
         <!--[if lt IE 9]>
         <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
+        <style>
+            /* prepare for new mission(sty) */
+            .pop_wrap {
+                z-index: 1400;
+                width: 1360px;
+                position: absolute;
+                top: 150px;
+                /* display: none; */
+            }
+            .pop_con {
+                width: 500px;
+                height: 240px;
+                margin: 0 auto 0;
+                background: #fafafa
+            }
+            .pop_p {
+                font-size: 20px;
+                margin-top: 50px;
+                text-align: center;
+            }
+            .pop_row {
+                margin-top: 50px;
+            }
+            .pop_btn {
+                text-align: center;
+                height: 30px;
+            }
+            .w_200 {
+                width: 200px;
+            }
+            .pop_mask {
+                z-index:1300;
+                position: absolute;
+                top:0px;
+                left:0px;
+                background:#000000;
+                opacity:0.5;
+                width:1920px;
+                height:2052px;
+                /* display: none; */
+            }
+        </style>
     </head>
     <body id="bd_all">
 
+        <!-- DOWN-AREA: buttons -->
         <div id="fix_top" class="navbar-fixed-top fixbtn_wrap_sty w_wrapper">
-            <!-- <div class="fixbtn_con_sty"> -->
             <div>
                 <p class="fixbtn_p_sty">
-                    <button type="button" id="supapp_btn" style="display:none;" class="btn btn-lg btn-default w_250">Super Approve / 超级审批</button>
-                    <button type="button" id="gen_pdf" class="btn btn-lg btn-primary marglft_15 w_250">Generate PDF / 生成PDF</button>
-                    <button type="button" id="isuedt_btn" style="display:none;" class="btn btn-lg btn-default marglft_15 w_150">Issue Edit</button>
-                    <button type="button" id="retract_btn" style="display:none;" class="btn btn-lg btn-default marglft_15 w_150">Retract / 撤回</button>
-                    <button type="button" id="modi_btn" style="display:none;" class="btn btn-lg btn-default marglft_15 w_150">Modify / 修改</button>
-                    <button type="button" id="delete_btn" style="display:none;" class="btn btn-lg btn-danger marglft_15 w_150">Delete / 删除</button>
-                    <!-- <button type="button" id="supapp_btn"  class="btn btn-lg btn-default w_250">Super Approve / 超级审批</button>
-                    <button type="button" id="gen_pdf" class="btn btn-lg btn-primary marglft_15 w_250">Generate PDF / 生成PDF</button>
-                    <button type="button" id="isuedt_btn"  class="btn btn-lg btn-default marglft_15 w_150">Issue Edit</button>
-                    <button type="button" id="retract_btn"  class="btn btn-lg btn-default marglft_15 w_150">Retract / 撤回</button>
-                    <button type="button" id="modi_btn"  class="btn btn-lg btn-default marglft_15 w_150">Modify / 修改</button>
-                    <button type="button" id="delete_btn"  class="btn btn-lg btn-danger marglft_15 w_150">Delete / 删除</button> -->
+                    <button type="button" id="supapp_btn" style="display:none;" class="btn btn-lg btn-default w_250">超级审批 / Super Approve</button>
+                    <!-- <button type="button" id="gen_pdf" class="btn btn-lg btn-primary marglft_15 w_250">Generate PDF / 生成PDF</button> -->
+                    <a id="gen_pdf" class="btn btn-lg btn-primary marglft_15 w_250">生成PDF / Generate PDF</a>
+                    <button type="button" id="isuedt_btn" style="display:none;" class="btn btn-lg btn-default marglft_15 w_250">号码编辑 / Issue No. Edit</button>
+                    <button type="button" id="retract_btn" style="" class="btn btn-lg btn-default marglft_15 w_150">撤销 / Revoke</button>
+                    <button type="button" id="modi_btn" style="display:none;" class="btn btn-lg btn-default marglft_15 w_150">修改 / Modify</button>
+                    <button type="button" id="delete_btn" style="" class="btn btn-lg btn-danger marglft_15 w_150">删除 / Delete</button>
                 </p>
             </div>
         </div>
+
         
-        <!-- 以下是 “‘黑头’页面nav” -->
-        <div class="nav_wrap w_wrapper" id="test">
+        <!-- DOWN-AREA: black nav” -->
+        <div class="nav_wrap w_wrapper">
             <div class="container nav_container w_container">
                 <div class="row">
                     <div class="col-xs-3">
@@ -64,22 +105,21 @@
                                 <div class="nav_arr_sty fsize_18px">CD-PM, VI VAL, ME</div>
                             </div>
                         </div>
-                        <span class="nav_ver_sty">Version 4.5</span>
+                        <span class="nav_ver_sty">Version 5.0</span>
                     </div>
                 </div>
             </div>
         </div>
 
-        <img src="../src/dist/img/blackTou.png" class="fake_pic" id="fake_pic" style="display:none;" />
 
-        <!-- 以下主区 -->
+        <!-- DOWN-AREA: main area -->
         <div class="main_wrap w_wrapper">
             <div class="container theme-showcase main_container w_container" role="main">
                 <div class="row">
                     <table id="tb_01" class="table table-bordered margbtm_0 tb_tlr_0">
                         <thead>
                             <tr class="cell_h_60px">
-                                <th colspan="6" class="bd_tlr_0 tbx_title_sty to_middle_posi paddlft_20 bg_E6FAFA group02">BSD提交区域，由提交者填写 ABOVE THE LINE IS SUBMIT AREA, FILLED BY SUBMITTER</th>
+                                <th colspan="6" class="bd_tlr_0 tbx_title_sty to_middle_posi paddlft_20 bg_E6FAFA group02">BSD提交区域，由提交者填写 BELOW THE LINE IS SUBMIT AREA, FILLED BY SUBMITTER</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -114,22 +154,10 @@
                                 </td>
                                 <td colspan="2" class="fweight_300 to_middle_posi group03" id="submitter"></td>
                                 <td class="to_right_side font_bold group03">
-                                    <div>实施阶段</div>
-                                    <div>Application Date</div>
+                                    <div>联系电话</div>
+                                    <div>Phone Number</div>
                                 </td>
-                                <td colspan="2" class="fweight_300 to_middle_posi group03" id="app_date"></td>
-                            </tr>
-                            <tr class="cell_h_60px">
-                                <td class="to_right_side font_bold group03">
-                                    <div>影响车辆</div>
-                                    <div>Affected Vehicles</div>
-                                </td>
-                                <td colspan="2" class="fweight_300 to_middle_posi group03" id="aff_veh"></td>
-                                <td class="to_right_side font_bold group03">
-                                    <div>问题严重度定义</div>
-                                    <div>Severity Definition</div>
-                                </td>
-                                <td colspan="2" class="fweight_300 to_middle_posi group03" id="severity_def"></td>
+                                <td colspan="2" class="fweight_300 to_middle_posi group03" id="phone_num"></td>
                             </tr>
                             <tr class="cell_h_60px">
                                 <td class="to_right_side font_bold group03">
@@ -138,15 +166,48 @@
                                 </td>
                                 <td colspan="2" class="fweight_300 to_middle_posi group03" id="reviewer_list"></td>
                                 <td class="to_right_side font_bold group03">
+                                    <div>影响车辆</div>
+                                    <div>Affected Vehicles</div>
+                                </td>
+                                <td colspan="2" class="fweight_300 to_middle_posi group03" id="aff_veh"></td>
+                            </tr>
+                            <tr class="cell_h_60px">
+                                <td class="to_right_side font_bold group03">
+                                    <div>问题严重度定义</div>
+                                    <div>Severity Definition</div>
+                                </td>
+                                <td colspan="2" class="fweight_300 to_middle_posi group03" id="severity_def"></td>
+                                <td class="to_right_side font_bold group03">
+                                    <div>实施阶段</div>
+                                    <div>Application Date</div>
+                                </td>
+                                <td colspan="2" class="fweight_300 to_middle_posi group03" id="app_date"></td>
+                            </tr>
+
+                            <tr class="cell_h_60px">
+                                <td class="to_right_side font_bold group03">
+                                    <div>方案验证结果</div>
+                                    <div>Solution Validation Result</div>
+                                </td>
+                                <td colspan="2" class="fweight_300 to_middle_posi group03" id="solu_vali_rst"></td>
+                                <td class="to_right_side font_bold group03">
+                                    <div>是否需要库存隔离</div>
+                                    <div>Inventory Isolation Needed</div>
+                                </td>
+                                <td colspan="2" class="fweight_300 to_middle_posi group03" id="inv_iso_ndd"></td>
+                            </tr>
+
+                            <tr class="cell_h_60px">
+                                <td class="to_right_side font_bold group03">
                                     <div>相关问题</div>
                                     <div>Related Issue</div>
                                 </td>
-                                <td colspan="2" class="fweight_300 to_middle_posi group03" id="related_issue"></td>
+                                <td colspan="5" class="fweight_300 to_middle_posi group03" id="related_issue"></td>
                             </tr>
                             <tr class="cell_h_60px">
                                 <td class="to_right_side font_bold group03">
                                     <div>影响区域</div>
-                                    <div>Affected SMTSMTs</div>
+                                    <div>Affected SMTs</div>
                                 </td>
                                 <td colspan="5" class="fweight_300 to_middle_posi group03" id="affected_smts"></td>
                             </tr>
@@ -197,6 +258,13 @@
                                 <td colspan="5" id="type_of_change" class="fweight_300 to_middle_posi group03"></td>
                             </tr>
                             <tr class="cell_h_60px">
+                                <td class="to_right_side w_190 font_bold col-xs-2 group03">
+                                    <div>实施方式</div>
+                                    <div>Operation</div>
+                                </td>
+                                <td colspan="5" id="operation" class="fweight_300 to_middle_posi col-xs-10 group03"></td>
+                            </tr>
+                            <tr class="cell_h_60px">
                                 <td colspan="6" class="hcenter font_bold to_middle_posi group02">零件信息 Part Information</td>
                             </tr>
                         </tbody>
@@ -213,12 +281,12 @@
                                     <div>Part No.</div>
                                 </th>
                                 <th class="to_middle_posi hcenter group03">
-                                    <div>SMT</div>
-                                    <!-- <div>SMT</div> -->
-                                </th>
-                                <th class="to_middle_posi hcenter group03">
                                     <div>零件名称</div>
                                     <div>Part Name</div>
+                                </th>
+                                <th class="to_middle_posi hcenter group03">
+                                    <div>SMT</div>
+                                    <!-- <div>SMT</div> -->
                                 </th>
                                 <th class="to_middle_posi hcenter group03">
                                     <div>版本</div>
@@ -248,10 +316,10 @@
                                     <div>相关CR</div>
                                     <div>Related CR</div>
                                 </th>
-                                <th class="to_middle_posi hcenter group03">
+                                <!-- <th class="to_middle_posi hcenter group03">
                                     <div>零件到货时间</div>
                                     <div>Arriving Date</div>
-                                </th>
+                                </th> -->
                                 <th class="to_middle_posi hcenter group03">
                                     <div>备注</div>
                                     <div>Remarks</div>
@@ -265,13 +333,7 @@
                 <div class="row">
                     <table id="tb_03" class="table table-bordered">
                         <tbody >
-                            <tr class="cell_h_60px">
-                                <td class="to_right_side w_190 font_bold col-xs-2 group03">
-                                    <div>实施方式</div>
-                                    <div>Operation</div>
-                                </td>
-                                <td colspan="5" id="operation" class="fweight_300 to_middle_posi col-xs-10 group03"></td>
-                            </tr>
+                            
                             <tr class="cell_h_60px">
                                 <td colspan="6" >
                                     <div class="to_right_side inline_block marglft_30 font_bold group03">
@@ -288,7 +350,7 @@
                             <tr class="cell_h_60px">
                                 <td class="to_right_side font_bold group03">
                                     <div>特殊指导</div>
-                                    <div>Special Instruction</div>
+                                    <div>specified Instruction</div>
                                 </td>
                                 <td colspan="5" id="instruction" class="fweight_300 to_middle_posi group03"></td>
                             </tr>
@@ -297,7 +359,7 @@
                     <table id="tb_04" class="table table-bordered tb_tlr_0" >
                         <thead>
                             <tr class="cell_h_60px">
-                                <th colspan="6" class="bd_tlr_0 tbx_title_sty to_middle_posi paddlft_20 bg_E6FAFA group02">审批区域，由DRE/VI/PQM/MFG签署 ABOVE THE LINE IS APPROVE AREA, SIGNED BY DRE/VI/PQM/MFG</th>
+                                <th colspan="6" class="bd_tlr_0 tbx_title_sty to_middle_posi paddlft_20 bg_E6FAFA group02">审批区域，由DRE/VI/PQM/MFG签署 BELOW THE LINE IS APPROVE AREA, SIGNED BY DRE/VI/PQM/MFG</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -344,7 +406,7 @@
                     <table id="tb_05" style="display:none;" class="tb_tlr_0 table table-bordered">
                         <thead>
                             <tr class="cell_h_60px">
-                                <th colspan="6" class="bd_tlr_0 tbx_title_sty to_middle_posi paddlft_20 bg_E6FAFA group02">审批区域，由DRE/VI/PQM/MFG签署 ABOVE THE LINE IS APPROVE AREA, SIGNED BY DRE/VI/PQM/MFG</th>
+                                <th colspan="6" class="bd_tlr_0 tbx_title_sty to_middle_posi paddlft_20 bg_E6FAFA group02">审批区域，由DRE/VI/PQM/MFG签署 BELOW THE LINE IS APPROVE AREA, SIGNED BY DRE/VI/PQM/MFG</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -449,10 +511,132 @@
                             </tr>
                         </tbody>
                     </table>
+                    <!-- DOWN-AREA: FLOW area -->
+                    <table id="tb_06" class="tb_tlr_0 table table-bordered" style="border:0px;">
+                        <thead>
+                            <tr class="cell_h_60px">
+                                <th colspan="6" class="bd_0px tbx_title_sty to_middle_posi paddlft_20 bg_E6FAFA group02">流程，LifeCycle</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="cell_h_60px">
+                                <td class="td_flow_sty">
+                                    <div class="content">
+                                        <div class="cycleContent">
+                                            <div class="ystep"></div>
+                                        </div>
+                                        <!--表格-->
+                                        <table class="table table-hover">
+                                            <thead>
+                                                <tr class="h_80">
+                                                    <th>名字<br/>Name</th>
+                                                    <th>角色<br/>Role</th>
+                                                    <!-- <th>排序<br/>Order</th> -->
+                                                    <!-- <th>修改<br/>Revision</th> -->
+                                                    <th>状态<br/>State</th>
+                                                    <th>责任人<br/>Assignee</th>
+                                                    <!-- <th>操作<br/>Action</th> -->
+                                                    <!-- <th>审批状态<br/>Approval Status</th> -->
+                                                    <th>完成日期<br/>Completed Date</th>
+                                                    <th>开始日期<br/>Start Date</th>
+                                                    <th class="w_300">备注<br/>Comment</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <!-- <tr>
+                                                    <td>IT-00998852</td>
+                                                    <td>PLM</td>
+                                                    <td>1</td>
+                                                    <td>1</td>
+                                                    <td>complete</td>
+                                                    <td>Calvin</td>
+                                                    <td>Approve</td>
+                                                    <td>Approve</td>
+                                                    <td>11/08/2017</td>
+                                                    <td>意见意见意见意见意见意见意见</td>
+                                                    <td>11/08/2017</td>
+                                                </tr> -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <!-- DOWN-AREA: PIC display -->
+                    <table id="tb_07" class="bd_0px table table-bordered">
+                        <thead>
+                            <tr class="cell_h_60px">
+                                <th colspan="6" class="bd_0px tbx_title_sty to_middle_posi paddlft_20 bg_E6FAFA">图片说明，Photograph Illustrate</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                    <!-- DOWN-AREA: APPROVE -->
+                    <table id="tb_08" style="display:none;" class="group33 bd_0px table table-bordered">
+                        <thead>
+                            <tr class="cell_h_60px">
+                                <th colspan="6" class="bd_0px tbx_title_sty to_middle_posi paddlft_20 bg_E6FAFA">批准/拒绝/弃权 &nbsp;&nbsp;&nbsp;审批意见</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="">
+                                <td class="td_bd0_sty">
+                                    <div id="radios" class="col-xs-1" style="margin-top: 15px;">
+                                        <p><input type="radio" name="approve_radio" value="approve" id="approve"/><label for="approve">批准<br />Approve</label></p>
+                                        <p><input type="radio" name="approve_radio" value="reject" id="reject"/><label for="reject">拒绝<br />Reject</label></p>
+                                        <p><input type="radio" name="approve_radio" value="abstain" id="abstain"/><label for="abstain">弃权<br />Abstain</label></p>
+                                        <p><input type="radio" name="approve_radio" value="transmit" id="transmit"/><label for="transmit">转发<br />Transmit</label></p>
+                                    </div>
+                                    <div class="col-xs-11">
+                                        <textarea  name="approve_comment" placeholder="" class="con_textarea_sty" id="comment"></textarea>
+                                        <!-- <input type="text" /><button>···</button> -->
+                                        <input  id="transmitter" type="text" name="requested_by" class="con_input_sty"/>
+                                        <div class="con2_ppp_sty" data-toggle="modal" data-whatever="转发人选择" data-target="#exampleModal">
+                                            <img style="transform: translate(8px, 5px);" id="ppp" src="../src/dist/img/ppp.png">
+                                        </div>
+                                    </div>
+                                    <!-- submit -->
+                                    <div class="col-xs-12 h_50 con_btnmarg_sty glo_font_333 hcenter">
+                                        <div class="posi_relative">
+                                            <!-- <button type="button" id="supapp_btn" class="btn btn-lg btn-default w_150">Transmit / 转发</button> -->
+                                            <button type="button" id="submit" class="btn btn-lg btn-primary marglft_50 w_150">Submit / 提交</button>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
 
+        
+        <!-- DOWN-AREA: PIC carousel -->
+        <div id="carousel_div" class="dialog-carousel" style="display: none;">
+            <i class="dialog-carousel-close" >&times;</i>
+            <div class="dialog-carousel-pic">
+                <div class="dialog-carousel-pic-item">
+                    <div class="dialog-pic-left ">
+                        <img class="dialog-pic-left-arrow" src="../src/dist/img/arrow_left.png" alt="arrow left">
+                    </div>
+                    <div class="dialog-pic-center hcenter">
+                        <h2 class="dialog-c-p-t">零件状态 - 老版本 Old</h2>
+                        <div class="dialog-img">
+                            <img src="" alt="center picture">
+                        </div>
+                    </div>
+                    <div class="dialog-pic-right text-right">
+                        <img class="dialog-pic-right-arrow" src="../src/dist/img/arrow_right.png" alt="arrow right">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- DOWN-AREA: water mark -->
         <div id="wm_wrap" class="w_wrapper">
             <div class="wm_div_sty w_container"><div class="water_mark wm_font"></div></div>
             <div class="wm_div_sty w_container margtp_400"><div class="water_mark wm_font"></div></div>
@@ -460,23 +644,85 @@
             <!-- <div class="wm_div_sty w_container margtp_400"><div class="water_mark wm_font"></div></div> -->
         </div>
 
-        <!-- <div id="loading_icon" style="position: absolute;top:450px;left:785px;display:none;"> -->
-        <div id="loading_icon" style="position: absolute;top:450px;left:785px;">
+
+        <!-- DOWN-AREA: loading icon -->
+        <!-- <div id="loading_icon" style="position: fixed; top: 356px; left:785px;display:none;"> -->
+        <div id="loading_icon" style="position: fixed; top: 356px; left:785px;">
             <img src="../src/dist/img/loading_0.gif" />
         </div>
-        
-        <div id="for_canvas" style="display:none"></div>
-        
-        <!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
-        <!-- <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script> -->
+
+
+        <!-- DOWN-AREA: Model for ZHUAN FA -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+            <div class="modal-dialog" style="width: 1150px;" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title" id="exampleModalLabel">搜索转发人</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="box-body table-pad table-responsive">
+                            <form class="form-inline margbtm_20">
+                                <div class="form-group">
+                                    <label>Name</label>
+                                    <input type="text" class="form-control bor-r input-sm" placeholder="" id="name_search" style="width: 135px">
+                                    <label class="marglft_15">Last Name</label>
+                                    <input type="text" class="form-control bor-r input-sm" placeholder="" id="lname_search" style="width: 135px">
+                                    <label class="marglft_15">First Name</label>
+                                    <input type="text" class="form-control bor-r input-sm" placeholder="" id="fname_search" style="width: 135px">
+                                </div>
+                                <button type="button" class="btn btn-primary btn-sm pull-right" id="btn-search" style='margin: 0px 0 0 10px;'>
+                                    <i class="fa fa-search"></i>查询
+                                </button>
+                            </form>
+                            <table id="tb_transmitter" class="table margtp_20 table-bordered text-center table-hover">
+                                <thead>
+                                    <tr>
+                                        <td class="padd_0">
+                                            <!-- <input type="checkbox" id="checkAll"> -->
+                                        </td>
+                                        <td class="padd_0">
+                                            <h5 class="text-center">名字
+                                                <br/>Name</h5>
+                                        </td>
+                                        <td class="padd_0">
+                                            <h5 class="text-center">邮箱地址
+                                                <br/>EMail Address</h5>
+                                        </td>
+                                        <td class="padd_0">
+                                            <h5 class="text-center">手机号码
+                                                <br/>Phone Number</h5>
+                                        </td>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="modal-footer text-center">
+                        <span class="center-block inline_block">
+                            <button type="button" class="btn btn-active  w_150" id="addTransmitter">Add</button>
+                            <button type="button" class="btn btn-default marglft_50 w_150 " data-dismiss="modal">Close</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="pop_mask" id="pop_mask" style="display: none;"></div>
+
+        <!-- DOWN-AREA scripts -->
         <script src="../src/plugins/jquery-2.2.3.min.js"></script>
-        <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
-        <!-- <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
         <script src="../src/bootstrap/js/bootstrap.min.js"></script>
-        <!-- <script src="../yhe_resource/html2canvas.min.js"></script> -->
-        <!-- <script src="https://cdn.bootcss.com/html2canvas/0.5.0-beta4/html2canvas.min.js"></script> -->
-        <!-- <script src="../yhe_resource/jsPdf.debug.js"></script> -->
-        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.debug.js" integrity="sha384-CchuzHs077vGtfhGYl9Qtc7Vx64rXBXdIAZIPbItbNyWIRTdG0oYAqki3Ry13Yzu" crossorigin="anonymous"></script> -->
-        <script src="../src/dist/js/BSD_rst.js"></script>
+        <script src="../src/plugins/datatables/dataTables.bootstrap.min.js"></script>
+        <script src="../src/plugins/datatables/jquery.dataTables.min.js"></script>
+        <script src="../src/dist/js/ystep.js"></script>
+        <script src="../src/dist/js/pic.js"></script>
+        <script src="../src/dist/js/BSD_rst_aPP.js"></script>
+        <script>
+            // prepare for new mission(js)
+ 
+        </script>
     </body>
 </html>

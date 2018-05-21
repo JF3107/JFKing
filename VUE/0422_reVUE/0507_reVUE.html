@@ -1,0 +1,19 @@
+<html>
+    <head>
+        <meta http-equiv="content-Type" content="text/html; charset=UTF-8" />
+        <title>TEST..reVUE</title>
+        <script src="../../zhe_repo/vue.js" ></script>
+    </head>
+    <body>
+        <h1>TEST..reVUE</h1>
+        <div id="ttt"> {{ msg }} </div>
+        <script>
+            var vm = new Vue({
+                el: "#ttt",
+                data: {
+                    msg: "XXX"
+                }
+            });
+        </script>
+    </body>
+</html>
